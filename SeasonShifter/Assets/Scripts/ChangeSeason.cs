@@ -9,6 +9,7 @@ public class ChangeSeason : MonoBehaviour {
     GameObject summerObject;
     GameObject winterObject;
 
+
     public GameObject changeSeasonEffect;
 
     void Start()
