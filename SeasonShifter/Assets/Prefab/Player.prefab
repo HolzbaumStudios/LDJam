@@ -9,7 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 493800}
   - 212: {fileID: 21208812}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: upperArm_left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25,8 +25,23 @@ GameObject:
   m_Component:
   - 4: {fileID: 491278}
   - 212: {fileID: 21203978}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: body
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &117902
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 443838}
+  m_Layer: 0
+  m_Name: feetCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41,7 +56,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 422298}
   - 212: {fileID: 21246884}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: lowerArm_left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,7 +72,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 490356}
   - 212: {fileID: 21233832}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: hips
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,7 +88,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 466412}
   - 212: {fileID: 21288542}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: lowerArm_right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,7 +104,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 473604}
   - 212: {fileID: 21284838}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: upperLeg_right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +120,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 477394}
   - 212: {fileID: 21257216}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,7 +136,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 476556}
   - 212: {fileID: 21262026}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: hand_right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -137,7 +152,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 416638}
   - 212: {fileID: 21219876}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: foot_left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -153,7 +168,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 482470}
   - 212: {fileID: 21249402}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: lowerLeg_left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -169,7 +184,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 426862}
   - 212: {fileID: 21281500}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: hand_left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -185,7 +200,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 411938}
   - 212: {fileID: 21234686}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: foot_right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -201,7 +216,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 419096}
   - 212: {fileID: 21209164}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: upperArm_right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -217,7 +232,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 424142}
   - 212: {fileID: 21205680}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: upperLeg_left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -233,7 +248,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 428830}
   - 212: {fileID: 21215678}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: lowerLeg_right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -253,6 +268,8 @@ GameObject:
   - 61: {fileID: 6153274}
   - 95: {fileID: 9595590}
   - 58: {fileID: 5813510}
+  - 114: {fileID: 11450206}
+  - 114: {fileID: 11424730}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -348,6 +365,18 @@ Transform:
   - {fileID: 411938}
   m_Father: {fileID: 473604}
   m_RootOrder: 0
+--- !u!4 &443838
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 117902}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.98, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 490968}
+  m_RootOrder: 1
 --- !u!4 &466412
 Transform:
   m_ObjectHideFlags: 1
@@ -436,6 +465,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 491278}
+  - {fileID: 443838}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &491278
@@ -529,6 +559,31 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &11424730
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 182466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 048aab78a456df748b791a70e8d71012, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxSpeed: 10
+  jumpingPower: 20
+  feetCollider: {fileID: 443838}
+--- !u!114 &11450206
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 182466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c39671c9e886efd4ab2b6e1ac4f4d80c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &21203978
 SpriteRenderer:
   m_ObjectHideFlags: 1
