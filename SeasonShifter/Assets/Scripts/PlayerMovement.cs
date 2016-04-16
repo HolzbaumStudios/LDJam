@@ -28,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         //Check if the character is touching the ground
-        if (Physics2D.Raycast(feetCollider.position,-Vector2.up,0.2f) && !jumping)
+        if (Physics2D.Raycast(feetCollider.position,-Vector2.up,0.15f) && !jumping)
         {
             Debug.Log("Ground hit");
             grounded = true;
