@@ -5,7 +5,7 @@ public class PlayerMovement : MonoBehaviour
 {
 
     public float maxSpeed = 10;
-    public float jumpingPower = 40;
+    public float jumpingPower = 400;
     public float waterJumpingPower = 5;
     public float swimmingSpeed = 4;
     public Transform feetCollider;
@@ -58,9 +58,11 @@ public class PlayerMovement : MonoBehaviour
             float speed = Mathf.Abs(move);
             playerAnimator.SetFloat("Speed", speed);
             // Move the character
-            rigidbody.velocity = new Vector2(move * maxSpeed, rigidbody.velocity.y);
+            float rigidbodySpeed = maxSpeed;
+            if (swimming) rigidbodySpeed = swimmingSpeed; Debug.Log("Velocity: " + rigidbody.velocity.y);
+            rigidbody.velocity = new Vector2(move * rigidbodySpeed, rigidbody.velocity.y);
 
-            if (jump)
+            if (jump && grounded)
             {
                 
                 playerAnimator.SetBool("Jump", true);
@@ -70,7 +72,10 @@ public class PlayerMovement : MonoBehaviour
                 }
                 else
                 {
-                    rigidbody.AddForce(new Vector2(0f, waterJumpingPower));
+                    if (rigidbody.velocity.y < 3.2f)
+                    { 
+                        rigidbody.AddForce(new Vector2(0f, waterJumpingPower));
+                    }     
                 }
             }
             else
@@ -112,8 +117,8 @@ public class PlayerMovement : MonoBehaviour
         if (swimming)
         {
             //Add force up to slow down initial velocity
-            float currentVelocity = rigidbody.velocity.y;
-            rigidbody.AddForce(new Vector2(0, currentVelocity*0.8f));
+            float currentVelocity = -rigidbody.velocity.y;
+            rigidbody.AddForce(new Vector2(0, currentVelocity*28));
             rigidbody.gravityScale = 0.05f;
         }
         else rigidbody.gravityScale = 3; 

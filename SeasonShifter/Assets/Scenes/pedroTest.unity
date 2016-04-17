@@ -173,6 +173,24 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
+--- !u!1 &55221163 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 182466, guid: 162539318aa853a44a9e37eac6132f42, type: 2}
+  m_PrefabInternal: {fileID: 379063988}
+--- !u!58 &55221164
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 55221163}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0.1, y: 0.8}
+  serializedVersion: 2
+  m_Radius: 0.42315674
 --- !u!1001 &92007373
 Prefab:
   m_ObjectHideFlags: 0
@@ -302,7 +320,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11424730, guid: 162539318aa853a44a9e37eac6132f42, type: 2}
       propertyPath: jumpingPower
-      value: 45
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 5813510, guid: 162539318aa853a44a9e37eac6132f42, type: 2}
       propertyPath: m_Radius
@@ -336,7 +354,28 @@ Prefab:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 11424730, guid: 162539318aa853a44a9e37eac6132f42, type: 2}
+      propertyPath: waterJumpingPower
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 6153274, guid: 162539318aa853a44a9e37eac6132f42, type: 2}
+      propertyPath: m_Size.y
+      value: 1.2029021
+      objectReference: {fileID: 0}
+    - target: {fileID: 6153274, guid: 162539318aa853a44a9e37eac6132f42, type: 2}
+      propertyPath: m_Offset.x
+      value: 0.051296234
+      objectReference: {fileID: 0}
+    - target: {fileID: 6153274, guid: 162539318aa853a44a9e37eac6132f42, type: 2}
+      propertyPath: m_Offset.y
+      value: -0.34135818
+      objectReference: {fileID: 0}
+    - target: {fileID: 6153274, guid: 162539318aa853a44a9e37eac6132f42, type: 2}
+      propertyPath: m_Size.x
+      value: 0.2698416
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 5813510, guid: 162539318aa853a44a9e37eac6132f42, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 162539318aa853a44a9e37eac6132f42, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &632745598
