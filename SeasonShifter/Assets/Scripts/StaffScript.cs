@@ -24,4 +24,11 @@ public class StaffScript : MonoBehaviour {
 	void Update () {
 	
 	}
+
+    public void EnableStaff()
+    {
+        staffRenderer.enabled = true;
+        staffEnabled = true;
+    }
+
 }

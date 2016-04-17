@@ -140,6 +140,7 @@ public class PlayerMovement : MonoBehaviour
             boxCollider.size = new Vector2(1.2f,1f);
             boxCollider.offset = new Vector2(-0.3f, -0.1f);
             circleCollider.offset = new Vector2(0.78f, 0.2f);
+            //Disable Season Change while swimming
         }
         else
         {
@@ -147,9 +148,17 @@ public class PlayerMovement : MonoBehaviour
             boxCollider.offset = boxColliderPosition;
             boxCollider.size = boxColliderSize;
             circleCollider.offset = circleColliderPosition;
+        } 
+    }
+
+    //returns false if the player is in a position where he can't change season. Is called by changeseason
+    public bool ReturnPlayerState()
+    {
+        if(swimming == true || grounded == false)
+        {
+            return false;
         }
-        
-        
+        return true;
     }
 
 }
