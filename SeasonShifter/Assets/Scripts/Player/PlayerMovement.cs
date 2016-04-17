@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     public Transform feetCollider;
 
     private bool grounded; //if the player touches the ground
-    private bool swimming = false;
+    public bool swimming = false;
     private bool jumping = false;
     private bool airControl = true; //if the character can be controlled in air
     private Animator playerAnimator;
@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 boxColliderPosition;
     private float circleColliderRadius;
     private Vector2 circleColliderPosition;
+    private PlayerSound soundScript;
 
 
     private RaycastHit hit;
@@ -34,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
         rigidbody = GetComponent<Rigidbody2D>();
         boxCollider = GetComponent<BoxCollider2D>();
         circleCollider = GetComponent<CircleCollider2D>();
+        soundScript = GetComponent<PlayerSound>();
         //Get Start Values
         boxColliderSize = boxCollider.size;
         boxColliderPosition = boxCollider.offset;
@@ -48,6 +50,7 @@ public class PlayerMovement : MonoBehaviour
         //Check if the character is touching the ground
         if (Physics2D.Raycast(feetCollider.position,-Vector2.up,0.15f) && !jumping)
         {
+            if(grounded==false) soundScript.Land();
             grounded = true;
         }
         else
@@ -65,6 +68,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    //move vertical is only used when swimming
     public void Move(float move, bool jump)
     {
         if (grounded || airControl)
@@ -74,16 +78,16 @@ public class PlayerMovement : MonoBehaviour
             playerAnimator.SetFloat("Speed", speed);
             // Move the character
             float rigidbodySpeed = maxSpeed;
-            if (swimming) rigidbodySpeed = swimmingSpeed; 
+            if (swimming) { rigidbodySpeed = swimmingSpeed;  }
             rigidbody.velocity = new Vector2(move * rigidbodySpeed, rigidbody.velocity.y);
 
             if (jump && grounded)
             {
-                
                 playerAnimator.SetBool("Jump", true);
                 if (!swimming)
                 {
                     rigidbody.AddForce(new Vector2(0f, jumpingPower));
+                    soundScript.Jump();
                 }
                 else
                 {
