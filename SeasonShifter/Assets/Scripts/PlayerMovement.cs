@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public Transform feetCollider;
 
     private bool grounded; //if the player touches the ground
+    private bool swimming = false;
     private bool jumping = false;
     private bool airControl = true; //if the character can be controlled in air
     private Animator playerAnimator;
@@ -30,12 +31,10 @@ public class PlayerMovement : MonoBehaviour
         //Check if the character is touching the ground
         if (Physics2D.Raycast(feetCollider.position,-Vector2.up,0.15f) && !jumping)
         {
-            Debug.Log("Ground hit");
             grounded = true;
         }
         else
         {
-            Debug.Log("Ground not hit");
             grounded = false;
         }
 
@@ -94,6 +93,12 @@ public class PlayerMovement : MonoBehaviour
     public bool ReturnGroundedState()
     {
         return grounded;
+    }
+
+    public void ChangeSwimmingState(bool swimState)
+    {
+        swimming = swimState; //Invert Value
+        playerAnimator.SetBool("Swimming", swimState);
     }
 
 }
