@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     public Transform feetCollider;
 
     private bool grounded; //if the player touches the ground
-    private bool swimming = false;
+    public bool swimming = false;
     private bool jumping = false;
     private bool airControl = true; //if the character can be controlled in air
     private Animator playerAnimator;
@@ -65,6 +65,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    //move vertical is only used when swimming
     public void Move(float move, bool jump)
     {
         if (grounded || airControl)
@@ -74,7 +75,7 @@ public class PlayerMovement : MonoBehaviour
             playerAnimator.SetFloat("Speed", speed);
             // Move the character
             float rigidbodySpeed = maxSpeed;
-            if (swimming) rigidbodySpeed = swimmingSpeed; 
+            if (swimming) { rigidbodySpeed = swimmingSpeed;  }
             rigidbody.velocity = new Vector2(move * rigidbodySpeed, rigidbody.velocity.y);
 
             if (jump && grounded)
