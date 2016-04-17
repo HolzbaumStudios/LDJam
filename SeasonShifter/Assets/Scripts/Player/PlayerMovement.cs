@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 boxColliderPosition;
     private float circleColliderRadius;
     private Vector2 circleColliderPosition;
+    private PlayerSound soundScript;
 
 
     private RaycastHit hit;
@@ -34,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
         rigidbody = GetComponent<Rigidbody2D>();
         boxCollider = GetComponent<BoxCollider2D>();
         circleCollider = GetComponent<CircleCollider2D>();
+        soundScript = GetComponent<PlayerSound>();
         //Get Start Values
         boxColliderSize = boxCollider.size;
         boxColliderPosition = boxCollider.offset;
@@ -48,6 +50,7 @@ public class PlayerMovement : MonoBehaviour
         //Check if the character is touching the ground
         if (Physics2D.Raycast(feetCollider.position,-Vector2.up,0.15f) && !jumping)
         {
+            if(grounded==false) soundScript.Land();
             grounded = true;
         }
         else
@@ -80,11 +83,11 @@ public class PlayerMovement : MonoBehaviour
 
             if (jump && grounded)
             {
-                
                 playerAnimator.SetBool("Jump", true);
                 if (!swimming)
                 {
                     rigidbody.AddForce(new Vector2(0f, jumpingPower));
+                    soundScript.Jump();
                 }
                 else
                 {

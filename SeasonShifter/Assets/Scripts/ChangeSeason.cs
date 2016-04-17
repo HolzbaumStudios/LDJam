@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(AudioSource))]
 public class ChangeSeason : MonoBehaviour {
 
     public enum Season { spring, summer, fall, winter};
@@ -9,9 +10,11 @@ public class ChangeSeason : MonoBehaviour {
     GameObject summerObject;
     GameObject winterObject;
     GameObject player;
+    AudioSource audioSource;
 
     public Transform originObject;
     public GameObject changeSeasonEffect;
+    public AudioClip changeSeasonSound;
 
     bool changeAllowed = true;
 
@@ -22,6 +25,7 @@ public class ChangeSeason : MonoBehaviour {
         if (currentSeason == Season.winter) { summerObject.SetActive(false); } else { winterObject.SetActive(false); }
         if (PlayerPrefs.GetInt("StaffEnabled") != 1) changeAllowed = false;
         player = GameObject.Find("Player");
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -41,6 +45,7 @@ public class ChangeSeason : MonoBehaviour {
 
     IEnumerator ChangeEffect()
     {
+        audioSource.PlayOneShot(changeSeasonSound, 1);
         Vector3 instantiatePosition = new Vector3(originObject.position.x, originObject.position.y, 1);
         GameObject changeEffect = Instantiate(changeSeasonEffect, instantiatePosition, transform.rotation) as GameObject;
         yield return new WaitForSeconds(0.5f);
