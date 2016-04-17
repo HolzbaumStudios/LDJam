@@ -6,6 +6,8 @@ public class PlayerMovement : MonoBehaviour
 
     public float maxSpeed = 10;
     public float jumpingPower = 40;
+    public float waterJumpingPower = 5;
+    public float swimmingSpeed = 4;
     public Transform feetCollider;
 
     private bool grounded; //if the player touches the ground
@@ -60,8 +62,16 @@ public class PlayerMovement : MonoBehaviour
 
             if (jump)
             {
+                
                 playerAnimator.SetBool("Jump", true);
-                rigidbody.AddForce(new Vector2(0f, jumpingPower));
+                if (!swimming)
+                {
+                    rigidbody.AddForce(new Vector2(0f, jumpingPower));
+                }
+                else
+                {
+                    rigidbody.AddForce(new Vector2(0f, waterJumpingPower));
+                }
             }
             else
             {
@@ -99,6 +109,15 @@ public class PlayerMovement : MonoBehaviour
     {
         swimming = swimState; //Invert Value
         playerAnimator.SetBool("Swimming", swimState);
+        if (swimming)
+        {
+            //Add force up to slow down initial velocity
+            float currentVelocity = rigidbody.velocity.y;
+            rigidbody.AddForce(new Vector2(0, currentVelocity*0.8f));
+            rigidbody.gravityScale = 0.05f;
+        }
+        else rigidbody.gravityScale = 3; 
+        
     }
 
 }
