@@ -9,6 +9,7 @@ public class ChangeSeason : MonoBehaviour {
     GameObject summerObject;
     GameObject winterObject;
 
+    public Transform originObject;
     public GameObject changeSeasonEffect;
 
     void Start()
@@ -28,7 +29,8 @@ public class ChangeSeason : MonoBehaviour {
 
     IEnumerator ChangeEffect()
     {
-        GameObject changeEffect = Instantiate(changeSeasonEffect, transform.position, transform.rotation) as GameObject;
+        Vector3 instantiatePosition = new Vector3(originObject.position.x, originObject.position.y, 1);
+        GameObject changeEffect = Instantiate(changeSeasonEffect, instantiatePosition, transform.rotation) as GameObject;
         yield return new WaitForSeconds(0.9f);
         if (currentSeason == Season.summer)
         {
