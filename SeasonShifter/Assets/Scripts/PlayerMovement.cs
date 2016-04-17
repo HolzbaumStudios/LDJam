@@ -17,14 +17,29 @@ public class PlayerMovement : MonoBehaviour
     private Animator playerAnimator;
     private Rigidbody2D rigidbody;
     private bool facingRight = true; //If the character is looking right or left
+    private BoxCollider2D boxCollider;
+    private CircleCollider2D circleCollider;
+    private Vector2 boxColliderSize;
+    private Vector2 boxColliderPosition;
+    private float circleColliderRadius;
+    private Vector2 circleColliderPosition;
 
 
     private RaycastHit hit;
 
     void Start()
     {
+        //Get Player Components
         playerAnimator = GetComponent<Animator>();
         rigidbody = GetComponent<Rigidbody2D>();
+        boxCollider = GetComponent<BoxCollider2D>();
+        circleCollider = GetComponent<CircleCollider2D>();
+        //Get Start Values
+        boxColliderSize = boxCollider.size;
+        boxColliderPosition = boxCollider.offset;
+        circleColliderRadius = circleCollider.radius;
+        circleColliderPosition = circleCollider.offset;
+
     }
 
     // Update is called once per frame
@@ -59,7 +74,7 @@ public class PlayerMovement : MonoBehaviour
             playerAnimator.SetFloat("Speed", speed);
             // Move the character
             float rigidbodySpeed = maxSpeed;
-            if (swimming) rigidbodySpeed = swimmingSpeed; Debug.Log("Velocity: " + rigidbody.velocity.y);
+            if (swimming) rigidbodySpeed = swimmingSpeed; 
             rigidbody.velocity = new Vector2(move * rigidbodySpeed, rigidbody.velocity.y);
 
             if (jump && grounded)
@@ -112,16 +127,28 @@ public class PlayerMovement : MonoBehaviour
 
     public void ChangeSwimmingState(bool swimState)
     {
+        Debug.Log("SwimStat: " + swimState);
         swimming = swimState; //Invert Value
         playerAnimator.SetBool("Swimming", swimState);
         if (swimming)
         {
             //Add force up to slow down initial velocity
             float currentVelocity = -rigidbody.velocity.y;
-            rigidbody.AddForce(new Vector2(0, currentVelocity*28));
+            rigidbody.AddForce(new Vector2(0, currentVelocity * 28));
             rigidbody.gravityScale = 0.05f;
+            //Change Collider position and shape
+            boxCollider.size = new Vector2(1.2f,1f);
+            boxCollider.offset = new Vector2(-0.3f, -0.1f);
+            circleCollider.offset = new Vector2(0.78f, 0.2f);
         }
-        else rigidbody.gravityScale = 3; 
+        else
+        {
+            rigidbody.gravityScale = 3;
+            boxCollider.offset = boxColliderPosition;
+            boxCollider.size = boxColliderSize;
+            circleCollider.offset = circleColliderPosition;
+        }
+        
         
     }
 
