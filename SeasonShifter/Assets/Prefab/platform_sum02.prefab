@@ -11,7 +11,7 @@ GameObject:
   - 212: {fileID: 21263670}
   - 60: {fileID: 6008346}
   m_Layer: 0
-  m_Name: platform_sum
+  m_Name: platform_sum02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
