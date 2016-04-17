@@ -19,15 +19,10 @@ public class PlayerInput : MonoBehaviour {
         if (Input.GetButtonDown("Jump") && !isJumping)
         {
             isJumping = true;
-            StartCoroutine(DisableIsJumping());
         }
         // Pass all parameters to the character control script.
         movementScript.Move(h, isJumping);
-    }
-
-    IEnumerator DisableIsJumping()
-    {
-        yield return new WaitForSeconds(0.3f);
         isJumping = false;
     }
+
 }

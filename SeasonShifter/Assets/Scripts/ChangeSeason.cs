@@ -16,6 +16,7 @@ public class ChangeSeason : MonoBehaviour {
     {
         summerObject = GameObject.FindGameObjectWithTag("Summer");
         winterObject = GameObject.FindGameObjectWithTag("Winter");
+        if (currentSeason == Season.winter) { summerObject.SetActive(false); } else { winterObject.SetActive(false); }
     }
 
     // Update is called once per frame
