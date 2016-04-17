@@ -6,7 +6,7 @@ public class loadLevelDoor : MonoBehaviour
     //Variables
     public string mapToLoad;
 
-    void OnTriggerEnter(Collider player)
+    void OnTriggerEnter2D(Collider2D player)
     {
         Application.LoadLevel(mapToLoad);
     }
