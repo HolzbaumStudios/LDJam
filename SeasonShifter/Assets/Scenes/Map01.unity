@@ -95,6 +95,7 @@ GameObject:
   - 4: {fileID: 42260912}
   - 212: {fileID: 42260911}
   - 61: {fileID: 42260913}
+  - 114: {fileID: 42260914}
   m_Layer: 0
   m_Name: door_openMid
   m_TagString: Untagged
@@ -158,6 +159,19 @@ BoxCollider2D:
   m_Offset: {x: 0.08522129, y: 0.1394527}
   serializedVersion: 2
   m_Size: {x: 0.3229617, y: 0.9789057}
+--- !u!114 &42260914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 42260910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 157ccc257f27168478ea67d42db65f77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mapToLoad: romanTest
+  hoverForce: 12
 --- !u!1 &51673618
 GameObject:
   m_ObjectHideFlags: 0
