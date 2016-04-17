@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ChangeSeason : MonoBehaviour {
 
-    enum Season { summer, winter};
+    public enum Season { spring, summer, fall, winter};
     Season currentSeason = Season.winter;
 
     GameObject summerObject;
@@ -47,5 +47,10 @@ public class ChangeSeason : MonoBehaviour {
         }
         yield return new WaitForSeconds(0.2f);
         Destroy(changeEffect);
+    }
+
+    public int GetSeason()
+    {
+        return (int)currentSeason;
     }
 }
