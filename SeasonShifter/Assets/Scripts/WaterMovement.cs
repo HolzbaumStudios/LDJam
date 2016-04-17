@@ -10,6 +10,8 @@ public class WaterMovement : MonoBehaviour {
     public bool moveDown = true;
     public bool moveLeft = true;
     private float maxDistance = 0.03f;
+    public bool stopHorizontalMovement = false;
+    public bool stopVerticalMovement = false;
 
 	// Use this for initialization
 	void Start () {
@@ -24,6 +26,8 @@ public class WaterMovement : MonoBehaviour {
         float yValue = 1;
         if (moveDown) yValue *= -1;
         if (moveLeft) xValue *= -1;
+        if (stopHorizontalMovement) xValue = 0;
+        if (stopVerticalMovement) yValue = 0;
 
         transform.Translate(new Vector2(xValue, yValue) * movementSpeed * Time.deltaTime);
 
