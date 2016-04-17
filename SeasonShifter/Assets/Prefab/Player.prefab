@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 443838}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: feetCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -270,9 +270,9 @@ GameObject:
   - 58: {fileID: 5813510}
   - 114: {fileID: 11450206}
   - 114: {fileID: 11424730}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -461,8 +461,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 182466}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.441, y: 1.35, z: 0.030368067}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -16.51, y: 4.02, z: 0.030368067}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children:
   - {fileID: 491278}
   - {fileID: 443838}
@@ -525,9 +525,9 @@ CircleCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0.1, y: -0.68}
+  m_Offset: {x: 0.12, y: 0.8}
   serializedVersion: 2
-  m_Radius: 0.34611374
+  m_Radius: 0.4235382
 --- !u!61 &6153274
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -539,9 +539,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0.12173924, y: 0.5148455}
+  m_Offset: {x: 0.027004242, y: -0.32556915}
   serializedVersion: 2
-  m_Size: {x: 0.7565215, y: 1.6454406}
+  m_Size: {x: 0.29811296, y: 1.2848244}
 --- !u!95 &9595590
 Animator:
   serializedVersion: 3
@@ -570,8 +570,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 048aab78a456df748b791a70e8d71012, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 10
-  jumpingPower: 20
+  maxSpeed: 7
+  jumpingPower: 400
+  waterJumpingPower: 120
+  swimmingSpeed: 3
   feetCollider: {fileID: 443838}
 --- !u!114 &11450206
 MonoBehaviour:
@@ -909,7 +911,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300018, guid: 6a4f2ef2480896f49a2cc0eead66ecf9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
