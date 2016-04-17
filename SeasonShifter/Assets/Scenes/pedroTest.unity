@@ -173,6 +173,24 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
+--- !u!1 &55221163 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 182466, guid: 162539318aa853a44a9e37eac6132f42, type: 2}
+  m_PrefabInternal: {fileID: 379063988}
+--- !u!58 &55221164
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 55221163}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0.1, y: 0.8}
+  serializedVersion: 2
+  m_Radius: 0.42315674
 --- !u!1001 &92007373
 Prefab:
   m_ObjectHideFlags: 0
@@ -210,7 +228,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 87a2357765801c34292d6718d8b4d770, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 21200000, guid: 87a2357765801c34292d6718d8b4d770, type: 2}
       propertyPath: m_Enabled
@@ -290,7 +308,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 490968, guid: 162539318aa853a44a9e37eac6132f42, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 117902, guid: 162539318aa853a44a9e37eac6132f42, type: 2}
       propertyPath: m_Layer
@@ -302,7 +320,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11424730, guid: 162539318aa853a44a9e37eac6132f42, type: 2}
       propertyPath: jumpingPower
-      value: 45
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 5813510, guid: 162539318aa853a44a9e37eac6132f42, type: 2}
       propertyPath: m_Radius
@@ -332,7 +350,32 @@ Prefab:
       propertyPath: maxSpeed
       value: 7
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 182466, guid: 162539318aa853a44a9e37eac6132f42, type: 2}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 11424730, guid: 162539318aa853a44a9e37eac6132f42, type: 2}
+      propertyPath: waterJumpingPower
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 6153274, guid: 162539318aa853a44a9e37eac6132f42, type: 2}
+      propertyPath: m_Size.y
+      value: 1.2029021
+      objectReference: {fileID: 0}
+    - target: {fileID: 6153274, guid: 162539318aa853a44a9e37eac6132f42, type: 2}
+      propertyPath: m_Offset.x
+      value: 0.051296234
+      objectReference: {fileID: 0}
+    - target: {fileID: 6153274, guid: 162539318aa853a44a9e37eac6132f42, type: 2}
+      propertyPath: m_Offset.y
+      value: -0.34135818
+      objectReference: {fileID: 0}
+    - target: {fileID: 6153274, guid: 162539318aa853a44a9e37eac6132f42, type: 2}
+      propertyPath: m_Size.x
+      value: 0.2698416
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 5813510, guid: 162539318aa853a44a9e37eac6132f42, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 162539318aa853a44a9e37eac6132f42, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &632745598
@@ -609,6 +652,9 @@ GameObject:
   m_Component:
   - 4: {fileID: 791948121}
   - 212: {fileID: 791948122}
+  - 114: {fileID: 791948123}
+  - 60: {fileID: 791948124}
+  - 114: {fileID: 791948125}
   m_Layer: 0
   m_Name: Map1_sum_water
   m_TagString: Untagged
@@ -655,9 +701,69 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingOrder: 7
   m_Sprite: {fileID: 21300000, guid: ddff8b331352804489642ae945e146b0, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.6862745}
+  m_Color: {r: 0.8896552, g: 0.875, b: 1, a: 0.6862745}
   m_FlipX: 0
   m_FlipY: 0
+--- !u!114 &791948123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 791948120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecf9b7f28380ff94cad044da789da774, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveDown: 1
+  moveLeft: 1
+--- !u!60 &791948124
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 791948120}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  m_Points:
+    m_Paths:
+    - - {x: -6.2917967, y: -3.8212888}
+      - {x: -7.6425776, y: -5.2253904}
+      - {x: -7.6420755, y: -2.884321}
+      - {x: -9.171596, y: -2.8645375}
+      - {x: -9.155068, y: -4.3367186}
+      - {x: -15.412678, y: -4.294565}
+      - {x: -15.427342, y: -6.682812}
+      - {x: -4.194531, y: -6.682812}
+      - {x: -4.158984, y: -6.6472654}
+      - {x: -4.158984, y: -3.8568356}
+      - {x: -4.194531, y: -3.8212888}
+    - - {x: 6.949414, y: -2.6660154}
+      - {x: 6.753906, y: -2.6660154}
+      - {x: 6.2384763, y: -2.6660154}
+      - {x: 2.0972655, y: -2.7193358}
+      - {x: 2.0617187, y: -2.7548826}
+      - {x: 2.0617187, y: -5.954101}
+      - {x: 2.0972655, y: -5.989648}
+      - {x: 7.0027337, y: -5.989648}
+      - {x: 7.038281, y: -5.954101}
+      - {x: 7.038281, y: -2.7371092}
+      - {x: 7.0205073, y: -2.7015624}
+--- !u!114 &791948125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 791948120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69d4505199a0f044e9aa2ca2d4a657a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1322533782
 GameObject:
   m_ObjectHideFlags: 0
@@ -951,7 +1057,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 461666, guid: 56d26ee1af915504ba4c4d9407f0ad68, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 11483060, guid: 56d26ee1af915504ba4c4d9407f0ad68, type: 2}
       propertyPath: changeSeasonEffect
@@ -1005,7 +1111,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 441472, guid: a3ebd265dd2a1514babf41b74459836b, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 103494, guid: a3ebd265dd2a1514babf41b74459836b, type: 2}
       propertyPath: m_TagString

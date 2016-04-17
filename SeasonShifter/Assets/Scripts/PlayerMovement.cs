@@ -5,10 +5,13 @@ public class PlayerMovement : MonoBehaviour
 {
 
     public float maxSpeed = 10;
-    public float jumpingPower = 40;
+    public float jumpingPower = 400;
+    public float waterJumpingPower = 5;
+    public float swimmingSpeed = 4;
     public Transform feetCollider;
 
     private bool grounded; //if the player touches the ground
+    private bool swimming = false;
     private bool jumping = false;
     private bool airControl = true; //if the character can be controlled in air
     private Animator playerAnimator;
@@ -30,12 +33,10 @@ public class PlayerMovement : MonoBehaviour
         //Check if the character is touching the ground
         if (Physics2D.Raycast(feetCollider.position,-Vector2.up,0.15f) && !jumping)
         {
-            Debug.Log("Ground hit");
             grounded = true;
         }
         else
         {
-            Debug.Log("Ground not hit");
             grounded = false;
         }
 
@@ -57,12 +58,25 @@ public class PlayerMovement : MonoBehaviour
             float speed = Mathf.Abs(move);
             playerAnimator.SetFloat("Speed", speed);
             // Move the character
-            rigidbody.velocity = new Vector2(move * maxSpeed, rigidbody.velocity.y);
+            float rigidbodySpeed = maxSpeed;
+            if (swimming) rigidbodySpeed = swimmingSpeed; Debug.Log("Velocity: " + rigidbody.velocity.y);
+            rigidbody.velocity = new Vector2(move * rigidbodySpeed, rigidbody.velocity.y);
 
-            if (jump)
+            if (jump && grounded)
             {
+                
                 playerAnimator.SetBool("Jump", true);
-                rigidbody.AddForce(new Vector2(0f, jumpingPower));
+                if (!swimming)
+                {
+                    rigidbody.AddForce(new Vector2(0f, jumpingPower));
+                }
+                else
+                {
+                    if (rigidbody.velocity.y < 3.2f)
+                    { 
+                        rigidbody.AddForce(new Vector2(0f, waterJumpingPower));
+                    }     
+                }
             }
             else
             {
@@ -94,6 +108,21 @@ public class PlayerMovement : MonoBehaviour
     public bool ReturnGroundedState()
     {
         return grounded;
+    }
+
+    public void ChangeSwimmingState(bool swimState)
+    {
+        swimming = swimState; //Invert Value
+        playerAnimator.SetBool("Swimming", swimState);
+        if (swimming)
+        {
+            //Add force up to slow down initial velocity
+            float currentVelocity = -rigidbody.velocity.y;
+            rigidbody.AddForce(new Vector2(0, currentVelocity*28));
+            rigidbody.gravityScale = 0.05f;
+        }
+        else rigidbody.gravityScale = 3; 
+        
     }
 
 }
