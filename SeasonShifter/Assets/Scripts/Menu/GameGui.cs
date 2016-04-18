@@ -39,4 +39,10 @@ public class GameGui : MonoBehaviour {
             seasonManager.AllowChange(false);
         }
     }
+
+    public void Exit(string levelName)
+    {
+        Time.timeScale = 1;
+        Application.LoadLevel(levelName);
+    }
 }
