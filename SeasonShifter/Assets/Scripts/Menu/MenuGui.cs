@@ -26,6 +26,21 @@ public class MenuGui : MonoBehaviour {
         Application.Quit();
     }
 
+    public void Credits()
+    {
+        Application.LoadLevel("Credits");
+    }
+
+    public void Controls()
+    {
+        Application.LoadLevel("Controls");
+    }
+
+    public void Story()
+    {
+        Application.LoadLevel("Story");
+    }
+
     void LoadLevel()
     {
         int savedLevel = PlayerPrefs.GetInt("SavedLevel"); //Whicht level the player has arrived

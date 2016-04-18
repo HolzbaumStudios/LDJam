@@ -10,4 +10,9 @@ public class Inventory : MonoBehaviour {
         keyCollected = true;
         GameObject.Find("GUI").transform.FindChild("KeyIcon").GetComponent<KeyScript>().KeyCollected();
     }
+
+    public bool ReturnKeyvalue()
+    {
+        return keyCollected;
+    }
 }

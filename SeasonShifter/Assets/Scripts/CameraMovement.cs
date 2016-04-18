@@ -6,11 +6,11 @@ public class CameraMovement : MonoBehaviour {
     Transform player;
     private float posX;
     private float posY;
-    private float speed = 1.2f;
+    public float speed = 1.2f;
 
     //How many unity the player can walk before the camera starts to follow
-    private float rangeX = 4;
-    private float rangeY = 3;
+    public float rangeX = 4;
+    public float rangeY = 3;
     private bool moveCamera = false;
 
     // Use this for initialization
@@ -30,7 +30,7 @@ public class CameraMovement : MonoBehaviour {
         float currentCamY = transform.position.y;
         float currentCamZ = transform.position.z;
 
-
+        Debug.Log("MoveCamera: " + moveCamera);
         if (!moveCamera)
         {
             if (player.position.x > currentCamX + rangeX || player.position.x < currentCamX - rangeX)
