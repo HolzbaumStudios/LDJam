@@ -720,7 +720,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22478856, guid: 4757963b1fb0d744184d1aca36d46c02, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 22478856, guid: 4757963b1fb0d744184d1aca36d46c02, type: 2}
       propertyPath: m_AnchoredPosition.x
@@ -766,45 +766,13 @@ Prefab:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1984309992}
-    - target: {fileID: 22313684, guid: 4757963b1fb0d744184d1aca36d46c02, type: 2}
-      propertyPath: m_SortingOrder
-      value: 15
-      objectReference: {fileID: 0}
     - target: {fileID: 11400552, guid: 4757963b1fb0d744184d1aca36d46c02, type: 2}
       propertyPath: keyAvailable
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 22480840, guid: 4757963b1fb0d744184d1aca36d46c02, type: 2}
-      propertyPath: m_AnchorMin.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 22480840, guid: 4757963b1fb0d744184d1aca36d46c02, type: 2}
-      propertyPath: m_AnchorMin.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 22480840, guid: 4757963b1fb0d744184d1aca36d46c02, type: 2}
-      propertyPath: m_AnchorMax.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 22480840, guid: 4757963b1fb0d744184d1aca36d46c02, type: 2}
-      propertyPath: m_AnchorMax.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 22480840, guid: 4757963b1fb0d744184d1aca36d46c02, type: 2}
-      propertyPath: m_SizeDelta.x
-      value: 1920
-      objectReference: {fileID: 0}
-    - target: {fileID: 22480840, guid: 4757963b1fb0d744184d1aca36d46c02, type: 2}
-      propertyPath: m_SizeDelta.y
-      value: 1080
-      objectReference: {fileID: 0}
-    - target: {fileID: 11455666, guid: 4757963b1fb0d744184d1aca36d46c02, type: 2}
-      propertyPath: m_RaycastTarget
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 11402468, guid: 4757963b1fb0d744184d1aca36d46c02, type: 2}
-      propertyPath: m_Text
-      value: Summerville 1-2
+    - target: {fileID: 11476254, guid: 4757963b1fb0d744184d1aca36d46c02, type: 2}
+      propertyPath: keyAvailable
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4757963b1fb0d744184d1aca36d46c02, type: 2}
@@ -2847,7 +2815,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 461666, guid: 56d26ee1af915504ba4c4d9407f0ad68, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 11483060, guid: 56d26ee1af915504ba4c4d9407f0ad68, type: 2}
       propertyPath: originObject
@@ -3159,6 +3127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 696052069e0a7814da8b000d4ca028fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  color: green
 --- !u!1001 &868105211
 Prefab:
   m_ObjectHideFlags: 0
@@ -3833,7 +3802,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22473326, guid: a3a724443509fa54fbee6de7c5dbc74b, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 22473326, guid: a3a724443509fa54fbee6de7c5dbc74b, type: 2}
       propertyPath: m_AnchoredPosition.x
