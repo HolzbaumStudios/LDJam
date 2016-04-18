@@ -6,10 +6,13 @@ public class PickUpScript : MonoBehaviour {
 
     string objectName;
     Inventory inventory;
+    //GameObject musicObjects = GameObject.Find("MusicManager").transform.FindChild("MusicObjects").gameObject;
+    GameObject musicObjects;
 
     void Start()
     {
         objectName = this.gameObject.transform.name;
+        musicObjects = GameObject.Find("MusicManager").transform.FindChild("MusicObjects").gameObject;
         inventory = GameObject.Find("GameManager").GetComponent<Inventory>();
         if (objectName == "PickStaff" && PlayerPrefs.GetInt("StaffEnabled") == 1)
         {
@@ -22,6 +25,9 @@ public class PickUpScript : MonoBehaviour {
         if(objectName == "PickStaff")
         {
             Debug.Log("Touched staff!");
+            //Find Music Manager for ObjectSound
+            musicObjects.GetComponent<AudioSource>().Play();
+            //Change Season
             ChangeSeason seasonManager = GameObject.Find("GameManager").GetComponent<ChangeSeason>();
             seasonManager.SeasonChange();
             seasonManager.AllowChange(true);
@@ -31,6 +37,7 @@ public class PickUpScript : MonoBehaviour {
         }
         else if(objectName == "KeyGreen")
         {
+            musicObjects.GetComponent<AudioSource>().Play();
             inventory.KeyCollected();
             Destroy(this.gameObject);
         }

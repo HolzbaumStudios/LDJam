@@ -1428,6 +1428,7 @@ GameObject:
   - 212: {fileID: 1129470062}
   - 60: {fileID: 1129470063}
   - 114: {fileID: 1129470064}
+  - 114: {fileID: 1129470065}
   m_Layer: 0
   m_Name: platform2
   m_TagString: Untagged
@@ -1529,6 +1530,17 @@ MonoBehaviour:
   wintersprite: {fileID: 21300000, guid: d2c449c5631276c44b907a49d8565f5e, type: 3}
   fallsprite: {fileID: 0}
   springsprite: {fileID: 0}
+--- !u!114 &1129470065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1129470060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 348d069463c28f647b44fe2b80166019, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1156878664
 Prefab:
   m_ObjectHideFlags: 0
@@ -2787,6 +2799,17 @@ MonoBehaviour:
   wintersprite: {fileID: 21300000, guid: d2c449c5631276c44b907a49d8565f5e, type: 3}
   fallsprite: {fileID: 0}
   springsprite: {fileID: 0}
+--- !u!114 &1956434122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1956434119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 348d069463c28f647b44fe2b80166019, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1957310179
 GameObject:
   m_ObjectHideFlags: 0
