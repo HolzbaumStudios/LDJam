@@ -1393,11 +1393,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 490968, guid: 162539318aa853a44a9e37eac6132f42, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -26.1
+      value: -25.98
       objectReference: {fileID: 0}
     - target: {fileID: 490968, guid: 162539318aa853a44a9e37eac6132f42, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 12.082
+      value: 12.07
       objectReference: {fileID: 0}
     - target: {fileID: 490968, guid: 162539318aa853a44a9e37eac6132f42, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1715,7 +1715,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3138b520035057d43b220c8ad57fa502, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxDistance: 5.5
+  movement: 1
+  maxDistanceUp: 5.5
+  maxDistanceDown: 5.7
+  maxDistanceRight: 0
+  maxDistanceLeft: 0
   sideways: 0
   movingdown: 0
   movingright: 0
@@ -1796,7 +1800,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3138b520035057d43b220c8ad57fa502, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxDistance: 3
+  movement: 1
+  maxDistanceUp: 2
+  maxDistanceDown: 3.1
+  maxDistanceRight: 0
+  maxDistanceLeft: 0
   sideways: 0
   movingdown: 0
   movingright: 0
@@ -3138,6 +3146,33 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 482190, guid: 266952ab8609f0449822a8aa4f27c742, type: 2}
   m_PrefabInternal: {fileID: 1068860161}
+--- !u!1 &1075355844 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 114296, guid: 129ba567a5df777439b83fdd89997a59, type: 2}
+  m_PrefabInternal: {fileID: 2075499600}
+--- !u!114 &1075355846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1075355844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3138b520035057d43b220c8ad57fa502, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movement: 0
+  maxDistanceUp: 0.65
+  maxDistanceDown: 3.1
+  maxDistanceRight: 0
+  maxDistanceLeft: 0
+  sideways: 0
+  movingdown: 0
+  movingright: 0
+  summersprite: {fileID: 0}
+  wintersprite: {fileID: 0}
+  fallsprite: {fileID: 0}
+  springsprite: {fileID: 0}
 --- !u!1 &1085601145
 GameObject:
   m_ObjectHideFlags: 0
@@ -3211,7 +3246,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3138b520035057d43b220c8ad57fa502, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxDistance: 0
+  movement: 0
+  maxDistanceUp: 0
+  maxDistanceDown: 0
+  maxDistanceRight: 0
+  maxDistanceLeft: 0
   sideways: 0
   movingdown: 0
   movingright: 0
@@ -3396,7 +3435,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3138b520035057d43b220c8ad57fa502, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxDistance: 0
+  movement: 0
+  maxDistanceUp: 0
+  maxDistanceDown: 0
+  maxDistanceRight: 0
+  maxDistanceLeft: 0
   sideways: 0
   movingdown: 0
   movingright: 0
@@ -5344,7 +5387,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3138b520035057d43b220c8ad57fa502, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxDistance: 5
+  movement: 1
+  maxDistanceUp: 0
+  maxDistanceDown: 0
+  maxDistanceRight: 5
+  maxDistanceLeft: 8
   sideways: 1
   movingdown: 0
   movingright: 0
