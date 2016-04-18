@@ -608,22 +608,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 8286280, guid: 162539318aa853a44a9e37eac6132f42, type: 2}
-      propertyPath: m_PlayOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8286280, guid: 162539318aa853a44a9e37eac6132f42, type: 2}
-      propertyPath: Loop
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8286280, guid: 162539318aa853a44a9e37eac6132f42, type: 2}
-      propertyPath: m_Volume
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8286280, guid: 162539318aa853a44a9e37eac6132f42, type: 2}
-      propertyPath: m_Pitch
-      value: 0.57
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 162539318aa853a44a9e37eac6132f42, type: 2}
   m_IsPrefabParent: 0
@@ -871,26 +855,6 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
---- !u!1 &605553018 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 182466, guid: 162539318aa853a44a9e37eac6132f42, type: 2}
-  m_PrefabInternal: {fileID: 379063988}
---- !u!114 &605553019
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 605553018}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79de75f89a40e9c4eb1d8726ff719bb3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sounds:
-  - {fileID: 8300000, guid: 5ba031e42f5219e499ae60475935f833, type: 3}
-  - {fileID: 8300000, guid: 5897aeed9b676024fbb8c694b421a861, type: 3}
-  - {fileID: 8300000, guid: 9d0812f021d8d964e861abc363f4a207, type: 3}
-  - {fileID: 8300000, guid: 4c8a7a88519462b42ae9df8f7a74f8fa, type: 3}
 --- !u!4 &648199141 stripped
 Transform:
   m_PrefabParentObject: {fileID: 443776, guid: c6a73b791067bd049999bfa816f880df, type: 2}
@@ -1595,7 +1559,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3138b520035057d43b220c8ad57fa502, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movement: 0
+  maxDistanceUp: 0
+  maxDistanceDown: 0
+  maxDistanceRight: 0
+  maxDistanceLeft: 0
+  sideways: 0
   movingdown: 1
+  movingright: 0
   summersprite: {fileID: 21300000, guid: 7a98d1a93ffb5da4b8b852d7d28b4164, type: 3}
   wintersprite: {fileID: 21300000, guid: d2c449c5631276c44b907a49d8565f5e, type: 3}
   fallsprite: {fileID: 0}
@@ -2951,7 +2922,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3138b520035057d43b220c8ad57fa502, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movement: 0
+  maxDistanceUp: 0
+  maxDistanceDown: 0
+  maxDistanceRight: 0
+  maxDistanceLeft: 0
+  sideways: 0
   movingdown: 0
+  movingright: 0
   summersprite: {fileID: 21300000, guid: 7a98d1a93ffb5da4b8b852d7d28b4164, type: 3}
   wintersprite: {fileID: 21300000, guid: d2c449c5631276c44b907a49d8565f5e, type: 3}
   fallsprite: {fileID: 0}
@@ -3217,7 +3195,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 499850, guid: adf9526777ddbad498a821d44c9534f1, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0.3
+      value: -14.99
       objectReference: {fileID: 0}
     - target: {fileID: 499850, guid: adf9526777ddbad498a821d44c9534f1, type: 2}
       propertyPath: m_LocalPosition.y
@@ -3247,6 +3225,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11420570, guid: adf9526777ddbad498a821d44c9534f1, type: 2}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 1871503799}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: adf9526777ddbad498a821d44c9534f1, type: 2}
   m_IsPrefabParent: 0

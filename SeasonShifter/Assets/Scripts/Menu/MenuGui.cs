@@ -69,6 +69,7 @@ public class MenuGui : MonoBehaviour {
     {
         PlayerPrefs.SetInt("SavedLevel", 1);
         PlayerPrefs.SetInt("StaffEnabled", 0);
+        PlayerPrefs.SetInt("GlidingAllowed", 0);
     }
 
 
