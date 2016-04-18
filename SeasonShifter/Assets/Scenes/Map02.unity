@@ -2435,7 +2435,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11426040, guid: fe13d3759a57c59449c354589dba6c65, type: 2}
       propertyPath: mapToLoad
-      value: EndScene
+      value: Map03
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fe13d3759a57c59449c354589dba6c65, type: 2}
