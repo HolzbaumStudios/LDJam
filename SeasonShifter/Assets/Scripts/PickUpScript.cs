@@ -36,7 +36,7 @@ public class PickUpScript : MonoBehaviour {
             PlayerPrefs.SetInt("StaffEnabled",1);
             Destroy(this.gameObject);
         }
-        else if(objectName == "KeyGreen")
+        else if(objectName == "KeyGreen" || objectName == "KeyBlue")
         {
             musicObjects.GetComponent<AudioSource>().Play();
             inventory.KeyCollected(color);

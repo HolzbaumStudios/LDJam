@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 449496}
   m_Layer: 0
   m_Name: Summer
-  m_TagString: Untagged
+  m_TagString: Summer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -40,7 +40,7 @@ GameObject:
   - 4: {fileID: 484894}
   m_Layer: 0
   m_Name: Winter
-  m_TagString: Untagged
+  m_TagString: Winter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
