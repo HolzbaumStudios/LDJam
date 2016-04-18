@@ -40,16 +40,17 @@ public class PlattformMovement : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
+        int seasonNumber = seasonManager.GetSeason();
+        if ((Season)seasonNumber != currentSeason)
+        {
+            currentSeason = (Season)seasonNumber;
+            ChangeSprite();
+        }
+
         if (movement == true)
         {
             if (sideways == false) // Wenn die Seitwärtsbewegung ausgeschaltet ist
             {
-                int seasonNumber = seasonManager.GetSeason();
-                if ((Season)seasonNumber != currentSeason)
-                {
-                    currentSeason = (Season)seasonNumber;
-                    ChangeSprite();
-                }
                 float moveY = 1.0f;
                 if (movingdown == true) moveY *= -1;
                 if (currentSeason == Season.summer)
@@ -69,12 +70,6 @@ public class PlattformMovement : MonoBehaviour {
             }
             else //Wenn Seitwärts true -> Bewegung links-rechts
             {
-                int seasonNumber = seasonManager.GetSeason();
-                if ((Season)seasonNumber != currentSeason)
-                {
-                    currentSeason = (Season)seasonNumber;
-                    ChangeSprite();
-                }
                 float moveX = 1.0f;
                 if (movingright == false) moveX *= -1;
                 if (currentSeason == Season.summer)
