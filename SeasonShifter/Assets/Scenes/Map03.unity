@@ -94,7 +94,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 18379498}
   - 212: {fileID: 18379500}
-  - 65: {fileID: 18379499}
+  - 114: {fileID: 18379501}
+  - 61: {fileID: 18379499}
   m_Layer: 0
   m_Name: UpgradeUmbrella
   m_TagString: Untagged
@@ -114,18 +115,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 457010959}
   m_RootOrder: 0
---- !u!65 &18379499
-BoxCollider:
+--- !u!61 &18379499
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 18379497}
+  m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0.00000047683716}
   serializedVersion: 2
-  m_Size: {x: 0.6999999, y: 0.6999999, z: 0.19999999}
-  m_Center: {x: 0, y: 0.00000047683716, z: 0}
+  m_Size: {x: 0.6999999, y: 0.6999999}
 --- !u!212 &18379500
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -156,6 +159,18 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
+--- !u!114 &18379501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 18379497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8178b51664d16144e966b21ad9ff0c71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: green
 --- !u!1 &174755416
 GameObject:
   m_ObjectHideFlags: 0
@@ -1374,6 +1389,98 @@ Transform:
 Transform:
   m_PrefabParentObject: {fileID: 441472, guid: a3ebd265dd2a1514babf41b74459836b, type: 2}
   m_PrefabInternal: {fileID: 1176625996}
+--- !u!1001 &895514246
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1570252583}
+    m_Modifications:
+    - target: {fileID: 22460034, guid: 336a020e733b31041b1b948d7bf585d4, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 22460034, guid: 336a020e733b31041b1b948d7bf585d4, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 22460034, guid: 336a020e733b31041b1b948d7bf585d4, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 22460034, guid: 336a020e733b31041b1b948d7bf585d4, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 22460034, guid: 336a020e733b31041b1b948d7bf585d4, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 22460034, guid: 336a020e733b31041b1b948d7bf585d4, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 22460034, guid: 336a020e733b31041b1b948d7bf585d4, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 22460034, guid: 336a020e733b31041b1b948d7bf585d4, type: 2}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 22460034, guid: 336a020e733b31041b1b948d7bf585d4, type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 22460034, guid: 336a020e733b31041b1b948d7bf585d4, type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -275
+      objectReference: {fileID: 0}
+    - target: {fileID: 22460034, guid: 336a020e733b31041b1b948d7bf585d4, type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 1189
+      objectReference: {fileID: 0}
+    - target: {fileID: 22460034, guid: 336a020e733b31041b1b948d7bf585d4, type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 22460034, guid: 336a020e733b31041b1b948d7bf585d4, type: 2}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 22460034, guid: 336a020e733b31041b1b948d7bf585d4, type: 2}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 22460034, guid: 336a020e733b31041b1b948d7bf585d4, type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 22460034, guid: 336a020e733b31041b1b948d7bf585d4, type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 22460034, guid: 336a020e733b31041b1b948d7bf585d4, type: 2}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 22460034, guid: 336a020e733b31041b1b948d7bf585d4, type: 2}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11445774, guid: 336a020e733b31041b1b948d7bf585d4, type: 2}
+      propertyPath: m_Text
+      value: 'To use the glider keep CTRL or Left Mouse Button pressed while in air.
+
+        The umbrella can only be used in summer.'
+      objectReference: {fileID: 0}
+    - target: {fileID: 142508, guid: 336a020e733b31041b1b948d7bf585d4, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 336a020e733b31041b1b948d7bf585d4, type: 2}
+  m_IsPrefabParent: 0
 --- !u!4 &896555231 stripped
 Transform:
   m_PrefabParentObject: {fileID: 437688, guid: 7e24dc6b5734732408cb438065821f0c, type: 2}
@@ -3219,6 +3326,11 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4757963b1fb0d744184d1aca36d46c02, type: 2}
   m_IsPrefabParent: 0
+--- !u!224 &1570252583 stripped
+RectTransform:
+  m_PrefabParentObject: {fileID: 22478856, guid: 4757963b1fb0d744184d1aca36d46c02,
+    type: 2}
+  m_PrefabInternal: {fileID: 1570252582}
 --- !u!1001 &1609330301
 Prefab:
   m_ObjectHideFlags: 0

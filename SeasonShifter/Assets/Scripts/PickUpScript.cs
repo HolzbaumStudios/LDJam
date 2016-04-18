@@ -19,13 +19,17 @@ public class PickUpScript : MonoBehaviour {
         {
             Destroy(this.gameObject);
         }
+        else if (objectName == "UpgradeUmbrella" && PlayerPrefs.GetInt("GlidingAllowed")==1)
+        {
+            Destroy(this.gameObject);
+        }
+
     }
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if(objectName == "PickStaff")
+        if (objectName == "PickStaff")
         {
-            Debug.Log("Touched staff!");
             //Shoe Achievement Text
             GameObject.Find("GUI").transform.FindChild("InfoText").gameObject.SetActive(true);
             //Find Music Manager for ObjectSound
@@ -36,6 +40,13 @@ public class PickUpScript : MonoBehaviour {
             seasonManager.AllowChange(true);
             GameObject.Find("staff").GetComponent<StaffScript>().EnableStaff();
             PlayerPrefs.SetInt("StaffEnabled",1);
+            Destroy(this.gameObject);
+        }
+        else if(objectName == "UpgradeUmbrella")
+        {
+            col.gameObject.GetComponent<PlayerInput>().AllowGliding();
+            musicObjects.GetComponent<AudioSource>().Play();
+            GameObject.Find("GUI").transform.FindChild("InfoText").gameObject.SetActive(true);
             Destroy(this.gameObject);
         }
         else if(objectName == "KeyGreen" || objectName == "KeyBlue")
