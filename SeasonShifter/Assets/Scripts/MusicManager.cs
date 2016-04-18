@@ -6,6 +6,7 @@ public class MusicManager : MonoBehaviour {
     GameObject musicManager;
     public GameObject musicSummer;
     public GameObject musicWinter;
+    public GameObject musicObjects;
     ChangeSeason seasonManager;
     public enum Season { spring, summer, fall, winter };
     Season currentSeason;
@@ -34,7 +35,7 @@ public class MusicManager : MonoBehaviour {
             case Season.summer: this.musicSummer.GetComponent<AudioSource>().mute = false;
             this.musicWinter.GetComponent<AudioSource>().mute = true; break;
             case Season.winter: this.musicWinter.GetComponent<AudioSource>().mute = false;
-                this.musicSummer.GetComponent<AudioSource>().mute = true; break;
+            this.musicSummer.GetComponent<AudioSource>().mute = true; break;
         }
     }
 
