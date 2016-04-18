@@ -524,11 +524,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 490968, guid: 162539318aa853a44a9e37eac6132f42, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -17.07
+      value: -17.06
       objectReference: {fileID: 0}
     - target: {fileID: 490968, guid: 162539318aa853a44a9e37eac6132f42, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 4.01
+      value: 3.99
       objectReference: {fileID: 0}
     - target: {fileID: 490968, guid: 162539318aa853a44a9e37eac6132f42, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1541,7 +1541,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3138b520035057d43b220c8ad57fa502, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movement: 1
+  maxDistanceUp: 1
+  maxDistanceDown: 3
+  maxDistanceRight: 0
+  maxDistanceLeft: 0
+  sideways: 0
   movingdown: 1
+  movingright: 0
   summersprite: {fileID: 21300000, guid: 7a98d1a93ffb5da4b8b852d7d28b4164, type: 3}
   wintersprite: {fileID: 21300000, guid: d2c449c5631276c44b907a49d8565f5e, type: 3}
   fallsprite: {fileID: 0}
@@ -2750,7 +2757,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3138b520035057d43b220c8ad57fa502, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movement: 1
+  maxDistanceUp: 3.5
+  maxDistanceDown: 1.7
+  maxDistanceRight: 0
+  maxDistanceLeft: 0
+  sideways: 0
   movingdown: 0
+  movingright: 0
   summersprite: {fileID: 21300000, guid: 7a98d1a93ffb5da4b8b852d7d28b4164, type: 3}
   wintersprite: {fileID: 21300000, guid: d2c449c5631276c44b907a49d8565f5e, type: 3}
   fallsprite: {fileID: 0}
