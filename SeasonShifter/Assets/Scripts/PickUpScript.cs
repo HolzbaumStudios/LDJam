@@ -6,6 +6,7 @@ public class PickUpScript : MonoBehaviour {
 
     string objectName;
     Inventory inventory;
+    public string color = "green";
     //GameObject musicObjects = GameObject.Find("MusicManager").transform.FindChild("MusicObjects").gameObject;
     GameObject musicObjects;
 
@@ -38,7 +39,7 @@ public class PickUpScript : MonoBehaviour {
         else if(objectName == "KeyGreen")
         {
             musicObjects.GetComponent<AudioSource>().Play();
-            inventory.KeyCollected();
+            inventory.KeyCollected(color);
             Destroy(this.gameObject);
         }
     }

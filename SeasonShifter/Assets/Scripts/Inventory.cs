@@ -3,16 +3,27 @@ using System.Collections;
 
 public class Inventory : MonoBehaviour {
 
-    private bool keyCollected = false;
+    private bool greenKeyCollected = false;
+    private bool blueKeyCollected = false;
 
-    public void KeyCollected()
+    public void KeyCollected(string color)
     {
-        keyCollected = true;
-        GameObject.Find("GUI").transform.FindChild("KeyIcon").GetComponent<KeyScript>().KeyCollected();
+        greenKeyCollected = true;
+        switch(color)
+        {
+            case "green": GameObject.Find("GUI").transform.FindChild("KeyGreenIcon").GetComponent<KeyScript>().KeyCollected(); greenKeyCollected = true; break;
+            case "blue": GameObject.Find("GUI").transform.FindChild("KeyBlueIcon").GetComponent<KeyScript>().KeyCollected(); blueKeyCollected = true; break;
+        }
+        
     }
 
-    public bool ReturnKeyvalue()
+    public bool ReturnKeyvalue(string color)
     {
-        return keyCollected;
+        switch (color)
+        {
+            case "green": return greenKeyCollected; break;
+            case "blue": return greenKeyCollected; break;
+            default: return false; break;
+        }
     }
 }
