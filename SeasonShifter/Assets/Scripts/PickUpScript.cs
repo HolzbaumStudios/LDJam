@@ -26,6 +26,8 @@ public class PickUpScript : MonoBehaviour {
         if(objectName == "PickStaff")
         {
             Debug.Log("Touched staff!");
+            //Shoe Achievement Text
+            GameObject.Find("GUI").transform.FindChild("InfoText").gameObject.SetActive(true);
             //Find Music Manager for ObjectSound
             musicObjects.GetComponent<AudioSource>().Play();
             //Change Season
