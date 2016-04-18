@@ -189,48 +189,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 171611409ba2ba243bc0200a0dacc9e8, type: 2}
   m_IsPrefabParent: 0
---- !u!1001 &159172152
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 490240, guid: 43e015b37f4b3d341824fee1793e722d, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0.14
-      objectReference: {fileID: 0}
-    - target: {fileID: 490240, guid: 43e015b37f4b3d341824fee1793e722d, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 1.38
-      objectReference: {fileID: 0}
-    - target: {fileID: 490240, guid: 43e015b37f4b3d341824fee1793e722d, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 490240, guid: 43e015b37f4b3d341824fee1793e722d, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 490240, guid: 43e015b37f4b3d341824fee1793e722d, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 490240, guid: 43e015b37f4b3d341824fee1793e722d, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 490240, guid: 43e015b37f4b3d341824fee1793e722d, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 490240, guid: 43e015b37f4b3d341824fee1793e722d, type: 2}
-      propertyPath: m_RootOrder
-      value: 6
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 43e015b37f4b3d341824fee1793e722d, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &203619771
 GameObject:
   m_ObjectHideFlags: 0
@@ -2869,8 +2827,8 @@ Prefab:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 2072727737}
-    - target: {fileID: 11400552, guid: 4757963b1fb0d744184d1aca36d46c02, type: 2}
-      propertyPath: keyAvailable
+    - target: {fileID: 192220, guid: 4757963b1fb0d744184d1aca36d46c02, type: 2}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
