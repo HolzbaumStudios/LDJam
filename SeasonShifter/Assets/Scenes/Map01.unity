@@ -3312,7 +3312,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 2137689150}
   m_Layer: 0
-  m_Name: Sum_Win
+  m_Name: SumWin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
