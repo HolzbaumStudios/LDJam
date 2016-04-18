@@ -47,7 +47,7 @@ public class loadLevelDoor : MonoBehaviour
         if (!SetSavePoint)
         {
             int currentLevel = PlayerPrefs.GetInt("SavedLevel");
-            if(currentLevel != 2) PlayerPrefs.SetInt("SavedLevel", currentLevel + 1);
+            if(currentLevel != 3) PlayerPrefs.SetInt("SavedLevel", currentLevel + 1);
             SetSavePoint = true;
         }
         yield return new WaitForSeconds(1.1f);
