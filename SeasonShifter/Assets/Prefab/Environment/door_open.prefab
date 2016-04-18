@@ -159,10 +159,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 157ccc257f27168478ea67d42db65f77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapToLoad: romanTest
+  mapToLoad: Map02
   walkPosition: {fileID: 495108}
   halfDoor: {fileID: 137832}
   fadeImage: {fileID: 140206}
+  SetSavePoint: 0
 --- !u!212 &21215352
 SpriteRenderer:
   m_ObjectHideFlags: 1
