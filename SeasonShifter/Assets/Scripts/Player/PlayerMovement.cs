@@ -8,11 +8,17 @@ public class PlayerMovement : MonoBehaviour
     public float jumpingPower = 400;
     public float waterJumpingPower = 5;
     public float swimmingSpeed = 4;
+    public Transform rightHand;
     public Transform feetCollider;
+
+    enum Season { spring, summer, fall, winter };
+    Season currentSeason = Season.summer;
+    private ChangeSeason seasonManager;
 
     private bool grounded; //if the player touches the ground
     public bool swimming = false;
     private bool jumping = false;
+    private bool isGliding = false;
     private bool airControl = true; //if the character can be controlled in air
     private Animator playerAnimator;
     private Rigidbody2D rigidbody;
@@ -36,6 +42,8 @@ public class PlayerMovement : MonoBehaviour
         boxCollider = GetComponent<BoxCollider2D>();
         circleCollider = GetComponent<CircleCollider2D>();
         soundScript = GetComponent<PlayerSound>();
+        //Get other components
+        seasonManager = GameObject.Find("GameManager").GetComponent<ChangeSeason>();
         //Get Start Values
         boxColliderSize = boxCollider.size;
         boxColliderPosition = boxCollider.offset;
@@ -69,7 +77,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     //move vertical is only used when swimming
-    public void Move(float move, bool jump)
+    public void Move(float move, bool jump, bool gliding)
     {
         if (grounded || airControl)
         {
@@ -102,6 +110,30 @@ public class PlayerMovement : MonoBehaviour
                 playerAnimator.SetBool("Jump", false);
             }
 
+
+            ////Check gliding state////////////////
+            if (gliding && !isGliding && !grounded)
+            {
+                int seasonNumber = seasonManager.GetSeason();
+                if ((Season)seasonNumber == Season.summer)
+                {
+                    rightHand.FindChild("staff").gameObject.SetActive(false);
+                    rightHand.FindChild("staff_sum_umbrella").gameObject.SetActive(true);
+                    playerAnimator.SetBool("Gliding", true);
+                    rigidbody.gravityScale = 0.5f;
+                    isGliding = gliding;
+                }
+            }
+            if((gliding && isGliding && grounded) || (!gliding && isGliding))
+            {
+                rightHand.FindChild("staff").gameObject.SetActive(true);
+                rightHand.FindChild("staff_sum_umbrella").gameObject.SetActive(false);
+                playerAnimator.SetBool("Gliding", false);
+                rigidbody.gravityScale = 3;
+                isGliding = false;
+            }
+
+            ///Set facing direction/////////////////
             if (move > 0 && !facingRight)
             {
                 Flip();
