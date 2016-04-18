@@ -1426,23 +1426,23 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22460034, guid: 336a020e733b31041b1b948d7bf585d4, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 22460034, guid: 336a020e733b31041b1b948d7bf585d4, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: -0.00002670288
       objectReference: {fileID: 0}
     - target: {fileID: 22460034, guid: 336a020e733b31041b1b948d7bf585d4, type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -275
+      value: -304.99997
       objectReference: {fileID: 0}
     - target: {fileID: 22460034, guid: 336a020e733b31041b1b948d7bf585d4, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 1189
+      value: 1291
       objectReference: {fileID: 0}
     - target: {fileID: 22460034, guid: 336a020e733b31041b1b948d7bf585d4, type: 2}
       propertyPath: m_SizeDelta.y
-      value: 300
+      value: 350
       objectReference: {fileID: 0}
     - target: {fileID: 22460034, guid: 336a020e733b31041b1b948d7bf585d4, type: 2}
       propertyPath: m_AnchorMin.x
@@ -1470,9 +1470,9 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11445774, guid: 336a020e733b31041b1b948d7bf585d4, type: 2}
       propertyPath: m_Text
-      value: 'To use the glider keep CTRL or Left Mouse Button pressed while in air.
-
-        The umbrella can only be used in summer.'
+      value: "Yess! You found your first upgrade.\nTo use the glider keep CTRL pressed
+        while in air.\nAnd as every hero knows: \nUmbrellas are only of use during
+        Summer"
       objectReference: {fileID: 0}
     - target: {fileID: 142508, guid: 336a020e733b31041b1b948d7bf585d4, type: 2}
       propertyPath: m_IsActive
@@ -2329,6 +2329,35 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a3ebd265dd2a1514babf41b74459836b, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1176625997 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 161494, guid: a3ebd265dd2a1514babf41b74459836b, type: 2}
+  m_PrefabInternal: {fileID: 1176625996}
+--- !u!61 &1176625998
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1176625997}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: -80}
+  serializedVersion: 2
+  m_Size: {x: 250, y: 1.5}
+--- !u!114 &1176625999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1176625997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbfc077a76392f943b38dd0ed707a454, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1215523234
 Prefab:
   m_ObjectHideFlags: 0
@@ -3331,6 +3360,21 @@ RectTransform:
   m_PrefabParentObject: {fileID: 22478856, guid: 4757963b1fb0d744184d1aca36d46c02,
     type: 2}
   m_PrefabInternal: {fileID: 1570252582}
+--- !u!1 &1570252584 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 155570, guid: 4757963b1fb0d744184d1aca36d46c02, type: 2}
+  m_PrefabInternal: {fileID: 1570252582}
+--- !u!114 &1570252585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1570252584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7443d6b486415049a3861dda299c406, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1609330301
 Prefab:
   m_ObjectHideFlags: 0
@@ -3958,6 +4002,110 @@ MonoBehaviour:
 Transform:
   m_PrefabParentObject: {fileID: 482190, guid: 266952ab8609f0449822a8aa4f27c742, type: 2}
   m_PrefabInternal: {fileID: 2090961886}
+--- !u!1001 &1865134703
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1570252583}
+    m_Modifications:
+    - target: {fileID: 22460034, guid: 336a020e733b31041b1b948d7bf585d4, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 22460034, guid: 336a020e733b31041b1b948d7bf585d4, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 22460034, guid: 336a020e733b31041b1b948d7bf585d4, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 22460034, guid: 336a020e733b31041b1b948d7bf585d4, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 22460034, guid: 336a020e733b31041b1b948d7bf585d4, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 22460034, guid: 336a020e733b31041b1b948d7bf585d4, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 22460034, guid: 336a020e733b31041b1b948d7bf585d4, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 22460034, guid: 336a020e733b31041b1b948d7bf585d4, type: 2}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 22460034, guid: 336a020e733b31041b1b948d7bf585d4, type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.00003051779
+      objectReference: {fileID: 0}
+    - target: {fileID: 22460034, guid: 336a020e733b31041b1b948d7bf585d4, type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -281.50003
+      objectReference: {fileID: 0}
+    - target: {fileID: 22460034, guid: 336a020e733b31041b1b948d7bf585d4, type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 1408
+      objectReference: {fileID: 0}
+    - target: {fileID: 22460034, guid: 336a020e733b31041b1b948d7bf585d4, type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 303
+      objectReference: {fileID: 0}
+    - target: {fileID: 22460034, guid: 336a020e733b31041b1b948d7bf585d4, type: 2}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 22460034, guid: 336a020e733b31041b1b948d7bf585d4, type: 2}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 22460034, guid: 336a020e733b31041b1b948d7bf585d4, type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 22460034, guid: 336a020e733b31041b1b948d7bf585d4, type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 22460034, guid: 336a020e733b31041b1b948d7bf585d4, type: 2}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 22460034, guid: 336a020e733b31041b1b948d7bf585d4, type: 2}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 142508, guid: 336a020e733b31041b1b948d7bf585d4, type: 2}
+      propertyPath: m_Name
+      value: InfoTextStart
+      objectReference: {fileID: 0}
+    - target: {fileID: 142508, guid: 336a020e733b31041b1b948d7bf585d4, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11445774, guid: 336a020e733b31041b1b948d7bf585d4, type: 2}
+      propertyPath: m_Text
+      value: 'Heroes sometimes fall down...
+
+        But they never die!
+
+        If you are unable to complete a Level
+
+        A leap of faith dinto the unknown might work wonders'
+      objectReference: {fileID: 0}
+    - target: {fileID: 11406790, guid: 336a020e733b31041b1b948d7bf585d4, type: 2}
+      propertyPath: secondsToDisable
+      value: 10
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 336a020e733b31041b1b948d7bf585d4, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1001 &1928671720
 Prefab:
   m_ObjectHideFlags: 0
