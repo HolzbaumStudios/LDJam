@@ -4592,7 +4592,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movement: 1
   maxDistanceUp: 0
-  maxDistanceDown: 2
+  maxDistanceDown: 1.5
   maxDistanceRight: 0
   maxDistanceLeft: 0
   sideways: 0
@@ -5756,7 +5756,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84d15aa8bcd73314695887c71a639091, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outOfWaterJumpPower: 200
+  outOfWaterJumpPower: 190
 --- !u!61 &1483222579
 BoxCollider2D:
   m_ObjectHideFlags: 0
