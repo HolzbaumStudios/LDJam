@@ -5,10 +5,12 @@ public class PickUpScript : MonoBehaviour {
 
 
     string objectName;
+    Inventory inventory;
 
     void Start()
     {
         objectName = this.gameObject.transform.name;
+        inventory = GameObject.Find("GameManager").GetComponent<Inventory>();
         if (objectName == "PickStaff" && PlayerPrefs.GetInt("StaffEnabled") == 1)
         {
             Destroy(this.gameObject);
@@ -25,6 +27,11 @@ public class PickUpScript : MonoBehaviour {
             seasonManager.AllowChange(true);
             GameObject.Find("staff").GetComponent<StaffScript>().EnableStaff();
             PlayerPrefs.SetInt("StaffEnabled",1);
+            Destroy(this.gameObject);
+        }
+        else if(objectName == "KeyGreen")
+        {
+            inventory.KeyCollected();
             Destroy(this.gameObject);
         }
     }
