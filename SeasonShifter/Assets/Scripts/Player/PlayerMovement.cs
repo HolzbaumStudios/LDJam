@@ -112,6 +112,12 @@ public class PlayerMovement : MonoBehaviour
 
 
             ////Check gliding state////////////////
+            if(isGliding && gliding)
+            {
+                float currentVelocity = -rigidbody.velocity.y;
+                Debug.Log(currentVelocity);
+                if (currentVelocity > 3.5f)rigidbody.AddForce(new Vector2(0, currentVelocity*20));
+            }
             if (gliding && !isGliding && !grounded)
             {
                 int seasonNumber = seasonManager.GetSeason();
@@ -120,7 +126,7 @@ public class PlayerMovement : MonoBehaviour
                     rightHand.FindChild("staff").gameObject.SetActive(false);
                     rightHand.FindChild("staff_sum_umbrella").gameObject.SetActive(true);
                     playerAnimator.SetBool("Gliding", true);
-                    rigidbody.gravityScale = 0.5f;
+                    rigidbody.gravityScale = 0.35f;
                     isGliding = gliding;
                 }
             }
