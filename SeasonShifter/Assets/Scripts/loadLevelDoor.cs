@@ -46,7 +46,8 @@ public class loadLevelDoor : MonoBehaviour
         fadeImage.SetActive(true);
         if (!SetSavePoint)
         {
-            PlayerPrefs.SetInt("SavedLevel", PlayerPrefs.GetInt("SavedLevel") + 1);
+            int currentLevel = PlayerPrefs.GetInt("SavedLevel");
+            if(currentLevel != 2) PlayerPrefs.SetInt("SavedLevel", currentLevel + 1);
             SetSavePoint = true;
         }
         yield return new WaitForSeconds(1.1f);
