@@ -10,6 +10,7 @@ public class loadLevelDoor : MonoBehaviour
     public Transform walkPosition;
     public GameObject halfDoor;
     public GameObject fadeImage;
+    public bool SetSavePoint = false;
 
     void OnTriggerStay2D(Collider2D player)
     {
@@ -43,6 +44,11 @@ public class loadLevelDoor : MonoBehaviour
         
         yield return new WaitForSeconds(0.2f);
         fadeImage.SetActive(true);
+        if (!SetSavePoint)
+        {
+            PlayerPrefs.SetInt("SavedLevel", PlayerPrefs.GetInt("SavedLevel") + 1);
+            SetSavePoint = true;
+        }
         yield return new WaitForSeconds(1.1f);
         Application.LoadLevel(mapToLoad);
     }
