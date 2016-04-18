@@ -4,6 +4,7 @@ using System.Collections;
 public class UnlockBlock : MonoBehaviour {
 
     private Inventory inventory;
+    public string color = "green";
 
 	// Use this for initialization
 	void Start () {
@@ -12,7 +13,7 @@ public class UnlockBlock : MonoBehaviour {
 	
 	void OnCollisionEnter2D(Collision2D col)
     {
-        if(col.gameObject.CompareTag("Player") && inventory.ReturnKeyvalue())
+        if(col.gameObject.CompareTag("Player") && inventory.ReturnKeyvalue(color))
         {
             Destroy(this.gameObject);
         }
