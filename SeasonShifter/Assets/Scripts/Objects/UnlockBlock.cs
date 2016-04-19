@@ -21,8 +21,8 @@ public class UnlockBlock : MonoBehaviour {
 
     IEnumerator DestroyObject()
     {
-        GetComponent<AudioSource>().Play();
-        yield return new WaitForSeconds(0.8f);
+        //GetComponent<AudioSource>().Play();
+        yield return new WaitForSeconds(0.01f);
         Destroy(this.gameObject);
     }
 }
