@@ -15,7 +15,14 @@ public class UnlockBlock : MonoBehaviour {
     {
         if(col.gameObject.CompareTag("Player") && inventory.ReturnKeyvalue(color))
         {
-            Destroy(this.gameObject);
+            StartCoroutine(DestroyObject());
         }
+    }
+
+    IEnumerator DestroyObject()
+    {
+        GetComponent<AudioSource>().Play();
+        yield return new WaitForSeconds(0.8f);
+        Destroy(this.gameObject);
     }
 }
