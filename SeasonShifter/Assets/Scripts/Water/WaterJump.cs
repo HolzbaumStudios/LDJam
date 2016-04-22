@@ -10,8 +10,6 @@ public class WaterJump : MonoBehaviour {
 
     void Start()
     {
-        player = GameObject.Find("Player");
-        playerMovementScript = player.GetComponent<PlayerMovement>();
         
     }
 
