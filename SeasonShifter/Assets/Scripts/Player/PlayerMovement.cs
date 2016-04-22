@@ -56,14 +56,28 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         //Check if the character is touching the ground
-        if (Physics2D.Raycast(feetCollider.position,-Vector2.up,0.15f) && !jumping)
+        RaycastHit2D hit = Physics2D.Raycast(feetCollider.position, -Vector2.up, 0.12f) ;
+        if (hit && !jumping)
         {
-            if(grounded==false) soundScript.Land();
-            grounded = true;
+            if(hit.collider.CompareTag("Water"))
+            {
+                if (!swimming)
+                {
+                    grounded = false;
+                    ChangeSwimmingState(true);
+                }
+            }
+            else //if ground
+            {
+                if (swimming) ChangeSwimmingState(false);
+                if (!grounded) soundScript.Land();
+                grounded = true;
+            }
         }
         else
         {
             grounded = false;
+            if (swimming) ChangeSwimmingState(false);
         }
 
         if(!grounded)
@@ -79,7 +93,7 @@ public class PlayerMovement : MonoBehaviour
     //move vertical is only used when swimming
     public void Move(float move, bool jump, bool gliding)
     {
-        if (grounded || airControl)
+        if (grounded || airControl || swimming)
         {
             // The Speed animator parameter is set to the absolute value of the horizontal input.
             float speed = Mathf.Abs(move);
@@ -89,7 +103,7 @@ public class PlayerMovement : MonoBehaviour
             if (swimming) { rigidbodySpeed = swimmingSpeed;  }
             rigidbody.velocity = new Vector2(move * rigidbodySpeed, rigidbody.velocity.y);
 
-            if (jump && grounded)
+            if (jump && (grounded || swimming))
             {
                 playerAnimator.SetBool("Jump", true);
                 if (!swimming)
@@ -179,10 +193,9 @@ public class PlayerMovement : MonoBehaviour
             rigidbody.AddForce(new Vector2(0, currentVelocity * 28));
             rigidbody.gravityScale = 0.05f;
             //Change Collider position and shape
-            boxCollider.size = new Vector2(1.2f,1f);
-            boxCollider.offset = new Vector2(-0.3f, -0.1f);
+            boxCollider.size = new Vector2(1.2f,1.6f);
+            boxCollider.offset = new Vector2(-0.3f, -0.4f);
             circleCollider.offset = new Vector2(0.78f, 0.2f);
-            //Disable Season Change while swimming
         }
         else
         {
