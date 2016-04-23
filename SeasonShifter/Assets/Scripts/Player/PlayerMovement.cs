@@ -130,7 +130,7 @@ public class PlayerMovement : MonoBehaviour
                 Debug.Log(currentVelocity);
                 if (currentVelocity > 3.5f)rigidbody.AddForce(new Vector2(0, currentVelocity*20));
             }
-            if (gliding && !isGliding && !grounded)
+            if (gliding && !isGliding && !grounded && !swimming)
             {
                 int seasonNumber = seasonManager.GetSeason();
                 if ((Season)seasonNumber == Season.summer)
@@ -142,12 +142,12 @@ public class PlayerMovement : MonoBehaviour
                     isGliding = gliding;
                 }
             }
-            if((gliding && isGliding && grounded) || (!gliding && isGliding))
+            if((gliding && isGliding && (grounded || swimming)) || (!gliding && isGliding))
             {
                 rightHand.FindChild("staff").gameObject.SetActive(true);
                 rightHand.FindChild("staff_sum_umbrella").gameObject.SetActive(false);
                 playerAnimator.SetBool("Gliding", false);
-                rigidbody.gravityScale = 3;
+                if(swimming)rigidbody.gravityScale = 0.05f; else rigidbody.gravityScale = 3;
                 isGliding = false;
             }
 
