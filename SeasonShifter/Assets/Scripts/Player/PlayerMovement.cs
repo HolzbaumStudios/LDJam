@@ -47,8 +47,6 @@ public class PlayerMovement : MonoBehaviour
         //Get Start Values
         boxColliderSize = boxCollider.size;
         boxColliderPosition = boxCollider.offset;
-        circleColliderRadius = circleCollider.radius;
-        circleColliderPosition = circleCollider.offset;
 
     }
 
@@ -113,7 +111,7 @@ public class PlayerMovement : MonoBehaviour
                 }
                 else
                 {
-                    if (rigidbody.velocity.y < 3.2f)
+                    if (rigidbody.velocity.y < 3.8f)
                     { 
                         rigidbody.AddForce(new Vector2(0f, waterJumpingPower));
                     }     
@@ -193,16 +191,14 @@ public class PlayerMovement : MonoBehaviour
             rigidbody.AddForce(new Vector2(0, currentVelocity * 28));
             rigidbody.gravityScale = 0.05f;
             //Change Collider position and shape
-            boxCollider.size = new Vector2(1.2f,1.6f);
-            boxCollider.offset = new Vector2(-0.3f, -0.4f);
-            circleCollider.offset = new Vector2(0.78f, 0.2f);
+            boxCollider.size = new Vector2(2.1f,1.6f);
+            boxCollider.offset = new Vector2(0f, -0.4f);
         }
         else
         {
             rigidbody.gravityScale = 3;
             boxCollider.offset = boxColliderPosition;
             boxCollider.size = boxColliderSize;
-            circleCollider.offset = circleColliderPosition;
         } 
     }
 

@@ -54,7 +54,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84d15aa8bcd73314695887c71a639091, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outOfWaterJumpPower: 90
+  outOfWaterJumpPower: 120
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
