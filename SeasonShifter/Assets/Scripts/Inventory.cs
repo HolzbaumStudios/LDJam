@@ -8,7 +8,6 @@ public class Inventory : MonoBehaviour {
 
     public void KeyCollected(string color)
     {
-        greenKeyCollected = true;
         switch(color)
         {
             case "green": GameObject.Find("GUI").transform.FindChild("KeyGreenIcon").GetComponent<KeyScript>().KeyCollected(); greenKeyCollected = true; break;
@@ -22,7 +21,7 @@ public class Inventory : MonoBehaviour {
         switch (color)
         {
             case "green": return greenKeyCollected; break;
-            case "blue": return greenKeyCollected; break;
+            case "blue": return blueKeyCollected; break;
             default: return false; break;
         }
     }

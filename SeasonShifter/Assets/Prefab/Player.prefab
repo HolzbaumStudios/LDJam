@@ -300,7 +300,6 @@ GameObject:
   - 50: {fileID: 5023508}
   - 61: {fileID: 6153274}
   - 95: {fileID: 9595590}
-  - 58: {fileID: 5813510}
   - 114: {fileID: 11450206}
   - 114: {fileID: 11424730}
   - 82: {fileID: 8286280}
@@ -522,7 +521,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 182466}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -17.07, y: 4.01, z: 0.030368067}
+  m_LocalPosition: {x: -17.06, y: 3.99, z: 0.030368067}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children:
   - {fileID: 491278}
@@ -573,22 +572,8 @@ Rigidbody2D:
   m_IsKinematic: 0
   m_Interpolate: 1
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
---- !u!58 &5813510
-CircleCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 182466}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_Offset: {x: 0.12, y: -0.8}
-  serializedVersion: 2
-  m_Radius: 0.18210965
 --- !u!61 &6153274
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -600,9 +585,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0.027004242, y: -0.32556915}
+  m_Offset: {x: 0.10575867, y: 0.052030563}
   serializedVersion: 2
-  m_Size: {x: 0.29811296, y: 1.2848244}
+  m_Size: {x: 0.4556263, y: 2.040026}
 --- !u!82 &8286280
 AudioSource:
   m_ObjectHideFlags: 1
@@ -719,7 +704,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 7
-  jumpingPower: 420
+  jumpingPower: 440
   waterJumpingPower: 120
   swimmingSpeed: 3
   rightHand: {fileID: 476556}
