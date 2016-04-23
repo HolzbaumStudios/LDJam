@@ -41,7 +41,6 @@ public class loadLevelDoor : MonoBehaviour
 
     IEnumerator EndLevel()
     {
-        
         yield return new WaitForSeconds(0.2f);
         fadeImage.SetActive(true);
         if (!SetSavePoint)
