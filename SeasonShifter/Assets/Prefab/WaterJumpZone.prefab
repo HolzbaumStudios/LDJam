@@ -17,23 +17,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &169386
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 452504}
-  - 61: {fileID: 6141456}
-  - 114: {fileID: 11437576}
-  m_Layer: 2
-  m_Name: OutOfWaterZone
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!4 &425028
 Transform:
   m_ObjectHideFlags: 1
@@ -43,36 +26,9 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.703, y: 0.809, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 452504}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!4 &452504
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 169386}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 425028}
-  m_RootOrder: 0
---- !u!61 &6141456
-BoxCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 169386}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_Offset: {x: 0.000000059604645, y: 0.3755263}
-  serializedVersion: 2
-  m_Size: {x: 1, y: 0.31858182}
 --- !u!61 &6195564
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -87,17 +43,6 @@ BoxCollider2D:
   m_Offset: {x: 0.0000014901161, y: 0.07465088}
   serializedVersion: 2
   m_Size: {x: 0.71514213, y: 0.2841766}
---- !u!114 &11437576
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 169386}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8016fb6b0a26a6d45b4f80ceda9089c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &11469450
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -109,7 +54,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84d15aa8bcd73314695887c71a639091, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outOfWaterJumpPower: 100
+  outOfWaterJumpPower: 120
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

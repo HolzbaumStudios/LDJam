@@ -10,7 +10,6 @@ GameObject:
   - 4: {fileID: 423658}
   - 212: {fileID: 21285368}
   - 114: {fileID: 11435842}
-  - 114: {fileID: 11462262}
   - 60: {fileID: 6031692}
   m_Layer: 0
   m_Name: Map1_sum_water1
@@ -72,17 +71,6 @@ MonoBehaviour:
   moveLeft: 1
   stopHorizontalMovement: 0
   stopVerticalMovement: 0
---- !u!114 &11462262
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 105628}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69d4505199a0f044e9aa2ca2d4a657a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &21285368
 SpriteRenderer:
   m_ObjectHideFlags: 1

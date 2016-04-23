@@ -6,12 +6,10 @@ public class WaterJump : MonoBehaviour {
     GameObject player;
     PlayerMovement playerMovementScript;
     public float outOfWaterJumpPower; //Power to jump out of the water
-    private float initialJumpingPower;
+
 
     void Start()
     {
-        player = GameObject.Find("Player");
-        playerMovementScript = player.GetComponent<PlayerMovement>();
         
     }
 

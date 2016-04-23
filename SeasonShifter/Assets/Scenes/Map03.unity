@@ -238,12 +238,11 @@ GameObject:
   m_Component:
   - 4: {fileID: 233989269}
   - 212: {fileID: 233989270}
-  - 114: {fileID: 233989272}
   - 114: {fileID: 233989271}
   - 61: {fileID: 233989273}
   m_Layer: 0
   m_Name: Map3_sum_water1
-  m_TagString: Untagged
+  m_TagString: Water
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -306,17 +305,6 @@ MonoBehaviour:
   moveLeft: 1
   stopHorizontalMovement: 0
   stopVerticalMovement: 0
---- !u!114 &233989272
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 233989268}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69d4505199a0f044e9aa2ca2d4a657a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!61 &233989273
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -328,9 +316,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: -0.2410593}
+  m_Offset: {x: 0, y: -0.34041977}
   serializedVersion: 2
-  m_Size: {x: 18.2, y: 3.0178852}
+  m_Size: {x: 18.2, y: 2.81917}
 --- !u!1001 &256425659
 Prefab:
   m_ObjectHideFlags: 0
@@ -777,10 +765,9 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 467806356}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.703, y: 1.4, z: 0}
+  m_LocalPosition: {x: 0.703, y: 1.329, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 994598242}
+  m_Children: []
   m_Father: {fileID: 233989269}
   m_RootOrder: 0
 --- !u!114 &467806358
@@ -795,7 +782,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84d15aa8bcd73314695887c71a639091, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outOfWaterJumpPower: 100
+  outOfWaterJumpPower: 120
 --- !u!61 &467806359
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1571,62 +1558,6 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 453822, guid: fe13d3759a57c59449c354589dba6c65, type: 2}
   m_PrefabInternal: {fileID: 966166113}
---- !u!1 &994598241
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 169386, guid: 171611409ba2ba243bc0200a0dacc9e8, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 994598242}
-  - 61: {fileID: 994598244}
-  - 114: {fileID: 994598243}
-  m_Layer: 2
-  m_Name: OutOfWaterZone
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &994598242
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 452504, guid: 171611409ba2ba243bc0200a0dacc9e8, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 994598241}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 467806357}
-  m_RootOrder: 0
---- !u!114 &994598243
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11437576, guid: 171611409ba2ba243bc0200a0dacc9e8,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 994598241}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8016fb6b0a26a6d45b4f80ceda9089c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!61 &994598244
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 6141456, guid: 171611409ba2ba243bc0200a0dacc9e8,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 994598241}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_Offset: {x: -0.6369123, y: 0.7162005}
-  serializedVersion: 2
-  m_Size: {x: 18.329931, y: 0.999932}
 --- !u!1001 &1001805744
 Prefab:
   m_ObjectHideFlags: 0
@@ -3044,6 +2975,80 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: green
+--- !u!82 &1489105506
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1489105504}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 28d4440ad3488d146840c21df1c045af, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!1001 &1528584123
 Prefab:
   m_ObjectHideFlags: 0
@@ -3762,7 +3767,7 @@ PolygonCollider2D:
   m_GameObject: {fileID: 1759291283}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 3626fe8e008014f6bbd19bb72937b311, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
@@ -4097,7 +4102,7 @@ Prefab:
 
         If you are unable to complete a Level
 
-        A leap of faith dinto the unknown might work wonders'
+        A leap of faith into the unknown might work wonders'
       objectReference: {fileID: 0}
     - target: {fileID: 11406790, guid: 336a020e733b31041b1b948d7bf585d4, type: 2}
       propertyPath: secondsToDisable
@@ -4418,6 +4423,80 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: blue
+--- !u!82 &1989217563
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1989217561}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 28d4440ad3488d146840c21df1c045af, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!1 &2002076856
 GameObject:
   m_ObjectHideFlags: 0
@@ -4455,7 +4534,7 @@ PolygonCollider2D:
   m_GameObject: {fileID: 2002076856}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 3626fe8e008014f6bbd19bb72937b311, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}

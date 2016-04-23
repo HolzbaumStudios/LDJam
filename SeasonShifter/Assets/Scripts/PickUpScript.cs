@@ -49,9 +49,9 @@ public class PickUpScript : MonoBehaviour {
             GameObject.Find("GUI").transform.FindChild("InfoText").gameObject.SetActive(true);
             Destroy(this.gameObject);
         }
-        else if(objectName == "KeyGreen" || objectName == "KeyBlue")
+        else if((objectName == "KeyGreen" || objectName == "KeyBlue"))
         {
-            GameObject.Find("GUI").transform.FindChild("InfoText").gameObject.SetActive(true);
+            if(Application.loadedLevelName == "Map02")GameObject.Find("GUI").transform.FindChild("InfoText").gameObject.SetActive(true);
             musicObjects.GetComponent<AudioSource>().Play();
             inventory.KeyCollected(color);
             Destroy(this.gameObject);
