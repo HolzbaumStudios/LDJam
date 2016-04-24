@@ -6,14 +6,14 @@ public class SwitchScript : MonoBehaviour {
     public bool switchPressed = false;
     public BridgeMovement target;
     public PlattformMovement target2;
-    public Sprite pressedSprite;
+    public Sprite pressedButton;
 
     void OnTriggerEnter2D(Collider2D col)
     {
         if(col.gameObject.CompareTag("Player") && !switchPressed)
         {
             switchPressed = true;
-            transform.parent.GetComponent<SpriteRenderer>().sprite = pressedSprite;
+            transform.parent.GetComponent<SpriteRenderer>().sprite = pressedButton;
             if(target != null) target.enabled = true;
             if(target2 != null) target2.enabled = true;
             BoxCollider2D boxCollider = transform.parent.GetComponent<BoxCollider2D>();
