@@ -5,6 +5,18 @@ public class RaiseFlag : MonoBehaviour
 {
     public bool flagTouched = false;
     public Sprite raisedFlag;
+    GameObject levelContainer;
+    GameObject player;
+    public float playerPosXnew;
+    public float playerPosYnew;
+
+    // Use this for initialization
+    void Start()
+    {
+        player = GameObject.Find("Player");
+        levelContainer = GameObject.Find("LevelContainer");
+    }
+
 
     void OnTriggerEnter2D(Collider2D col)
     {
@@ -12,10 +24,13 @@ public class RaiseFlag : MonoBehaviour
         {
             flagTouched = true;
             transform.parent.GetComponent<SpriteRenderer>().sprite = raisedFlag;
-            // part where reload is going here
-            BoxCollider2D boxCollider = transform.parent.GetComponent<BoxCollider2D>();
-            boxCollider.offset = new Vector2(0, 0);
-            boxCollider.size = new Vector2(0, 0);
+            playerPosXnew = player.transform.position.x;
+            //Debug.Log("Das ist die neue x Position: " + playerPosXnew);
+            playerPosYnew = player.transform.position.y;
+            //Debug.Log("Das ist die neue y Position: " + playerPosYnew);
+            // Set new player position
+            levelContainer.GetComponent<ResetLevel>().playerPosX = playerPosXnew;
+            levelContainer.GetComponent<ResetLevel>().playerPosY = playerPosYnew;
         }
     }
 }
