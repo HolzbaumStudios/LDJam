@@ -2836,6 +2836,10 @@ Prefab:
       propertyPath: keyAvailable
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11402468, guid: 4757963b1fb0d744184d1aca36d46c02, type: 2}
+      propertyPath: m_Text
+      value: Summerville 1-1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4757963b1fb0d744184d1aca36d46c02, type: 2}
   m_IsPrefabParent: 0
@@ -3213,6 +3217,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbfc077a76392f943b38dd0ed707a454, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerPosX: 0
+  playerPosY: 0
 --- !u!1001 &2072727736
 Prefab:
   m_ObjectHideFlags: 0
