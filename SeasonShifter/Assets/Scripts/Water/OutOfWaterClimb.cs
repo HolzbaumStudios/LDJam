@@ -45,11 +45,30 @@ public class OutOfWaterClimb : MonoBehaviour {
         if (!leftSide) xPosition *= -1;
         player.transform.localPosition = new Vector2(xPosition, -0.2f);
         playerAnimator.SetBool("OutOfWater", true); //Start climbing animation
-        yield return new WaitForSeconds(0.75f);
+        playerAnimator.SetBool("Swimming", false); 
+        yield return new WaitForSeconds(0.1f);
+        //Move position
+        int direction = 1;
+        if (leftSide) direction *= -1;
+        rigidbody.MovePosition(player.transform.position + new Vector3(0 * direction, 0.075f, 0));
+        yield return new WaitForSeconds(0.03f);
+        rigidbody.MovePosition(player.transform.position + new Vector3(0 * direction, 0.075f, 0));
+        yield return new WaitForSeconds(0.03f);
+        rigidbody.MovePosition(player.transform.position + new Vector3(0 * direction, 0.075f, 0));
+        yield return new WaitForSeconds(0.03f);
+        rigidbody.MovePosition(player.transform.position + new Vector3(0 * direction, 0.075f, 0));
+        yield return new WaitForSeconds(0.03f);
+        rigidbody.MovePosition(player.transform.position + new Vector3(0.2f * direction, 0.15f, 0));
+        yield return new WaitForSeconds(0.1f);
+        rigidbody.MovePosition(player.transform.position + new Vector3(0.2f * direction, 0.15f, 0));
+        yield return new WaitForSeconds(0.1f);
+        rigidbody.MovePosition(player.transform.position + new Vector3(0.2f * direction, 0, 0));
+        yield return new WaitForSeconds(0.1f);
+        rigidbody.MovePosition(player.transform.position + new Vector3(0.2f * direction, 0, 0));
 
         //End climb
-        player.transform.position = playerBody.position;
         playerAnimator.SetBool("OutOfWater", false);
+        player.transform.position = playerBody.position;
         playerBody.localPosition = new Vector2(0, 0);
         collider.enabled = true;
         player.transform.SetParent(null);
