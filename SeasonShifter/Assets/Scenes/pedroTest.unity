@@ -143,10 +143,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1288818338}
   m_RootOrder: 1
---- !u!4 &144835833 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 423658, guid: f8ae959ed067a5e45b5f8c39bfb5ed4a, type: 2}
-  m_PrefabInternal: {fileID: 2119816261}
 --- !u!1001 &283442506
 Prefab:
   m_ObjectHideFlags: 0
@@ -478,11 +474,11 @@ Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 1813394332}
     m_Modifications:
     - target: {fileID: 490968, guid: 162539318aa853a44a9e37eac6132f42, type: 2}
       propertyPath: m_RootOrder
-      value: 11
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8286280, guid: 162539318aa853a44a9e37eac6132f42, type: 2}
       propertyPath: spreadCustomCurve.m_RotationOrder
@@ -506,11 +502,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 490968, guid: 162539318aa853a44a9e37eac6132f42, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -7.8939996
+      value: 0.204
       objectReference: {fileID: 0}
     - target: {fileID: 490968, guid: 162539318aa853a44a9e37eac6132f42, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -3.6
+      value: 0.522
       objectReference: {fileID: 0}
     - target: {fileID: 490968, guid: 162539318aa853a44a9e37eac6132f42, type: 2}
       propertyPath: m_LocalPosition.z
@@ -2393,7 +2389,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1813394328}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9ddcc89c8e364d498963ec2bad9a088, type: 3}
+  m_Script: {fileID: 11500000, guid: 1d3bfa7a00e4e8047a8132fade17be4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   leftSide: 0
@@ -2448,11 +2444,12 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1813394328}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.0530002, y: 1.0415, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
-  m_Children: []
-  m_Father: {fileID: 144835833}
-  m_RootOrder: 1
+  m_LocalPosition: {x: -7.694, y: -3.517, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1871503799}
+  m_Father: {fileID: 1424704395}
+  m_RootOrder: 5
 --- !u!4 &1816846061 stripped
 Transform:
   m_PrefabParentObject: {fileID: 484894, guid: a3ebd265dd2a1514babf41b74459836b, type: 2}
@@ -2541,7 +2538,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1861811076}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9ddcc89c8e364d498963ec2bad9a088, type: 3}
+  m_Script: {fileID: 11500000, guid: 1d3bfa7a00e4e8047a8132fade17be4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   leftSide: 1
@@ -2596,11 +2593,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1861811076}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.7979999, y: 0.34150004, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalPosition: {x: -15.396, y: -4.917, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 144835833}
-  m_RootOrder: 2
+  m_Father: {fileID: 1424704395}
+  m_RootOrder: 6
 --- !u!4 &1871503799 stripped
 Transform:
   m_PrefabParentObject: {fileID: 490968, guid: 162539318aa853a44a9e37eac6132f42, type: 2}
@@ -2747,7 +2744,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1926548544}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9ddcc89c8e364d498963ec2bad9a088, type: 3}
+  m_Script: {fileID: 11500000, guid: 1d3bfa7a00e4e8047a8132fade17be4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   leftSide: 1
@@ -2802,11 +2799,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1926548544}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.3369999, y: 1.0324999, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalPosition: {x: -9.126, y: -3.535, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 144835833}
-  m_RootOrder: 0
+  m_Father: {fileID: 1424704395}
+  m_RootOrder: 4
 --- !u!1001 &1926746742
 Prefab:
   m_ObjectHideFlags: 0
