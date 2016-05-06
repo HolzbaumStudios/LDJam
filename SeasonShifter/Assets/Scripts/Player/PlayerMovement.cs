@@ -30,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
     private float circleColliderRadius;
     private Vector2 circleColliderPosition;
     private PlayerSound soundScript;
+    private bool groundCheckEnabled = true;
 
 
     private RaycastHit hit;
@@ -54,28 +55,31 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         //Check if the character is touching the ground
-        RaycastHit2D hit = Physics2D.Raycast(feetCollider.position, -Vector2.up, 0.12f) ;
-        if (hit && !jumping)
+        if (groundCheckEnabled)
         {
-            if(hit.collider.CompareTag("Water"))
+            RaycastHit2D hit = Physics2D.Raycast(feetCollider.position, -Vector2.up, 0.12f);
+            if (hit && !jumping)
             {
-                if (!swimming)
+                if (hit.collider.CompareTag("Water"))
                 {
-                    grounded = false;
-                    ChangeSwimmingState(true);
+                    if (!swimming)
+                    {
+                        grounded = false;
+                        ChangeSwimmingState(true);
+                    }
+                }
+                else //if ground
+                {
+                    if (swimming) ChangeSwimmingState(false);
+                    if (!grounded) soundScript.Land();
+                    grounded = true;
                 }
             }
-            else //if ground
+            else
             {
+                grounded = false;
                 if (swimming) ChangeSwimmingState(false);
-                if (!grounded) soundScript.Land();
-                grounded = true;
             }
-        }
-        else
-        {
-            grounded = false;
-            if (swimming) ChangeSwimmingState(false);
         }
 
         if(!grounded)
@@ -210,6 +214,12 @@ public class PlayerMovement : MonoBehaviour
             return false;
         }
         return true;
+    }
+
+    //Use this function to temporarly disable all ground checks
+    public void DisableGroundCheck(bool disable)
+    {
+        groundCheckEnabled = !disable;
     }
 
 }

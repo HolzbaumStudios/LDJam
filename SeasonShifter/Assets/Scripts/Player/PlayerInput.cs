@@ -8,6 +8,7 @@ public class PlayerInput : MonoBehaviour {
     private bool isJumping = false;
     private bool gliding = false;
     private bool glidingAllowed = false;
+    private bool inputEnabled = true;
 
 	// Use this for initialization
 	void Awake () {
@@ -17,7 +18,7 @@ public class PlayerInput : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+        
         float h = Input.GetAxis("Horizontal");
         if (Input.GetButtonDown("Jump") && !isJumping)
         {
@@ -35,7 +36,7 @@ public class PlayerInput : MonoBehaviour {
 
 
         // Pass all parameters to the character control script.
-        movementScript.Move(h, isJumping, gliding);
+        if(inputEnabled)movementScript.Move(h, isJumping, gliding);
         isJumping = false;
     }
 
@@ -43,6 +44,11 @@ public class PlayerInput : MonoBehaviour {
     {
         glidingAllowed = true;
         PlayerPrefs.SetInt("GlidingAllowed", 1);
+    }
+
+    public void DisableInput(bool disable)
+    {
+        inputEnabled = !disable;
     }
 
 }
