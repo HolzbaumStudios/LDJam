@@ -1,10 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(TileEditor_ObjectHandler))]
 public class TileEditor_Grid : MonoBehaviour {
 
-    public float height = 1f;
-    public float width = 1f;
+    public float lineHeight = 1f;
+    public float lineWidth = 1f;
+    public float gridHeight = 50f;
+    public float gridWidth = 50f;
+
 
     public bool editorEnabled = false;
 
@@ -18,17 +22,27 @@ public class TileEditor_Grid : MonoBehaviour {
             Vector3 pos = Camera.current.transform.position;
             Gizmos.color = color;
 
-            for (float y = pos.y - 800.0f; y < pos.y + 800.0f; y += height)
+            for (float y = 0; y < gridHeight; y += lineHeight)
             {
-                Gizmos.DrawLine(new Vector3(-1000000.0f, Mathf.Floor(y / height) * height, 0.0f),
-                                new Vector3(1000000.0f, Mathf.Floor(y / height) * height, 0.0f));
+                Gizmos.DrawLine(new Vector3(0, Mathf.Floor(y / lineHeight) * lineHeight, 0.0f),
+                                new Vector3(gridWidth, Mathf.Floor(y / lineHeight) * lineHeight, 0.0f));
             }
 
-            for (float x = pos.x - 1200.0f; x < pos.x + 1200.0f; x += width)
+            for (float x = 0; x < gridWidth; x += lineWidth)
             {
-                Gizmos.DrawLine(new Vector3(Mathf.Floor(x / width) * width, -1000000.0f, 0.0f),
-                                new Vector3(Mathf.Floor(x / width) * width, 1000000.0f, 0.0f));
+                Gizmos.DrawLine(new Vector3(Mathf.Floor(x / lineWidth) * lineWidth, 0, 0.0f),
+                                new Vector3(Mathf.Floor(x / lineWidth) * lineWidth, gridHeight, 0.0f));
             }
         }
+    }
+
+    public void AddSprite(Vector3 position)
+    {
+        this.gameObject.GetComponent<TileEditor_ObjectHandler>().AddSprite(position);
+    }
+
+    public void EnableEditor()
+    {
+        editorEnabled = !editorEnabled;
     }
 }

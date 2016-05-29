@@ -2,6 +2,9 @@
 using UnityEditor;
 using System.Collections;
 
+
+//Handles all the inputs on the editor and sends the commands through the TileEditor_Grid.cs script
+
 [CustomEditor(typeof(TileEditor_Grid))]
 public class TileEditor_GridEditor : Editor {
 
@@ -24,15 +27,11 @@ public class TileEditor_GridEditor : Editor {
 
             if (e.isMouse && e.button == 0 && e.type == EventType.MouseDown)
             {
-                Debug.Log("Mouseclick!");
-                GameObject tile;
-                if (Selection.activeObject)
-                {
-                    tile = (GameObject)Instantiate(Selection.activeObject);
-                    Vector3 aligned = new Vector3(Mathf.Floor(mousePos.x / grid.width) * grid.width + grid.width / 2.0f,
-                                      Mathf.Floor(mousePos.y / grid.height) * grid.height + grid.height / 2.0f, 0.0f);
-                    tile.transform.position = aligned;
-                }
+         
+                Vector3 aligned = new Vector3(Mathf.Floor(mousePos.x / grid.lineWidth) * grid.lineWidth + grid.lineWidth / 2.0f,
+                                    Mathf.Floor(mousePos.y / grid.lineHeight) * grid.lineHeight + grid.lineHeight / 2.0f, 0.0f);
+                grid.AddSprite(aligned);
+
             }
         }
     }
@@ -45,13 +44,23 @@ public class TileEditor_GridEditor : Editor {
     public override void OnInspectorGUI()
     {
         GUILayout.BeginHorizontal();
+        GUILayout.Label(" Line Width ");
+        grid.lineWidth = EditorGUILayout.FloatField(grid.lineWidth, GUILayout.Width(50));
+        GUILayout.EndHorizontal();
+
+        GUILayout.BeginHorizontal();
+        GUILayout.Label(" Line Height ");
+        grid.lineHeight = EditorGUILayout.FloatField(grid.lineHeight, GUILayout.Width(50));
+        GUILayout.EndHorizontal();
+
+        GUILayout.BeginHorizontal();
         GUILayout.Label(" Grid Width ");
-        grid.width = EditorGUILayout.FloatField(grid.width, GUILayout.Width(50));
+        grid.gridWidth = EditorGUILayout.FloatField(grid.gridWidth, GUILayout.Width(50));
         GUILayout.EndHorizontal();
 
         GUILayout.BeginHorizontal();
         GUILayout.Label(" Grid Height ");
-        grid.height = EditorGUILayout.FloatField(grid.height, GUILayout.Width(50));
+        grid.gridHeight = EditorGUILayout.FloatField(grid.gridHeight, GUILayout.Width(50));
         GUILayout.EndHorizontal();
 
         //Opens a separate property window
@@ -62,9 +71,9 @@ public class TileEditor_GridEditor : Editor {
         }
 
         //Enabled and disables the editor
-        if (GUILayout.Button("Enable / Diabled Editor", GUILayout.Width(255)))
+        if (GUILayout.Button("Enable / Disable Editor", GUILayout.Width(255)))
         {
-            grid.editorEnabled = !grid.editorEnabled;
+            grid.EnableEditor();           
         }
 
         //Repaints the gui on the editor

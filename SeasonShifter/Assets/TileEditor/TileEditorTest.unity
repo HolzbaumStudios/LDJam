@@ -94,6 +94,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 824343792}
   - 114: {fileID: 824343791}
+  - 114: {fileID: 824343793}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -112,8 +113,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f05b3d93f4a4c64c880a830bb6a73e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  height: 1
-  width: 1
+  lineHeight: 1
+  lineWidth: 1
+  gridHeight: 50
+  gridWidth: 50
   editorEnabled: 1
   color: {r: 0.16911763, g: 0.1653871, b: 0.1653871, a: 0.453}
 --- !u!4 &824343792
@@ -128,6 +131,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
+--- !u!114 &824343793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 824343790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bdbd79612ab80a4bab85788fec73f11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  testSprite:
+  - {fileID: 21300000, guid: 748fb4ef585e0a3478594e6a91ec7e36, type: 3}
+  - {fileID: 21300000, guid: 93c2b9bb0c04cab45bdd940218d8cb86, type: 3}
+  - {fileID: 21300000, guid: 79a908b466b9ef54d8c5c62dc9ce5956, type: 3}
+  - {fileID: 21300000, guid: 029f3e3b84b3f91419f4bf1b906418f2, type: 3}
+  - {fileID: 21300000, guid: 313ee03d71d8da14988c724c51c6bb23, type: 3}
+  - {fileID: 21300000, guid: 7c42f43eec20ca94396b79a0d5132aeb, type: 3}
+  - {fileID: 21300000, guid: cfa136a183daa3540acde340861f8933, type: 3}
+  - {fileID: 21300000, guid: 706914923fc658a459df4f8289a4bb41, type: 3}
+  - {fileID: 21300000, guid: 82e8482bdd588604ebe26b1d9387806b, type: 3}
 --- !u!1 &1752605666
 GameObject:
   m_ObjectHideFlags: 0
