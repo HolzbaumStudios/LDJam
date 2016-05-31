@@ -9,6 +9,8 @@ using System.Collections;
 public class TileEditor_GridEditor : Editor {
 
     TileEditor_Grid grid;
+    enum BrushMode { Create, Delete};
+    BrushMode activeMode = BrushMode.Create;
 
     public void OnEnable()
     {
@@ -25,13 +27,21 @@ public class TileEditor_GridEditor : Editor {
             Ray r = Camera.current.ScreenPointToRay(new Vector3(e.mousePosition.x, -e.mousePosition.y + Camera.current.pixelHeight));
             Vector3 mousePos = r.origin;
 
-            if (e.isMouse && e.button == 0 && e.type == EventType.MouseDown)
+            if (e.isMouse && e.button == 0 && (e.type == EventType.MouseDown || e.type == EventType.MouseDrag)) // && e.type == EventType.MouseDown
             {
-         
+
                 Vector3 aligned = new Vector3(Mathf.Floor(mousePos.x / grid.lineWidth) * grid.lineWidth + grid.lineWidth / 2.0f,
                                     Mathf.Floor(mousePos.y / grid.lineHeight) * grid.lineHeight + grid.lineHeight / 2.0f, 0.0f);
-                grid.AddSprite(aligned);
 
+                switch (activeMode)
+                {
+                    case BrushMode.Create:
+                        grid.AddSprite(aligned);
+                        break;
+                    case BrushMode.Delete:
+                        grid.RemoveSprite(aligned);
+                        break;      
+                }
             }
         }
     }
@@ -73,7 +83,7 @@ public class TileEditor_GridEditor : Editor {
         //Enabled and disables the editor
         if (GUILayout.Button("Enable / Disable Editor", GUILayout.Width(255)))
         {
-            grid.EnableEditor();           
+            grid.EnableEditor();              
         }
 
         //Repaints the gui on the editor

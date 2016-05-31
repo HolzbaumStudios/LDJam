@@ -41,6 +41,11 @@ public class TileEditor_Grid : MonoBehaviour {
         this.gameObject.GetComponent<TileEditor_ObjectHandler>().AddSprite(position);
     }
 
+    public void RemoveSprite(Vector3 position)
+    {
+        this.gameObject.GetComponent<TileEditor_ObjectHandler>().RemoveSprite(position);
+    }
+
     public void EnableEditor()
     {
         editorEnabled = !editorEnabled;
