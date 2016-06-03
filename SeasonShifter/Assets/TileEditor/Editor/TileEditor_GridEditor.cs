@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using System.Collections;
+using System.Collections.Generic;
 
 
 //Handles all the inputs on the editor and sends the commands through the TileEditor_Grid.cs script
@@ -97,6 +98,10 @@ public class TileEditor_GridEditor : Editor {
             }
             GUILayout.EndHorizontal();
         }
+
+
+
+
         
         //Opens a separate property window
         if (GUILayout.Button("Open Grid Window", GUILayout.Width(255)))
@@ -109,6 +114,13 @@ public class TileEditor_GridEditor : Editor {
         if (GUILayout.Button("Enable / Disable Editor", GUILayout.Width(255)))
         {
             grid.EnableEditor();              
+        }
+
+        //Adds window to add brush
+        if (GUILayout.Button("Add Brush", GUILayout.Width(255)))
+        {
+            TileEditor_BrushWindow window = (TileEditor_BrushWindow)EditorWindow.GetWindow(typeof(TileEditor_BrushWindow));
+            window.Init();
         }
 
         //Repaints the gui on the editor
