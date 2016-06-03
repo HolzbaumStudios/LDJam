@@ -12,6 +12,7 @@ public class TileEditor_Grid : MonoBehaviour {
 
     public bool editorEnabled = false;
 
+
     public Color color = Color.white;
 
 

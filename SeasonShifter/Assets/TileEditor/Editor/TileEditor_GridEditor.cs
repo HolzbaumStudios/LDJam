@@ -9,6 +9,8 @@ using System.Collections;
 public class TileEditor_GridEditor : Editor {
 
     TileEditor_Grid grid;
+    private bool constantStroke = false; //If constant stroke is true, tile are painted on mouse over without click
+
     enum BrushMode { Create, Delete};
     BrushMode activeMode = BrushMode.Create;
 
@@ -27,7 +29,8 @@ public class TileEditor_GridEditor : Editor {
             Ray r = Camera.current.ScreenPointToRay(new Vector3(e.mousePosition.x, -e.mousePosition.y + Camera.current.pixelHeight));
             Vector3 mousePos = r.origin;
 
-            if (e.isMouse && e.button == 0 && (e.type == EventType.MouseDown || e.type == EventType.MouseDrag)) // && e.type == EventType.MouseDown
+            //if mouse down or constantstroke on paint tiles
+            if (e.isMouse && e.button == 0 && (e.type == EventType.MouseDown || constantStroke)) 
             {
 
                 Vector3 aligned = new Vector3(Mathf.Floor(mousePos.x / grid.lineWidth) * grid.lineWidth + grid.lineWidth / 2.0f,
@@ -43,6 +46,13 @@ public class TileEditor_GridEditor : Editor {
                         break;      
                 }
             }
+
+            //Check for right mouse click --> enable/disable constant stroke
+            if (e.isMouse && e.button == 1 && e.type == EventType.MouseDown)
+            {
+                constantStroke = !constantStroke;
+            }
+
         }
     }
 
@@ -73,6 +83,21 @@ public class TileEditor_GridEditor : Editor {
         grid.gridHeight = EditorGUILayout.FloatField(grid.gridHeight, GUILayout.Width(50));
         GUILayout.EndHorizontal();
 
+        //Buttons to change editor mode
+        if(grid.editorEnabled)
+        {
+            GUILayout.BeginHorizontal();
+            if(GUILayout.Button("Create", GUILayout.Width(60)))
+            {
+                activeMode = BrushMode.Create;
+            }
+            if (GUILayout.Button("Delete", GUILayout.Width(60)))
+            {
+                activeMode = BrushMode.Delete;
+            }
+            GUILayout.EndHorizontal();
+        }
+        
         //Opens a separate property window
         if (GUILayout.Button("Open Grid Window", GUILayout.Width(255)))
         {

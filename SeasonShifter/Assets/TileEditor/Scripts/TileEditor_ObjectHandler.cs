@@ -117,7 +117,7 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
         //If there is a object, delete it now
         if (spriteArray[x, y] != null)
         {
-            Destroy(spriteArray[x, y]);
+            DestroyImmediate(spriteArray[x, y]);
             CheckSurroundingTiles(x, y);
         }
     }
