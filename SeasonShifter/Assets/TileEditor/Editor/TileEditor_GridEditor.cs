@@ -121,7 +121,9 @@ public class TileEditor_GridEditor : Editor {
         {
             TileEditor_BrushWindow window = (TileEditor_BrushWindow)EditorWindow.GetWindow(typeof(TileEditor_BrushWindow));
             window.Init();
+            window.AddBrush();
         }
+
 
         //Repaints the gui on the editor
         SceneView.RepaintAll();

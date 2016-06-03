@@ -2,6 +2,7 @@
 using System.Collections;
 
 [RequireComponent(typeof(TileEditor_ObjectHandler))]
+[RequireComponent(typeof(TileEditor_BrushCollection))]
 public class TileEditor_Grid : MonoBehaviour {
 
     public float lineHeight = 1f;

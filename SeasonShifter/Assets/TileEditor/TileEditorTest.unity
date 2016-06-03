@@ -95,6 +95,7 @@ GameObject:
   - 4: {fileID: 824343792}
   - 114: {fileID: 824343791}
   - 114: {fileID: 824343793}
+  - 114: {fileID: 824343794}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -152,6 +153,17 @@ MonoBehaviour:
   - {fileID: 21300000, guid: cfa136a183daa3540acde340861f8933, type: 3}
   - {fileID: 21300000, guid: 706914923fc658a459df4f8289a4bb41, type: 3}
   - {fileID: 21300000, guid: 82e8482bdd588604ebe26b1d9387806b, type: 3}
+--- !u!114 &824343794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 824343790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af48fe9c76ee8d443bc9f41580a721f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1752605666
 GameObject:
   m_ObjectHideFlags: 0

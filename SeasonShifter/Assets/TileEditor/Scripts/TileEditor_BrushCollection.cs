@@ -5,5 +5,18 @@ using System.Collections.Generic;
 public class TileEditor_BrushCollection : MonoBehaviour {
 
     TileEditor_Brush activeBrush;
-    List<TileEditor_Brush> brushContainer = new List<TileEditor_Brush>(); // A container for all brushes
+    List<TileEditor_Brush> brushContainer; // A container for all brushes
+
+    public TileEditor_BrushCollection()
+    {
+        brushContainer = new List<TileEditor_Brush>();
+    }
+
+    public TileEditor_Brush AddBrush(TileEditor_Brush brush)
+    {
+        brushContainer.Add(brush);
+        return brush;
+    }
+
+   
 }
