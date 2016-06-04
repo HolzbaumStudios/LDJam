@@ -32,7 +32,7 @@ public class TileEditor_BrushWindow : EditorWindow{
             GUILayout.EndVertical();
             GUILayout.BeginVertical();
                 GUILayout.Label("Thumbnail: ", EditorStyles.boldLabel);
-                brush.thumbnail = EditorGUILayout.ObjectField(brush.thumbnail, typeof(Sprite), true, GUILayout.Width(50), GUILayout.Height(50)) as Sprite;
+                brush.thumbnail = EditorGUILayout.ObjectField(brush.thumbnail, typeof(Texture), true, GUILayout.Width(50), GUILayout.Height(50)) as Texture;
         GUILayout.EndVertical();
         GUILayout.EndHorizontal();
 
