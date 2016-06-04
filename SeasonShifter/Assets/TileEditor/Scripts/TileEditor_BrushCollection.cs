@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class TileEditor_BrushCollection : MonoBehaviour {
 
-    TileEditor_Brush activeBrush;
+    private TileEditor_Brush activeBrush;
     public List<TileEditor_Brush> brushContainer; // A container for all brushes
 
     public TileEditor_BrushCollection()
@@ -21,6 +21,16 @@ public class TileEditor_BrushCollection : MonoBehaviour {
     public void RemoveBrush(TileEditor_Brush brush)
     {
         brushContainer.Remove(brush);
+    }
+    
+    public void ChangeActiveBrush(TileEditor_Brush brush)
+    {
+        activeBrush = brush;
+    }
+    
+    public TileEditor_Brush GetActiveBrush()
+    {
+        return activeBrush;
     }    
    
 }

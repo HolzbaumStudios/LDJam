@@ -4,11 +4,12 @@ using System.Collections;
 public class TileEditor_ObjectHandler : MonoBehaviour {
 
     GameObject[,] spriteArray = new GameObject[50, 50];
-
+    TileEditor_BrushCollection brushCollection;
+    TileEditor_Brush brush;
 
     void Start()
     {
-  
+        
 /*        for(int x = 0; x < 50; x++)
         {
             for (int y = 0; y < 50; y++)
@@ -18,25 +19,35 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
         }*/
     }
 
-    public Sprite[] testSprite;
+    //public Sprite[] testSprite;
 
     public void AddSprite(Vector3 position)
     {
-        //Get array value by rounding down position
-        int x = (int)position.x;
-        int y = (int)position.y;
-        //If there is no object, create it now
-        if (spriteArray[x, y] == null)
+        //Get active brush
+        brushCollection = this.gameObject.GetComponent<TileEditor_BrushCollection>();
+        brush = brushCollection.GetActiveBrush();
+        if (brush != null)
         {
-            spriteArray[x, y] = new GameObject("Tile");
-            spriteArray[x, y].transform.position = position;
-            spriteArray[x, y].transform.SetParent(this.transform);
-            spriteArray[x, y].AddComponent<SpriteRenderer>();
+            //Get array value by rounding down position
+            int x = (int)position.x;
+            int y = (int)position.y;
+            //If there is no object, create it now
+            if (spriteArray[x, y] == null)
+            {
+                spriteArray[x, y] = new GameObject("Tile");
+                spriteArray[x, y].transform.position = position;
+                spriteArray[x, y].transform.SetParent(this.transform);
+                spriteArray[x, y].AddComponent<SpriteRenderer>();
+            }
+        
+            //Change sprite of the selected field
+            ChangeSprite(x, y);
+            CheckSurroundingTiles(x, y);
         }
-
-        //Change sprite of the selected field
-        ChangeSprite(x, y);
-        CheckSurroundingTiles(x, y);
+        else
+        {
+            Debug.LogWarning("You have to select a brush first!");
+        }
     }   
 
     void CheckSurroundingTiles(int x, int y)
@@ -64,15 +75,15 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
             //Tile is a top tile
             if (spriteArray[x - 1, y] == null)
             {
-                tileImage.sprite = testSprite[0];
+                tileImage.sprite = brush.sprites[0];
             }
             else if (spriteArray[x + 1, y] == null)
             {
-                tileImage.sprite = testSprite[2];
+                tileImage.sprite = brush.sprites[2];
             }
             else
             {
-                tileImage.sprite = testSprite[1];
+                tileImage.sprite = brush.sprites[1];
             }
         }
         else if (spriteArray[x, y - 1] == null)
@@ -80,15 +91,15 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
             //Tile is a bottom tile
             if (spriteArray[x - 1, y] == null)
             {
-                tileImage.sprite = testSprite[6];
+                tileImage.sprite = brush.sprites[6];
             }
             else if (spriteArray[x + 1, y] == null)
             {
-                tileImage.sprite = testSprite[8];
+                tileImage.sprite = brush.sprites[8];
             }
             else
             {
-                tileImage.sprite = testSprite[7];
+                tileImage.sprite = brush.sprites[7];
             }
         }
         else
@@ -96,15 +107,15 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
             //Tile is a middle tile
             if (spriteArray[x - 1, y] == null)
             {
-                tileImage.sprite = testSprite[3];
+                tileImage.sprite = brush.sprites[3];
             }
             else if (spriteArray[x + 1, y] == null)
             {
-                tileImage.sprite = testSprite[5];
+                tileImage.sprite = brush.sprites[5];
             }
             else
             {
-                tileImage.sprite = testSprite[4];
+                tileImage.sprite = brush.sprites[4];
             }
         }
     }
