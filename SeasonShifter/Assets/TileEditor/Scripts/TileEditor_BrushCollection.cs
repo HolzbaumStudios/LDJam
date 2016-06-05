@@ -2,11 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 
+[System.Serializable]
 public class TileEditor_BrushCollection : MonoBehaviour {
 
+    [System.NonSerialized]
     private TileEditor_Brush activeBrush;
-    public List<TileEditor_Brush> brushContainer; // A container for all brushes
 
+    public List<TileEditor_Brush> brushContainer; // A container for all brushes
+    
     public TileEditor_BrushCollection()
     {
         brushContainer = new List<TileEditor_Brush>();

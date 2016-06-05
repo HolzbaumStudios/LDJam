@@ -1,25 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[System.Serializable]
 public class TileEditor_ObjectHandler : MonoBehaviour {
 
-    GameObject[,] spriteArray = new GameObject[50, 50];
+    [SerializeField]
+    GameObject[,] spriteArray;
+
     TileEditor_BrushCollection brushCollection;
     TileEditor_Brush brush;
 
-    void Start()
-    {
-        
-/*        for(int x = 0; x < 50; x++)
-        {
-            for (int y = 0; y < 50; y++)
-            {
-                spriteArray[x, y] = null;
-            }
-        }*/
-    }
 
-    //public Sprite[] testSprite;
+    public void CreateArray(int x, int y)
+    {
+        spriteArray = new GameObject[x, y];
+    }
 
     public void AddSprite(Vector3 position)
     {

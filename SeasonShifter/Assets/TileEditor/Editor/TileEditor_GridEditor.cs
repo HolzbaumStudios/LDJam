@@ -99,29 +99,19 @@ public class TileEditor_GridEditor : Editor {
             GUILayout.EndHorizontal();
         }
 
-
-
-
-        
-        //Opens a separate property window
-        if (GUILayout.Button("Open Grid Window", GUILayout.Width(255)))
-        {
-            TileEditor_GridWindow window = (TileEditor_GridWindow)EditorWindow.GetWindow(typeof(TileEditor_GridWindow));
-            window.Init();
-        }
-
         //Enabled and disables the editor
         if (GUILayout.Button("Enable / Disable Editor", GUILayout.Width(255)))
         {
             grid.EnableEditor();              
         }
-
-        //Adds window to add brush
-        if (GUILayout.Button("Add Brush", GUILayout.Width(255)))
+   
+        if(grid.editorEnabled)
         {
-            TileEditor_BrushWindow window = (TileEditor_BrushWindow)EditorWindow.GetWindow(typeof(TileEditor_BrushWindow));
-            window.Init();
-            window.AddBrush();
+            if (GUILayout.Button("Properties", GUILayout.Width(255)))
+            {
+                TileEditor_GridWindow window = (TileEditor_GridWindow)EditorWindow.GetWindow(typeof(TileEditor_GridWindow));
+                window.Init();
+            }
         }
 
 

@@ -19,6 +19,11 @@ public class TileEditor_BrushWindow : EditorWindow{
         brush = brushCollection.AddBrush(new TileEditor_Brush());
     }
 
+    public void GetBrush()
+    {
+        brush = brushCollection.GetActiveBrush();
+    }
+
     void OnGUI()
     {
        if (brush == null) AddBrush();

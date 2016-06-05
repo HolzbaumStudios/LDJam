@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[System.Serializable]
 public class TileEditor_Brush {
-
+    //
     public Sprite[] sprites; //0 -> topLeft, 8 -> bottom right (9x9); 9-12 -> inner edge tiles; 13-15 -> horizontal line; 16-18 vertical lign
     public Texture thumbnail; //Brush image
     public string brushName;

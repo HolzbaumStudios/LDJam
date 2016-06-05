@@ -16,6 +16,12 @@ public class TileEditor_Grid : MonoBehaviour {
 
     public Color color = Color.white;
 
+    //Is called by tileeditor_menu.cs
+    public void InitializeGrid(int x, int y)
+    {
+        gridHeight = y;
+        gridWidth = x;
+    }
 
     void OnDrawGizmos()
     {
