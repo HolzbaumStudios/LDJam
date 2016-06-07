@@ -5,7 +5,7 @@ using System.Collections;
 public class TileEditor_ObjectHandler : MonoBehaviour {
 
     [SerializeField]
-    GameObject[,] spriteArray;
+    private GameObject[,] spriteArray;
 
     TileEditor_BrushCollection brushCollection;
     TileEditor_Brush brush;
@@ -127,5 +127,6 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
             CheckSurroundingTiles(x, y);
         }
     }
+
 
 }
