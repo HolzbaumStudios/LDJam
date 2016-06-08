@@ -2,7 +2,7 @@
 using System.Collections;
 
 [RequireComponent(typeof(TileEditor_ObjectHandler))]
-[RequireComponent(typeof(TileEditor_BrushCollection))]
+[RequireComponent(typeof(TileEditor_DisplayBrushCollection))]
 public class TileEditor_Grid : MonoBehaviour {
 
     public float lineHeight = 1f;
@@ -15,6 +15,12 @@ public class TileEditor_Grid : MonoBehaviour {
 
 
     public Color color = Color.white;
+
+    //Constructor
+    public TileEditor_Grid()
+    {
+        editorEnabled = false;
+    }
 
     //Is called by tileeditor_menu.cs
     public void InitializeGrid(int x, int y)

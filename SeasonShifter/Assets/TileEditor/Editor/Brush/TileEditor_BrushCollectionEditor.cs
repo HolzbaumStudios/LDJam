@@ -2,17 +2,16 @@
 using UnityEditor;
 using System.Collections;
 
-[CustomEditor(typeof(TileEditor_BrushCollection))]
+[CustomEditor(typeof(TileEditor_DisplayBrushCollection))]
 public class TileEditor_BrushCollectionEditor : Editor {
 
-    TileEditor_BrushCollection brushCollection;
     Vector2 scrollPosition = Vector2.zero;
     GUIStyle labelStyle;
     GUIStyle buttonStyle;
 
     void OnEnable()
     {
-        brushCollection = (TileEditor_BrushCollection)target;
+       // TileEditor_SaveLoad.LoadBrushCollection();
     }
 
 
@@ -24,17 +23,17 @@ public class TileEditor_BrushCollectionEditor : Editor {
         buttonStyle = new GUIStyle(GUI.skin.button);
         buttonStyle.normal.background = null;
 
-        int brushCount = brushCollection.brushContainer.Count;
+        int brushCount = TileEditor_BrushCollection.brushContainer.Count;
         Rect scrollview = GUILayoutUtility.GetRect(10,10,150,70);
         Rect viewRect = new Rect(0, 0, 60 * brushCount, 70);
         scrollPosition = GUI.BeginScrollView(scrollview,scrollPosition, viewRect);
         GUILayout.BeginHorizontal();
             for(int i = 0; i < brushCount; i++)
             {
-                TileEditor_Brush brush = brushCollection.brushContainer[i];
+                TileEditor_Brush brush = TileEditor_BrushCollection.brushContainer[i];
                 int x = (5 + 5 * i) + 50 * i;
                 GUIStyle tempStyle = buttonStyle;
-                if (brush == brushCollection.GetActiveBrush())
+                if (brush == TileEditor_BrushCollection.GetActiveBrush())
                 {
                     tempStyle.normal = GUI.skin.button.active;
                 }
@@ -44,7 +43,7 @@ public class TileEditor_BrushCollectionEditor : Editor {
                 }
                 if (GUI.Button(new Rect(x,10,50,50),brush.thumbnail, tempStyle))
                 {
-                    brushCollection.ChangeActiveBrush(brush);
+                    TileEditor_BrushCollection.ChangeActiveBrush(brush);
                 }
                 GUI.Label(new Rect(x, 60, 50, 20), brush.GetBrushName(), labelStyle);                
             }
@@ -62,12 +61,11 @@ public class TileEditor_BrushCollectionEditor : Editor {
             }
 
             //if a brush is selected add buttons to delete and modify
-            if(brushCollection.GetActiveBrush() != null)
+            if(TileEditor_BrushCollection.GetActiveBrush() != null)
             {
-            Debug.Log(brushCollection.GetActiveBrush());
                 if (GUILayout.Button("Delete", GUILayout.Width(80)))
                 {
-                    brushCollection.RemoveBrush(brushCollection.GetActiveBrush());
+                    TileEditor_BrushCollection.RemoveBrush(TileEditor_BrushCollection.GetActiveBrush());
                 }
 
                 if (GUILayout.Button("Modify", GUILayout.Width(80)))

@@ -6,21 +6,35 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
 
     [SerializeField]
     private GameObject[,] spriteArray;
+    [SerializeField, HideInInspector]
+    private int columns;
+    [SerializeField, HideInInspector]
+    private int rows;
 
-    TileEditor_BrushCollection brushCollection;
+    //TileEditor_BrushCollection brushCollection;
     TileEditor_Brush brush;
 
-
+    
     public void CreateArray(int x, int y)
     {
         spriteArray = new GameObject[x, y];
+        columns = x;
+        rows = y;
+    }
+
+    public void CheckIfArrayExists()
+    {
+        if(spriteArray == null )
+        {
+            spriteArray = new GameObject[columns, rows];
+        }
     }
 
     public void AddSprite(Vector3 position)
     {
         //Get active brush
-        brushCollection = this.gameObject.GetComponent<TileEditor_BrushCollection>();
-        brush = brushCollection.GetActiveBrush();
+        //brushCollection = this.gameObject.GetComponent<TileEditor_BrushCollection>();
+        brush = TileEditor_BrushCollection.GetActiveBrush();
         if (brush != null)
         {
             //Get array value by rounding down position

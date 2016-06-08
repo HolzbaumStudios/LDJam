@@ -6,8 +6,8 @@ using System.IO;
 
 public static class TileEditor_SaveLoad {
 
-    //A collection of object Handlers to save the value
-    public static List<TileEditor_ObjectHandler> savedObjectHandler = new List<TileEditor_ObjectHandler>();
+    /*
+    public static TileEditor_BrushCollection savedBrushCollection;
 
     public static void Save(TileEditor_ObjectHandler objectHandler)
     {
@@ -16,6 +16,25 @@ public static class TileEditor_SaveLoad {
         FileStream file = File.Create(Application.persistentDataPath + "/savedEditorData.tef"); //tef = tile editor file
         bf.Serialize(file, TileEditor_SaveLoad.savedObjectHandler);
         file.Close();
+    }
+
+    public static void Save(TileEditor_BrushCollection brushCollection)
+    {
+        BinaryFormatter bf = new BinaryFormatter();
+        FileStream file = File.Create(Application.persistentDataPath + "/savedEditorData.tef"); //tef = tile editor file
+        bf.Serialize(file, TileEditor_SaveLoad.savedBrushCollection);
+        file.Close();
+    }
+
+    public static void LoadBrushCollection()
+    {
+        if (File.Exists(Application.persistentDataPath + "/savedEditorData.tef"))
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream file = File.Open(Application.persistentDataPath + "/savedEditorData.tef", FileMode.Open);
+            TileEditor_SaveLoad.savedBrushCollection = (TileEditor_BrushCollection)bf.Deserialize(file);
+            file.Close();
+        }
     }
 
     public static void Load()
@@ -27,5 +46,5 @@ public static class TileEditor_SaveLoad {
             TileEditor_SaveLoad.savedObjectHandler = (List<TileEditor_ObjectHandler>)bf.Deserialize(file);
             file.Close();
         }
-    }
+    }*/
 }

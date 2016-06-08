@@ -52,7 +52,7 @@ public class TileEditor_Menu : EditorWindow
         GameObject editor = new GameObject(objectName);
         TileEditor_ObjectHandler objectHandler = editor.AddComponent<TileEditor_ObjectHandler>();
         objectHandler.CreateArray(levelWidth, levelHeight);
-        editor.AddComponent<TileEditor_BrushCollection>();
+        editor.AddComponent<TileEditor_DisplayBrushCollection>();
         TileEditor_Grid grid = editor.AddComponent<TileEditor_Grid>();
         grid.InitializeGrid(levelWidth, levelHeight);
     }

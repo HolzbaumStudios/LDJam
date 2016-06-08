@@ -4,24 +4,22 @@ using System.Collections;
 
 public class TileEditor_BrushWindow : EditorWindow{
 
-    TileEditor_BrushCollection brushCollection;
     TileEditor_Brush brush;
     GUIStyle brushGuiStyle;
 
     public void Init()
     {
-        brushCollection = (TileEditor_BrushCollection)FindObjectOfType(typeof(TileEditor_BrushCollection));
         this.minSize = new Vector2(380, 490);
     }
 
     public void AddBrush()
     {
-        brush = brushCollection.AddBrush(new TileEditor_Brush());
+        brush = TileEditor_BrushCollection.AddBrush(new TileEditor_Brush());
     }
 
     public void GetBrush()
     {
-        brush = brushCollection.GetActiveBrush();
+        brush = TileEditor_BrushCollection.GetActiveBrush();
     }
 
     void OnGUI()
@@ -106,11 +104,12 @@ public class TileEditor_BrushWindow : EditorWindow{
             GUILayout.Space(160);
             if (GUILayout.Button("Dispose", GUILayout.Width(100)))
             {
-                brushCollection.RemoveBrush(brush);
+                TileEditor_BrushCollection.RemoveBrush(brush);
                 this.Close();
             }
             if (GUILayout.Button("Save", GUILayout.Width(100)))
             {
+                TileEditor_BrushCollection.SaveBrushCollection();
                 this.Close();
             } 
         GUILayout.EndHorizontal();
