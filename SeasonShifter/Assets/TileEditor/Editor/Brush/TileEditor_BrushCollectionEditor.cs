@@ -9,16 +9,6 @@ public class TileEditor_BrushCollectionEditor : Editor {
     GUIStyle labelStyle;
     GUIStyle buttonStyle;
 
-    void OnEnable()
-    {
-        TileEditor_SaveLoad.LoadBrushCollection();
-        foreach (TileEditor_Brush brush in TileEditor_BrushCollection.brushContainer)
-        {
-            brush.ConvertToPng();
-        }
-    }
-
-
     public override void OnInspectorGUI()
     {
         //Define style

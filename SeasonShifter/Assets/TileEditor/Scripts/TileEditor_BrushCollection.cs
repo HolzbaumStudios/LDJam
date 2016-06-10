@@ -13,6 +13,10 @@ public static class TileEditor_BrushCollection {
     static TileEditor_BrushCollection()
     {
         LoadBrushCollection();
+        foreach (TileEditor_Brush brush in TileEditor_BrushCollection.brushContainer)
+        {
+            brush.ConvertToPng();
+        }
     }
     
 
