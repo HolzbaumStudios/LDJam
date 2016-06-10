@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEditor;
  
 public class TileEditor_Menu : EditorWindow
@@ -7,11 +8,17 @@ public class TileEditor_Menu : EditorWindow
     private int levelWidth = 50;
     private int levelHeight = 50;
 
-    [MenuItem("Tools/Add TileEditor")]
+    [MenuItem("Tools/TileEditor/Add Grid")]
     private static void ShowWindow()
     {
         TileEditor_Menu window = (TileEditor_Menu)EditorWindow.GetWindow(typeof(TileEditor_Menu));
         window.Init();
+    }
+
+    [MenuItem("Tools/TileEditor/Delete Brushes")]
+    private static void DeleteBrushes()
+    {
+        TileEditor_BrushCollection.ClearBrushCollection();
     }
 
     public void Init()

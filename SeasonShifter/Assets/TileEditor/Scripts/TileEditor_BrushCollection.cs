@@ -12,8 +12,7 @@ public static class TileEditor_BrushCollection {
 
     static TileEditor_BrushCollection()
     {
-
-        LoadBrushCollection();
+       LoadBrushCollection();
         foreach (TileEditor_Brush brush in TileEditor_BrushCollection.brushContainer)
         {
             brush.ConvertToSprite();
@@ -50,6 +49,12 @@ public static class TileEditor_BrushCollection {
     public static void LoadBrushCollection()
     {
         TileEditor_SaveLoad.LoadBrushCollection();
+    }
+
+    public static void ClearBrushCollection()
+    {
+        brushContainer.Clear();
+        TileEditor_SaveLoad.Save();
     }
    
 }
