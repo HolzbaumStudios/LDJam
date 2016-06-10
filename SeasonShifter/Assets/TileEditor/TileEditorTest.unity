@@ -85,17 +85,17 @@ NavMeshSettings:
     cellSize: 0.16666667
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &803030745
+--- !u!1 &1602758143
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 803030749}
-  - 114: {fileID: 803030748}
-  - 114: {fileID: 803030747}
-  - 114: {fileID: 803030746}
+  - 4: {fileID: 1602758147}
+  - 114: {fileID: 1602758146}
+  - 114: {fileID: 1602758145}
+  - 114: {fileID: 1602758144}
   m_Layer: 0
   m_Name: TileEditor
   m_TagString: Untagged
@@ -103,12 +103,12 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &803030746
+--- !u!114 &1602758144
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 803030745}
+  m_GameObject: {fileID: 1602758143}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f05b3d93f4a4c64c880a830bb6a73e8, type: 3}
@@ -116,40 +116,40 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lineHeight: 1
   lineWidth: 1
-  gridHeight: 50
-  gridWidth: 50
-  editorEnabled: 0
+  gridHeight: 56
+  gridWidth: 56
+  editorEnabled: 1
   color: {r: 1, g: 1, b: 1, a: 1}
---- !u!114 &803030747
+--- !u!114 &1602758145
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 803030745}
+  m_GameObject: {fileID: 1602758143}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e54a49d56df52ae4587ae5def23401fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &803030748
+--- !u!114 &1602758146
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 803030745}
+  m_GameObject: {fileID: 1602758143}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0bdbd79612ab80a4bab85788fec73f11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  columns: 50
-  rows: 50
---- !u!4 &803030749
+  columns: 56
+  rows: 56
+--- !u!4 &1602758147
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 803030745}
+  m_GameObject: {fileID: 1602758143}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}

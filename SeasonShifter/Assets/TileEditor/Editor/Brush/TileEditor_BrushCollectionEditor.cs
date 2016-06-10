@@ -11,7 +11,11 @@ public class TileEditor_BrushCollectionEditor : Editor {
 
     void OnEnable()
     {
-       // TileEditor_SaveLoad.LoadBrushCollection();
+        TileEditor_SaveLoad.LoadBrushCollection();
+        foreach (TileEditor_Brush brush in TileEditor_BrushCollection.brushContainer)
+        {
+            brush.ConvertToPng();
+        }
     }
 
 

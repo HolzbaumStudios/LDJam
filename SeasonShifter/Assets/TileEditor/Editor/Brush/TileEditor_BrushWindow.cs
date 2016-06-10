@@ -35,7 +35,7 @@ public class TileEditor_BrushWindow : EditorWindow{
             GUILayout.EndVertical();
             GUILayout.BeginVertical();
                 GUILayout.Label("Thumbnail: ", EditorStyles.boldLabel);
-                brush.thumbnail = EditorGUILayout.ObjectField(brush.thumbnail, typeof(Texture), true, GUILayout.Width(50), GUILayout.Height(50)) as Texture;
+                brush.thumbnail = EditorGUILayout.ObjectField(brush.thumbnail, typeof(Texture2D), true, GUILayout.Width(50), GUILayout.Height(50)) as Texture2D;
         GUILayout.EndVertical();
         GUILayout.EndHorizontal();
 
@@ -109,6 +109,10 @@ public class TileEditor_BrushWindow : EditorWindow{
             }
             if (GUILayout.Button("Save", GUILayout.Width(100)))
             {
+                foreach(TileEditor_Brush existingBrush in TileEditor_BrushCollection.brushContainer)
+                {
+                    existingBrush.ConvertToPng();
+                }
                 TileEditor_BrushCollection.SaveBrushCollection();
                 this.Close();
             } 
