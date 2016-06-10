@@ -12,10 +12,11 @@ public static class TileEditor_BrushCollection {
 
     static TileEditor_BrushCollection()
     {
+        Debug.Log("Ausgeführt");
         LoadBrushCollection();
         foreach (TileEditor_Brush brush in TileEditor_BrushCollection.brushContainer)
         {
-            brush.ConvertToPng();
+            brush.ConvertToSprite();
         }
     }
     

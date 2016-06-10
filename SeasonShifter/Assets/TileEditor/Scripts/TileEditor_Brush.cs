@@ -14,6 +14,7 @@ public class TileEditor_Brush {
 
     [SerializeField]
     private List<byte[]> byteList = new List<byte[]>();
+    [SerializeField]
     private byte[] thumbnailByte;
 
     public TileEditor_Brush()
@@ -45,13 +46,17 @@ public class TileEditor_Brush {
     //Convert bytes to sprite
     public void ConvertToSprite()
     {
-        for(int i=0; i < byteList.Count; i++)
+        int byteListCount = byteList.Count;
+        sprites = new Sprite[byteListCount];
+        for(int i=0; i < byteListCount; i++)
         {
             Texture2D texture = new Texture2D(2,2);
             texture.LoadImage(byteList[i]);
             sprites[i] = Sprite.Create(texture, new Rect(0,0,texture.width,texture.height), new Vector2(0.5f,0.5f));
         }
 
-        thumbnail.LoadImage(thumbnailByte);
+        Texture2D thumbnailTexture = new Texture2D(2, 2);
+        thumbnailTexture.LoadImage(thumbnailByte);
+        thumbnail = thumbnailTexture;
     }
 }

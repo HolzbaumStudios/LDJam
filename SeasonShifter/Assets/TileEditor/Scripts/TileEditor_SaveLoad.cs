@@ -22,13 +22,17 @@ public static class TileEditor_SaveLoad {
 
     public static void LoadBrushCollection()
     {
-        if (File.Exists(Application.persistentDataPath + "/savedEditorData.tef"))
+        if (File.Exists(Application.persistentDataPath + "/brushCollection.tef"))
         {
             BinaryFormatter bf = new BinaryFormatter();
             FileStream file = File.Open(Application.persistentDataPath + "/brushCollection.tef", FileMode.Open);
             TileEditor_SaveLoad.savedBrushList = (List<TileEditor_Brush>)bf.Deserialize(file);
             file.Close();
             TileEditor_BrushCollection.brushContainer = savedBrushList;
+        }
+        else
+        {
+            Debug.Log("Savefile doesn't exist");
         }
     }
 
