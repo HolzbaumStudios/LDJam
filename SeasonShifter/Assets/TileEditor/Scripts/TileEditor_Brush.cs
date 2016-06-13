@@ -41,7 +41,8 @@ public class TileEditor_Brush {
             byte[] imageBytes;
             if (sprites[i] != null)
             {
-                imageBytes = sprites[i].texture.EncodeToPNG();
+                Texture2D texture = sprites[i].texture;
+                imageBytes = texture.EncodeToPNG();
                 
             }
             else

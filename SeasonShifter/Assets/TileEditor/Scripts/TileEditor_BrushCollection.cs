@@ -9,16 +9,7 @@ public static class TileEditor_BrushCollection {
     [SerializeField]
     private static TileEditor_Brush activeBrush;
     public static List<TileEditor_Brush> brushContainer =  new List<TileEditor_Brush>(); // A container for all brushes
-
-    static TileEditor_BrushCollection()
-    {
-       LoadBrushCollection();
-        foreach (TileEditor_Brush brush in TileEditor_BrushCollection.brushContainer)
-        {
-            brush.ConvertToSprite();
-        }
-    }
-    
+   
 
     public static TileEditor_Brush AddBrush(TileEditor_Brush brush)
     {
@@ -49,6 +40,10 @@ public static class TileEditor_BrushCollection {
     public static void LoadBrushCollection()
     {
         TileEditor_SaveLoad.LoadBrushCollection();
+        foreach (TileEditor_Brush brush in TileEditor_BrushCollection.brushContainer)
+        {
+            brush.ConvertToSprite();
+        }
     }
 
     public static void ClearBrushCollection()
