@@ -20,6 +20,8 @@ public static class TileEditor_BrushCollection {
     public static void RemoveBrush(TileEditor_Brush brush)
     {
         brushContainer.Remove(brush);
+        activeBrush = null;
+        TileEditor_SaveLoad.Save();
     }
     
     public static void ChangeActiveBrush(TileEditor_Brush brush)

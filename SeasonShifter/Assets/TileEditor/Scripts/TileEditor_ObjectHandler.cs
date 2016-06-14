@@ -4,7 +4,6 @@ using System.Collections;
 [System.Serializable]
 public class TileEditor_ObjectHandler : MonoBehaviour {
 
-    [SerializeField]
     private GameObject[,] spriteArray;
     [SerializeField, HideInInspector]
     private int columns;
@@ -81,32 +80,46 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
         SpriteRenderer tileImage = spriteArray[x, y].GetComponent<SpriteRenderer>();
         if (spriteArray[x, y + 1] == null)
         {
-            //Tile is a top tile
-            if (spriteArray[x - 1, y] == null)
+            if(spriteArray[x - 1, y] == null && spriteArray[x + 1, y] == null) //Tile is a top tile and has no side tiles
+            {
+                if (brush.sprites[16] != null)
+                {
+                    tileImage.sprite = brush.sprites[16];
+                }
+                else
+                {
+                    tileImage.sprite = brush.sprites[4];
+                }
+            }
+            else if (spriteArray[x - 1, y] == null) //tile is a top tile and has no left tile
             {
                 tileImage.sprite = brush.sprites[0];
             }
-            else if (spriteArray[x + 1, y] == null)
+            else if (spriteArray[x + 1, y] == null) //tile is a top tile and has no right tile
             {
                 tileImage.sprite = brush.sprites[2];
             }
             else
             {
-                tileImage.sprite = brush.sprites[1];
+                tileImage.sprite = brush.sprites[1]; //tile is a top tile and has tiles on both sides
             }
         }
         else if (spriteArray[x, y - 1] == null)
         {
-            //Tile is a bottom tile
-            if (spriteArray[x - 1, y] == null)
+            
+            if(spriteArray[x - 1, y] == null && spriteArray[x + 1, y] == null) //Tile is a bottom tile and has no left or right tile
+            {
+                tileImage.sprite = brush.sprites[18];
+            }
+            else if (spriteArray[x - 1, y] == null)  //Tile is a bottom tile and has no right tile
             {
                 tileImage.sprite = brush.sprites[6];
             }
-            else if (spriteArray[x + 1, y] == null)
+            else if (spriteArray[x + 1, y] == null) //Tile is a bottom tile and has no left tile
             {
                 tileImage.sprite = brush.sprites[8];
             }
-            else
+            else //Tile is a bottom tile and has tiles on both sides
             {
                 tileImage.sprite = brush.sprites[7];
             }
