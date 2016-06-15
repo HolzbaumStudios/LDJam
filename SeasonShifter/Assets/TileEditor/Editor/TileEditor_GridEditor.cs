@@ -100,9 +100,13 @@ public class TileEditor_GridEditor : Editor {
         }
 
         //Enabled and disables the editor
-        if (GUILayout.Button("Enable / Disable Editor", GUILayout.Width(255)))
+        string buttonText = "Enable Editor";
+        if(grid.editorEnabled) buttonText = "Close Editor";
+        
+        if (GUILayout.Button(buttonText, GUILayout.Width(255)))
         {
-            grid.EnableEditor();              
+            grid.EnableEditor();
+            grid.LoadTiles();              
         }
    
         if(grid.editorEnabled)

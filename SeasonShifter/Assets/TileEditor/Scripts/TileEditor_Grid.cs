@@ -3,6 +3,7 @@ using System.Collections;
 
 [RequireComponent(typeof(TileEditor_ObjectHandler))]
 [RequireComponent(typeof(TileEditor_DisplayBrushCollection))]
+[ExecuteInEditMode]
 public class TileEditor_Grid : MonoBehaviour {
 
     public float lineHeight = 1f;
@@ -18,6 +19,11 @@ public class TileEditor_Grid : MonoBehaviour {
 
     //Constructor
     public TileEditor_Grid()
+    {
+        editorEnabled = false;
+    }
+
+    void Start()
     {
         editorEnabled = false;
     }
@@ -63,5 +69,10 @@ public class TileEditor_Grid : MonoBehaviour {
     public void EnableEditor()
     {
         editorEnabled = !editorEnabled;
+    }
+
+    public void LoadTiles()
+    {
+        this.gameObject.GetComponent<TileEditor_ObjectHandler>().LoadTiles();
     }
 }

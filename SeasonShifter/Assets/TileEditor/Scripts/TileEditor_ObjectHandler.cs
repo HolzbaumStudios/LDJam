@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[System.Serializable]
+[System.Serializable, ExecuteInEditMode]
 public class TileEditor_ObjectHandler : MonoBehaviour {
 
     private GameObject[,] spriteArray;
@@ -13,7 +13,6 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
     //TileEditor_BrushCollection brushCollection;
     TileEditor_Brush brush;
 
-    
     public void CreateArray(int x, int y)
     {
         spriteArray = new GameObject[x, y];
@@ -190,7 +189,19 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
         if (spriteArray[x, y] != null)
         {
             DestroyImmediate(spriteArray[x, y]);
-            CheckSurroundingTiles(x, y);
+            if(TileEditor_BrushCollection.GetActiveBrush() != null)CheckSurroundingTiles(x, y);
+        }
+    }
+
+    //Creates new array and loads all the tiles
+    public void LoadTiles()
+    {
+        spriteArray = new GameObject[columns,rows];
+        foreach(Transform child in this.transform)
+        {
+            int x = (int)child.position.x;
+            int y = (int)child.position.y;
+            spriteArray[x, y] = child.gameObject;
         }
     }
 
