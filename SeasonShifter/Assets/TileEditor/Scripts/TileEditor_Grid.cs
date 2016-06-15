@@ -75,4 +75,9 @@ public class TileEditor_Grid : MonoBehaviour {
     {
         this.gameObject.GetComponent<TileEditor_ObjectHandler>().LoadTiles();
     }
+
+    public void CreateCollider()
+    {
+        this.gameObject.GetComponent<TileEditor_ObjectHandler>().CreateCollider();
+    }
 }

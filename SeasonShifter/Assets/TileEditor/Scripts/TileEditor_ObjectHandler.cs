@@ -77,19 +77,23 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
     {
         //Check which sprite has to be added
         SpriteRenderer tileImage = spriteArray[x, y].GetComponent<SpriteRenderer>();
+        string tileName;
         if(spriteArray[x, y+1] == null && spriteArray[x, y-1] == null) //if top and bottom tile null
         {
             if (spriteArray[x -1, y] == null) //if right top and right bottom tile are free set a single horizontal sprite
             {
                 tileImage.sprite = brush.sprites[13];
+                tileName = "Tile_Id13";
             }
             else if (spriteArray[x + 1, y] == null) //if right top and right bottom tile are free set a single horizontal sprite
             {
                 tileImage.sprite = brush.sprites[15];
+                tileName = "Tile_Id15";
             }
             else
             {
                 tileImage.sprite = brush.sprites[14];
+                tileName = "Tile_Id14";
             }
         }
         else if (spriteArray[x, y + 1] == null)
@@ -99,23 +103,28 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
                 if (brush.sprites[16] != null)
                 {
                     tileImage.sprite = brush.sprites[16];
+                    tileName = "Tile_Id16";
                 }
                 else
                 {
                     tileImage.sprite = brush.sprites[4];
+                    tileName = "Tile_Id4";
                 }
             }
             else if (spriteArray[x - 1, y] == null) //tile is a top tile and has no left tile
             {
                 tileImage.sprite = brush.sprites[0];
+                tileName = "Tile_Id0";
             }
             else if (spriteArray[x + 1, y] == null) //tile is a top tile and has no right tile
             {
                 tileImage.sprite = brush.sprites[2];
+                tileName = "Tile_Id2";
             }
             else
             {
                 tileImage.sprite = brush.sprites[1]; //tile is a top tile and has tiles on both sides
+                tileName = "Tile_Id1";
             }
         }
         else if (spriteArray[x, y - 1] == null)
@@ -124,18 +133,22 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
             if(spriteArray[x - 1, y] == null && spriteArray[x + 1, y] == null) //Tile is a bottom tile and has no left or right tile
             {
                 tileImage.sprite = brush.sprites[18];
+                tileName = "Tile_Id18";
             }
             else if (spriteArray[x - 1, y] == null)  //Tile is a bottom tile and has no right tile
             {
                 tileImage.sprite = brush.sprites[6];
+                tileName = "Tile_Id6";
             }
             else if (spriteArray[x + 1, y] == null) //Tile is a bottom tile and has no left tile
             {
                 tileImage.sprite = brush.sprites[8];
+                tileName = "Tile_Id8";
             }
             else //Tile is a bottom tile and has tiles on both sides
             {
                 tileImage.sprite = brush.sprites[7];
+                tileName = "Tile_Id7";
             }
         }
         else
@@ -144,14 +157,17 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
             if(spriteArray[x - 1, y] == null && spriteArray[x + 1, y] == null)
             {
                 tileImage.sprite = brush.sprites[17];
+                tileName = "Tile_Id17";
             }
             else if (spriteArray[x - 1, y] == null)
             {
                 tileImage.sprite = brush.sprites[3]; //else set a normal side tile
+                tileName = "Tile_Id3";
             }
             else if (spriteArray[x + 1, y] == null)
             {
                 tileImage.sprite = brush.sprites[5];
+                tileName = "Tile_Id5";
             }
             else //The center tiles
             {
@@ -159,25 +175,32 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
                 if (spriteArray[x - 1, y + 1] == null) //top left inner edge
                 {
                     tileImage.sprite = brush.sprites[9];
+                    tileName = "Tile_Id9";
                 }
                 else if (spriteArray[x + 1, y + 1] == null) //top right inner edge
                 {
                     tileImage.sprite = brush.sprites[10];
+                    tileName = "Tile_Id10";
                 }
                 else if (spriteArray[x - 1, y - 1] == null) //bottom left inner edge
                 {
                     tileImage.sprite = brush.sprites[11];
+                    tileName = "Tile_Id11";
                 }
                 else if (spriteArray[x + 1, y - 1] == null) //bottom right inner edge
                 {
                     tileImage.sprite = brush.sprites[12];
+                    tileName = "Tile_Id12";
                 }
                 else //normal center tile
                 {
                     tileImage.sprite = brush.sprites[4];
+                    tileName = "Tile_Id4";
                 }
             }
         }
+
+        spriteArray[x, y].name = tileName;
     }
 
     public void RemoveSprite(Vector3 position)
@@ -202,6 +225,24 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
             int x = (int)child.position.x;
             int y = (int)child.position.y;
             spriteArray[x, y] = child.gameObject;
+        }
+    }
+
+    //Creates a collider based on the child objects
+    public void CreateCollider()
+    {
+        PolygonCollider2D collider = this.gameObject.AddComponent<PolygonCollider2D>();
+        //Determine path points
+        Vector2[] pathPoints;
+        for(int y=0; y < rows; y++)
+        {
+            for(int x=0; x < columns; x++)
+            {
+                if(spriteArray[x,y] != null)
+                {
+                   
+                }
+            }
         }
     }
 

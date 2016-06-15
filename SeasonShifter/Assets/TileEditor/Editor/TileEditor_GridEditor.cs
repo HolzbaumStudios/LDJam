@@ -111,6 +111,11 @@ public class TileEditor_GridEditor : Editor {
    
         if(grid.editorEnabled)
         {
+            if (GUILayout.Button("Create Collider", GUILayout.Width(255)))
+            {
+                grid.CreateCollider();
+            }
+
             if (GUILayout.Button("Properties", GUILayout.Width(255)))
             {
                 TileEditor_GridWindow window = (TileEditor_GridWindow)EditorWindow.GetWindow(typeof(TileEditor_GridWindow));
