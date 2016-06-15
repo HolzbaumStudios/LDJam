@@ -78,7 +78,22 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
     {
         //Check which sprite has to be added
         SpriteRenderer tileImage = spriteArray[x, y].GetComponent<SpriteRenderer>();
-        if (spriteArray[x, y + 1] == null)
+        if(spriteArray[x, y+1] == null && spriteArray[x, y-1] == null) //if top and bottom tile null
+        {
+            if (spriteArray[x -1, y] == null) //if right top and right bottom tile are free set a single horizontal sprite
+            {
+                tileImage.sprite = brush.sprites[13];
+            }
+            else if (spriteArray[x + 1, y] == null) //if right top and right bottom tile are free set a single horizontal sprite
+            {
+                tileImage.sprite = brush.sprites[15];
+            }
+            else
+            {
+                tileImage.sprite = brush.sprites[14];
+            }
+        }
+        else if (spriteArray[x, y + 1] == null)
         {
             if(spriteArray[x - 1, y] == null && spriteArray[x + 1, y] == null) //Tile is a top tile and has no side tiles
             {
@@ -127,17 +142,41 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
         else
         {
             //Tile is a middle tile
-            if (spriteArray[x - 1, y] == null)
+            if(spriteArray[x - 1, y] == null && spriteArray[x + 1, y] == null)
             {
-                tileImage.sprite = brush.sprites[3];
+                tileImage.sprite = brush.sprites[17];
+            }
+            else if (spriteArray[x - 1, y] == null)
+            {
+                tileImage.sprite = brush.sprites[3]; //else set a normal side tile
             }
             else if (spriteArray[x + 1, y] == null)
             {
                 tileImage.sprite = brush.sprites[5];
             }
-            else
+            else //The center tiles
             {
-                tileImage.sprite = brush.sprites[4];
+                //Check for edges
+                if (spriteArray[x - 1, y + 1] == null) //top left inner edge
+                {
+                    tileImage.sprite = brush.sprites[9];
+                }
+                else if (spriteArray[x + 1, y + 1] == null) //top right inner edge
+                {
+                    tileImage.sprite = brush.sprites[10];
+                }
+                else if (spriteArray[x - 1, y - 1] == null) //bottom left inner edge
+                {
+                    tileImage.sprite = brush.sprites[11];
+                }
+                else if (spriteArray[x + 1, y - 1] == null) //bottom right inner edge
+                {
+                    tileImage.sprite = brush.sprites[12];
+                }
+                else //normal center tile
+                {
+                    tileImage.sprite = brush.sprites[4];
+                }
             }
         }
     }
