@@ -241,76 +241,109 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
         {
             collider = this.gameObject.AddComponent<PolygonCollider2D>();
         }
-        
+
         //Determine path points
-        List<Vector2> pathPoints = new List<Vector2>();
-        bool edgeTileFound = false;
-        GameObject startTile = null;
-        for(int y=0; y < rows; y++)
+        List<Vector2> pathPoints;
+        List<Vector2[]> pathList = new List<Vector2[]>();
+        List<GameObject> bottomLeftTiles = new List<GameObject>(); //To determine if these tiles have already been used
+        bool finishedAllChecks = false;
+        int topCounter = 0;
+
+        while (!finishedAllChecks && topCounter < 500)
         {
-            for(int x=0; x < columns; x++)
+            topCounter++;
+            pathPoints = new List<Vector2>();
+            bool edgeTileFound = false;
+            GameObject startTile = null;
+            for (int y = 0; y < rows; y++)
             {
-                if(spriteArray[x,y] != null && spriteArray[x,y].name == "Tile_Id6")
+                for (int x = 0; x < columns; x++)
                 {
-                    Debug.Log("Tile_Id6 found");
-                    edgeTileFound = true;
-                    startTile = spriteArray[x, y];
-                    x = columns;
-                    y = rows;
+                    if (spriteArray[x, y] != null && spriteArray[x, y].name == "Tile_Id6" && !CheckIfVectorExists(spriteArray[x,y],bottomLeftTiles))
+                    {
+                        Debug.Log("Tile_Id6 found");
+                        edgeTileFound = true;
+                        startTile = spriteArray[x, y];
+                        bottomLeftTiles.Add(startTile);
+                        x = columns;
+                        y = rows;
+                    }
                 }
             }
-        }
 
 
-        int direction = 0; //0 = up, 1 = right, 2 = down, 3 =  left
-        int counter = 0; //to get out of an endless loop
-        if (startTile != null)
-        {
-            int xPosition = (int)startTile.transform.position.x;
-            int yPosition = (int)startTile.transform.position.y;
-
-            while (edgeTileFound && counter < 1000)
+            int direction = 0; //0 = up, 1 = right, 2 = down, 3 =  left
+            int counter = 0; //to get out of an endless loop
+            if (startTile != null)
             {
-                counter++;
-                switch (direction) //Make a step in the set direction
-                {
-                    case 0: yPosition++; break;
-                    case 1: xPosition++; break;
-                    case 2: yPosition--; break;
-                    case 3: xPosition--; break;
-                }
+                int xPosition = (int)startTile.transform.position.x;
+                int yPosition = (int)startTile.transform.position.y;
 
-                Debug.Log("X: " + xPosition + " , Y: " + yPosition);
-
-                switch (spriteArray[xPosition, yPosition].name)
+                while (edgeTileFound && counter < 2000)
                 {
-                    case "Tile_Id0": direction = 1; pathPoints.Add(spriteArray[xPosition, yPosition].transform.position + new Vector3(-0.5f,0.5f, 0)); break;
-                    case "Tile_Id2": direction = 2; pathPoints.Add(spriteArray[xPosition, yPosition].transform.position + new Vector3(0.5f, 0.5f, 0)); break;
-                    case "Tile_Id6": direction = 0; pathPoints.Add(spriteArray[xPosition, yPosition].transform.position + new Vector3(-0.5f, -0.5f, 0)); break;
-                    case "Tile_Id8": direction = 3; pathPoints.Add(spriteArray[xPosition, yPosition].transform.position + new Vector3(0.5f, -0.5f, 0)); break;
-                    case "Tile_Id9": direction = 0; pathPoints.Add(spriteArray[xPosition, yPosition].transform.position + new Vector3(-0.5f, 0.5f, 0)); break;
-                    case "Tile_Id10": direction = 1; pathPoints.Add(spriteArray[xPosition, yPosition].transform.position + new Vector3(0.5f, 0.5f, 0)); break;
-                    case "Tile_Id11": direction = 3; pathPoints.Add(spriteArray[xPosition, yPosition].transform.position + new Vector3(-0.5f, -0.5f, 0)); break;
-                    case "Tile_Id12": direction = 2; pathPoints.Add(spriteArray[xPosition, yPosition].transform.position + new Vector3(0.5f, -0.5f, 0)); break;
-                    default: break;
-                }
+                    counter++;
+                    switch (direction) //Make a step in the set direction
+                    {
+                        case 0: yPosition++; break;
+                        case 1: xPosition++; break;
+                        case 2: yPosition--; break;
+                        case 3: xPosition--; break;
+                    }
 
-                if (spriteArray[xPosition, yPosition] == startTile)
-                {
-                    edgeTileFound = false;
+                    Debug.Log("X: " + xPosition + " , Y: " + yPosition);
+
+                    switch (spriteArray[xPosition, yPosition].name)
+                    {
+                        case "Tile_Id0": direction = 1; pathPoints.Add(spriteArray[xPosition, yPosition].transform.position + new Vector3(-0.5f, 0.5f, 0)); break;
+                        case "Tile_Id2": direction = 2; pathPoints.Add(spriteArray[xPosition, yPosition].transform.position + new Vector3(0.5f, 0.5f, 0)); break;
+                        case "Tile_Id6": direction = 0; pathPoints.Add(spriteArray[xPosition, yPosition].transform.position + new Vector3(-0.5f, -0.5f, 0)); bottomLeftTiles.Add(spriteArray[xPosition,yPosition]); break;
+                        case "Tile_Id8": direction = 3; pathPoints.Add(spriteArray[xPosition, yPosition].transform.position + new Vector3(0.5f, -0.5f, 0)); break;
+                        case "Tile_Id9": direction = 0; pathPoints.Add(spriteArray[xPosition, yPosition].transform.position + new Vector3(-0.5f, 0.5f, 0)); break;
+                        case "Tile_Id10": direction = 1; pathPoints.Add(spriteArray[xPosition, yPosition].transform.position + new Vector3(0.5f, 0.5f, 0)); break;
+                        case "Tile_Id11": direction = 3; pathPoints.Add(spriteArray[xPosition, yPosition].transform.position + new Vector3(-0.5f, -0.5f, 0)); break;
+                        case "Tile_Id12": direction = 2; pathPoints.Add(spriteArray[xPosition, yPosition].transform.position + new Vector3(0.5f, -0.5f, 0)); break;
+                        default: break;
+                    }
+
+                    if (spriteArray[xPosition, yPosition] == startTile)
+                    {
+                        edgeTileFound = false;
+                    }
                 }
             }
+            else
+            {
+                finishedAllChecks = true;
+            }
+
+            int listLength = pathPoints.Count;
+            Vector2[] pathPointArray = new Vector2[listLength];
+            for (int i = 0; i < listLength; i++)
+            {
+                pathPointArray[i] = pathPoints[i];
+            }
+            pathList.Add(pathPointArray);
         }
 
-        int listLength = pathPoints.Count;
-        Vector2[] pathPointArray = new Vector2[listLength];
-        for(int i = 0; i < listLength; i++)
+        collider.pathCount = pathList.Count;
+        for (int i = 0; i < pathList.Count; i++)
         {
-            pathPointArray[i] = pathPoints[i];
+            collider.SetPath(i, pathList[i]);
         }
-
-        collider.SetPath(0, pathPointArray);
     }
 
+    //Check if a Vector already exists
+    bool CheckIfVectorExists(GameObject tile, List<GameObject> tileList)
+    {
+        foreach(GameObject currentTile in tileList)
+        {
+            if(currentTile == tile)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
 }
