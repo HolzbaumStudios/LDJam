@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 [System.Serializable, ExecuteInEditMode]
 public class TileEditor_ObjectHandler : MonoBehaviour {
@@ -231,19 +232,84 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
     //Creates a collider based on the child objects
     public void CreateCollider()
     {
-        PolygonCollider2D collider = this.gameObject.AddComponent<PolygonCollider2D>();
+        PolygonCollider2D collider;
+        if (gameObject.GetComponent<PolygonCollider2D>())
+        {
+            collider = this.gameObject.GetComponent<PolygonCollider2D>();
+        }
+        else
+        {
+            collider = this.gameObject.AddComponent<PolygonCollider2D>();
+        }
+        
         //Determine path points
-        Vector2[] pathPoints;
+        List<Vector2> pathPoints = new List<Vector2>();
+        bool edgeTileFound = false;
+        GameObject startTile = null;
         for(int y=0; y < rows; y++)
         {
             for(int x=0; x < columns; x++)
             {
-                if(spriteArray[x,y] != null)
+                if(spriteArray[x,y] != null && spriteArray[x,y].name == "Tile_Id6")
                 {
-                   
+                    Debug.Log("Tile_Id6 found");
+                    edgeTileFound = true;
+                    startTile = spriteArray[x, y];
+                    x = columns;
+                    y = rows;
                 }
             }
         }
+
+
+        int direction = 0; //0 = up, 1 = right, 2 = down, 3 =  left
+        int counter = 0; //to get out of an endless loop
+        if (startTile != null)
+        {
+            int xPosition = (int)startTile.transform.position.x;
+            int yPosition = (int)startTile.transform.position.y;
+
+            while (edgeTileFound && counter < 1000)
+            {
+                counter++;
+                switch (direction) //Make a step in the set direction
+                {
+                    case 0: yPosition++; break;
+                    case 1: xPosition++; break;
+                    case 2: yPosition--; break;
+                    case 3: xPosition--; break;
+                }
+
+                Debug.Log("X: " + xPosition + " , Y: " + yPosition);
+
+                switch (spriteArray[xPosition, yPosition].name)
+                {
+                    case "Tile_Id0": direction = 1; pathPoints.Add(spriteArray[xPosition, yPosition].transform.position + new Vector3(-0.5f,0.5f, 0)); break;
+                    case "Tile_Id2": direction = 2; pathPoints.Add(spriteArray[xPosition, yPosition].transform.position + new Vector3(0.5f, 0.5f, 0)); break;
+                    case "Tile_Id6": direction = 0; pathPoints.Add(spriteArray[xPosition, yPosition].transform.position + new Vector3(-0.5f, -0.5f, 0)); break;
+                    case "Tile_Id8": direction = 3; pathPoints.Add(spriteArray[xPosition, yPosition].transform.position + new Vector3(0.5f, -0.5f, 0)); break;
+                    case "Tile_Id9": direction = 0; pathPoints.Add(spriteArray[xPosition, yPosition].transform.position + new Vector3(-0.5f, 0.5f, 0)); break;
+                    case "Tile_Id10": direction = 1; pathPoints.Add(spriteArray[xPosition, yPosition].transform.position + new Vector3(0.5f, 0.5f, 0)); break;
+                    case "Tile_Id11": direction = 3; pathPoints.Add(spriteArray[xPosition, yPosition].transform.position + new Vector3(-0.5f, -0.5f, 0)); break;
+                    case "Tile_Id12": direction = 2; pathPoints.Add(spriteArray[xPosition, yPosition].transform.position + new Vector3(0.5f, -0.5f, 0)); break;
+                    default: break;
+                }
+
+                if (spriteArray[xPosition, yPosition] == startTile)
+                {
+                    edgeTileFound = false;
+                }
+            }
+        }
+
+        int listLength = pathPoints.Count;
+        Vector2[] pathPointArray = new Vector2[listLength];
+        for(int i = 0; i < listLength; i++)
+        {
+            pathPointArray[i] = pathPoints[i];
+        }
+
+        collider.SetPath(0, pathPointArray);
     }
 
 
