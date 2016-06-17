@@ -44,7 +44,38 @@ public class TileEditor_BrushCollectionEditor : Editor {
         GUILayout.EndHorizontal();
         GUI.EndScrollView();
 
+
         //Buttons
+       
+        //if a brush is selected add buttons to delete and modify
+        if (TileEditor_BrushCollection.GetActiveBrush() != null)
+        {
+            GUILayout.BeginHorizontal();
+
+            if (GUILayout.Button("Delete", GUILayout.Width(80)))
+            {
+                TileEditor_BrushCollection.RemoveBrush(TileEditor_BrushCollection.GetActiveBrush());
+            }
+
+            if (GUILayout.Button("Modify", GUILayout.Width(80)))
+            {
+                TileEditor_BrushWindow window = (TileEditor_BrushWindow)EditorWindow.GetWindow(typeof(TileEditor_BrushWindow));
+                window.Init();
+                window.GetBrush();
+            }
+
+            //Exports a brush
+
+            if (GUILayout.Button("Export", GUILayout.Width(80)))
+            {
+                TileEditor_SaveLoad.SaveSingleBrush();
+            }
+
+            GUILayout.EndHorizontal();
+        }
+
+        GUILayout.Space(5);
+
         GUILayout.BeginHorizontal();
             //Opens window to add brush
             if (GUILayout.Button("+ Brush", GUILayout.Width(80)))
@@ -54,21 +85,12 @@ public class TileEditor_BrushCollectionEditor : Editor {
                 window.AddBrush();
             }
 
-            //if a brush is selected add buttons to delete and modify
-            if(TileEditor_BrushCollection.GetActiveBrush() != null)
+            //Imports a brush
+            if (GUILayout.Button("Import", GUILayout.Width(80)))
             {
-                if (GUILayout.Button("Delete", GUILayout.Width(80)))
-                {
-                    TileEditor_BrushCollection.RemoveBrush(TileEditor_BrushCollection.GetActiveBrush());
-                }
-
-                if (GUILayout.Button("Modify", GUILayout.Width(80)))
-                {
-                    TileEditor_BrushWindow window = (TileEditor_BrushWindow)EditorWindow.GetWindow(typeof(TileEditor_BrushWindow));
-                    window.Init();
-                    window.GetBrush();
-                }
+                TileEditor_SaveLoad.LoadSingleBrush();
             }
+
         GUILayout.EndHorizontal();
         GUILayout.Space(20);
 

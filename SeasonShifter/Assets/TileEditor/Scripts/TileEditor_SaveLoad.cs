@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using UnityEditor;
 
 public static class TileEditor_SaveLoad {
 
@@ -17,6 +18,25 @@ public static class TileEditor_SaveLoad {
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Create(Application.persistentDataPath + "/brushCollection.tef"); //tef = tile editor file
         bf.Serialize(file, TileEditor_SaveLoad.savedBrushList);
+        file.Close();
+    }
+
+    public static void SaveSingleBrush()
+    {
+        TileEditor_Brush savedBrush = TileEditor_BrushCollection.GetActiveBrush();
+        BinaryFormatter bf = new BinaryFormatter();
+        string path = EditorUtility.OpenFolderPanel("Select a folder", "", "");
+        FileStream file = File.Create(path + "/" + savedBrush.brushName + ".teb"); //tef = tile editor brush
+        bf.Serialize(file, savedBrush);
+        file.Close();
+    }
+
+    public static void LoadSingleBrush()
+    {
+        BinaryFormatter bf = new BinaryFormatter();
+        string path = EditorUtility.OpenFilePanel("Select a brush file", "", "teb");
+        FileStream file = File.Open(path, FileMode.Open);
+        TileEditor_BrushCollection.AddBrush((TileEditor_Brush)bf.Deserialize(file));
         file.Close();
     }
 
