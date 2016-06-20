@@ -36,8 +36,12 @@ public static class TileEditor_SaveLoad {
         BinaryFormatter bf = new BinaryFormatter();
         string path = EditorUtility.OpenFilePanel("Select a brush file", "", "teb");
         FileStream file = File.Open(path, FileMode.Open);
-        TileEditor_BrushCollection.AddBrush((TileEditor_Brush)bf.Deserialize(file));
+        TileEditor_Brush tempBrush =(TileEditor_Brush)bf.Deserialize(file);
+        tempBrush.ConvertToSprite();
         file.Close();
+        TileEditor_BrushCollection.AddBrush(tempBrush);
+        TileEditor_BrushCollection.SaveBrushCollection();
+
     }
 
     public static void LoadBrushCollection()
