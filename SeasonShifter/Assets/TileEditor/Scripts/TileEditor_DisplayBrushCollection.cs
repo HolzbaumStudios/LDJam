@@ -12,7 +12,7 @@ public class TileEditor_DisplayBrushCollection : MonoBehaviour {
     //Load brush collection
     void Start()
     {
-        Debug.Log("Load brushes");
+        //Debug.Log("Load brushes");
         TileEditor_BrushCollection.LoadBrushCollection();
     }
 }

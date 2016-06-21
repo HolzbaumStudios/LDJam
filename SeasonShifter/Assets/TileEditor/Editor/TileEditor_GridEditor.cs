@@ -12,7 +12,7 @@ public class TileEditor_GridEditor : Editor {
     TileEditor_Grid grid;
     private bool constantStroke = false; //If constant stroke is true, tile are painted on mouse over without click
 
-    enum BrushMode { Create, Delete};
+    enum BrushMode { Create, Delete, Fill};
     BrushMode activeMode = BrushMode.Create;
 
     public void OnEnable()
@@ -47,7 +47,10 @@ public class TileEditor_GridEditor : Editor {
                         break;
                     case BrushMode.Delete:
                         grid.RemoveSprite(aligned);
-                        break;      
+                        break;
+                    case BrushMode.Fill:
+                        grid.FillArea(aligned);
+                        break;   
                 }
             }
 
@@ -99,6 +102,10 @@ public class TileEditor_GridEditor : Editor {
             {
                 activeMode = BrushMode.Delete;
             }
+            if (GUILayout.Button("Fill", GUILayout.Width(60)))
+            {
+                activeMode = BrushMode.Fill;
+            }
             GUILayout.EndHorizontal();
         }
 
@@ -109,7 +116,7 @@ public class TileEditor_GridEditor : Editor {
         if (GUILayout.Button(buttonText, GUILayout.Width(255)))
         {
             grid.EnableEditor();
-            grid.LoadTiles();              
+            grid.LoadTiles();
         }
    
         if(grid.editorEnabled)

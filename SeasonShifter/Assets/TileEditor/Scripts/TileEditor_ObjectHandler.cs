@@ -2,10 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 
-[System.Serializable, ExecuteInEditMode]
+[System.Serializable]
 public class TileEditor_ObjectHandler : MonoBehaviour {
 
     private GameObject[,] spriteArray;
+
     [SerializeField, HideInInspector]
     private int columns;
     [SerializeField, HideInInspector]
@@ -217,6 +218,22 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
         }
     }
 
+    //Fills an area with the selctes brush
+    public void FillArea(Vector3 positon)
+    {
+        List<GameObject> tileList = new List<GameObject>();
+        bool foundTile;
+
+        AddSprite(positon);
+
+        do
+        {
+            foundTile = false;
+
+        } while (foundTile == true);
+    }
+
+
     //Creates new array and loads all the tiles
     public void LoadTiles()
     {
@@ -290,7 +307,7 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
                         case 3: xPosition--; break;
                     }
 
-                    Debug.Log("X: " + xPosition + " , Y: " + yPosition);
+                   // Debug.Log("X: " + xPosition + " , Y: " + yPosition);
 
                     switch (spriteArray[xPosition, yPosition].name)
                     {

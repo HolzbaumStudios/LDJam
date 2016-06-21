@@ -7,7 +7,7 @@ public class TileEditor_Brush {
 
     [System.NonSerialized]
     public Sprite[] sprites; //0 -> topLeft, 8 -> bottom right (9x9); 9-12 -> inner edge tiles; 13-15 -> horizontal line; 16-18 vertical lign
-    [HideInInspector]
+    [HideInInspector, System.NonSerialized]
     public int maxNumberOfSprites = 19;
     [System.NonSerialized]
     public Texture2D thumbnail; //Brush image

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEditor.SceneManagement;
 using System.Collections;
 
 [RequireComponent(typeof(TileEditor_ObjectHandler))]
@@ -66,9 +67,15 @@ public class TileEditor_Grid : MonoBehaviour {
         this.gameObject.GetComponent<TileEditor_ObjectHandler>().RemoveSprite(position);
     }
 
+    public void FillArea(Vector3 position)
+    {
+        this.gameObject.GetComponent<TileEditor_ObjectHandler>().FillArea(position);
+    }
+
     public void EnableEditor()
     {
         editorEnabled = !editorEnabled;
+        EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene()); //Marks scene as dirty, so that editor changes are saved
     }
 
     public void LoadTiles()
