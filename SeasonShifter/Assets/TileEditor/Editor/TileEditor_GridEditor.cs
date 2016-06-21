@@ -23,17 +23,20 @@ public class TileEditor_GridEditor : Editor {
 
     public void GridUpdate(SceneView sceneview)
     {
+        
         if (grid.editorEnabled)
         {
+            HandleUtility.AddDefaultControl(GUIUtility.GetControlID(FocusType.Passive));
+
             Event e = Event.current;
+
 
             Ray r = Camera.current.ScreenPointToRay(new Vector3(e.mousePosition.x, -e.mousePosition.y + Camera.current.pixelHeight));
             Vector3 mousePos = r.origin;
 
             //if mouse down or constantstroke on paint tiles
-            if (e.isMouse && e.button == 0 && (e.type == EventType.MouseDown || constantStroke)) 
+            if (e.isMouse && e.button == 0 && (e.type == EventType.MouseDown || e.type == EventType.MouseDrag || constantStroke)) 
             {
-
                 Vector3 aligned = new Vector3(Mathf.Floor(mousePos.x / grid.lineWidth) * grid.lineWidth + grid.lineWidth / 2.0f,
                                     Mathf.Floor(mousePos.y / grid.lineHeight) * grid.lineHeight + grid.lineHeight / 2.0f, 0.0f);
 
@@ -127,4 +130,5 @@ public class TileEditor_GridEditor : Editor {
         //Repaints the gui on the editor
         SceneView.RepaintAll();
     }
+
 }
