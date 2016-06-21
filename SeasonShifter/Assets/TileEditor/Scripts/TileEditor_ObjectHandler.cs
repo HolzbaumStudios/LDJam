@@ -12,6 +12,8 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
     [SerializeField, HideInInspector]
     private int rows;
 
+    List<GameObject> tileList; //User for the fill function
+
     //TileEditor_BrushCollection brushCollection;
     TileEditor_Brush brush;
 
@@ -221,18 +223,32 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
     //Fills an area with the selctes brush
     public void FillArea(Vector3 positon)
     {
-        List<GameObject> tileList = new List<GameObject>();
-        bool foundTile;
+        tileList = new List<GameObject>();
 
-        AddSprite(positon);
-
-        do
-        {
-            foundTile = false;
-
-        } while (foundTile == true);
+        FillTiles(positon);
     }
 
+    void FillTiles(Vector3 position)
+    {
+        int x = (int)position.x;
+        int y = (int)position.y;
+
+        AddSprite(position);
+
+        if(spriteArray[x+1,y] != null)
+        {
+
+        }
+    }
+
+    bool CheckIfTileInList(GameObject tile)
+    {
+        foreach(GameObject tileObject in tileList)
+        {
+            if (tileObject == tile) return true;
+        }
+        return false;
+    }
 
     //Creates new array and loads all the tiles
     public void LoadTiles()
