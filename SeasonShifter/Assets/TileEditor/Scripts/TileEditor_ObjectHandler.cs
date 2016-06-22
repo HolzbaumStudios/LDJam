@@ -235,9 +235,37 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
 
         AddSprite(position);
 
-        if(spriteArray[x+1,y] != null)
+        if (!CheckIfTileInList(spriteArray[x, y])) //If tile has not already been changed
         {
-
+            GameObject tempTile;
+            tempTile = spriteArray[x + 1, y];
+            if (tempTile != null)
+            {
+                AddSprite(new Vector3(x+1,y));
+                tileList.Add(tempTile);
+                FillTiles(new Vector3(x + 1, y));
+            }
+            tempTile = spriteArray[x - 1, y];
+            if (tempTile != null)
+            {
+                AddSprite(new Vector3(x - 1, y));
+                tileList.Add(tempTile);
+                FillTiles(new Vector3(x - 1, y));
+            }
+            tempTile = spriteArray[x, y + 1];
+            if (tempTile != null)
+            {
+                AddSprite(new Vector3(x, y + 1));
+                tileList.Add(tempTile);
+                FillTiles(new Vector3(x, y + 1));
+            }
+            tempTile = spriteArray[x, y - 1];
+            if (tempTile != null)
+            {
+                AddSprite(new Vector3(x, y - 1));
+                tileList.Add(tempTile);
+                FillTiles(new Vector3(x, y - 1));
+            }
         }
     }
 
