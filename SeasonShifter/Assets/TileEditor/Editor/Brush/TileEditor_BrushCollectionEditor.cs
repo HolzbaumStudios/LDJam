@@ -60,8 +60,8 @@ public class TileEditor_BrushCollectionEditor : Editor {
             if (GUILayout.Button("Modify", GUILayout.Width(80)))
             {
                 TileEditor_BrushWindow window = (TileEditor_BrushWindow)EditorWindow.GetWindow(typeof(TileEditor_BrushWindow));
-                window.Init();
                 window.GetBrush();
+                window.Init();
             }
 
             //Exports a brush
