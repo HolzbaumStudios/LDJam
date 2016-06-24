@@ -234,39 +234,31 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
         int y = (int)position.y;
 
         AddSprite(position);
+        tileList.Add(spriteArray[x,y]);
 
-        if (!CheckIfTileInList(spriteArray[x, y])) //If tile has not already been changed
-        {
-            GameObject tempTile;
-            tempTile = spriteArray[x + 1, y];
-            if (tempTile != null)
-            {
-                AddSprite(new Vector3(x+1,y));
-                tileList.Add(tempTile);
-                FillTiles(new Vector3(x + 1, y));
-            }
-            tempTile = spriteArray[x - 1, y];
-            if (tempTile != null)
-            {
-                AddSprite(new Vector3(x - 1, y));
-                tileList.Add(tempTile);
-                FillTiles(new Vector3(x - 1, y));
-            }
-            tempTile = spriteArray[x, y + 1];
-            if (tempTile != null)
-            {
-                AddSprite(new Vector3(x, y + 1));
-                tileList.Add(tempTile);
-                FillTiles(new Vector3(x, y + 1));
-            }
-            tempTile = spriteArray[x, y - 1];
-            if (tempTile != null)
-            {
-                AddSprite(new Vector3(x, y - 1));
-                tileList.Add(tempTile);
-                FillTiles(new Vector3(x, y - 1));
-            }
+
+        GameObject tempTile;
+        tempTile = spriteArray[x + 1, y];
+        if (tempTile != null && !CheckIfTileInList(tempTile))
+        {             
+            FillTiles(new Vector3(x + 1, y));
         }
+        tempTile = spriteArray[x - 1, y];
+        if (tempTile != null && !CheckIfTileInList(tempTile))
+        {
+            FillTiles(new Vector3(x - 1, y));
+        }
+        tempTile = spriteArray[x, y + 1];
+        if (tempTile != null && !CheckIfTileInList(tempTile))
+        {
+            FillTiles(new Vector3(x, y + 1));
+        }
+        tempTile = spriteArray[x, y - 1];
+        if (tempTile != null && !CheckIfTileInList(tempTile))
+        {
+            FillTiles(new Vector3(x, y - 1));
+        }
+        
     }
 
     bool CheckIfTileInList(GameObject tile)
