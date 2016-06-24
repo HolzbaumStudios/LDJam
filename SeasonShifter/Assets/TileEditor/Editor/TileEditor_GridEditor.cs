@@ -15,6 +15,8 @@ public class TileEditor_GridEditor : Editor {
     enum BrushMode { Create, Delete, Fill};
     BrushMode activeMode = BrushMode.Create;
     bool eraserOn = false;
+    Rect sceneButtonsRect = new Rect(0, 0, 210, 50);
+
 
     public void OnEnable()
     {
@@ -35,8 +37,12 @@ public class TileEditor_GridEditor : Editor {
             Ray r = Camera.current.ScreenPointToRay(new Vector3(e.mousePosition.x, -e.mousePosition.y + Camera.current.pixelHeight));
             Vector3 mousePos = r.origin;
 
+            bool insideGUI = false;
+
+            if (sceneButtonsRect.Contains(Input.mousePosition)) insideGUI = true;
+
             //if mouse down or constantstroke on paint tiles
-            if (e.isMouse && e.button == 0 && (e.type == EventType.MouseDown || e.type == EventType.MouseDrag || constantStroke)) 
+            if (e.isMouse && e.button == 0 && (e.type == EventType.MouseDown || e.type == EventType.MouseDrag || constantStroke) && !insideGUI) 
             {
                 Vector3 aligned = new Vector3(Mathf.Floor(mousePos.x / grid.lineWidth) * grid.lineWidth + grid.lineWidth / 2.0f,
                                     Mathf.Floor(mousePos.y / grid.lineHeight) * grid.lineHeight + grid.lineHeight / 2.0f, 0.0f);
@@ -67,6 +73,7 @@ public class TileEditor_GridEditor : Editor {
 
             ////////GUI/////////////
             Handles.BeginGUI();
+            
             if (GUI.Button(new Rect(10, 10, 70, 30), "Brush"))
             {
                 activeMode = BrushMode.Create;
