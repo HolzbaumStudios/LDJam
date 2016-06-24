@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 6a4f2ef2480896f49a2cc0eead66ecf9
-timeCreated: 1460806960
+timeCreated: 1466783875
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -164,16 +164,18 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: 8.5, y: 38}
-        - {x: -19.5, y: 38}
-        - {x: -24.5, y: 27}
-        - {x: -24.5, y: -27}
-        - {x: -19.5, y: -35}
-        - {x: -6.5, y: -38}
-        - {x: 19.5, y: -38}
-        - {x: 24.5, y: -30}
-        - {x: 24.5, y: 11}
-        - {x: 21.5, y: 32}
+      - - {x: -5.5, y: 38}
+        - {x: -16.5, y: 38}
+        - {x: -22.5, y: 34}
+        - {x: -24.5, y: 24}
+        - {x: -24.5, y: -17}
+        - {x: -17.5, y: -33}
+        - {x: -11.5, y: -36}
+        - {x: -8.5, y: -38}
+        - {x: 22.5, y: -38}
+        - {x: 24.5, y: -33}
+        - {x: 24.5, y: 28}
+        - {x: 20.5, y: 31}
     - name: ShapeShiftCharacter_9
       rect:
         serializedVersion: 2
@@ -185,13 +187,13 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -46, y: 57}
-        - {x: -60, y: 40}
-        - {x: -60, y: -41}
-        - {x: -48, y: -58}
-        - {x: 53, y: -58}
-        - {x: 61, y: 2}
-        - {x: 61, y: 57}
+      - - {x: -58, y: 58}
+        - {x: -61, y: 57}
+        - {x: -61, y: -53}
+        - {x: -40, y: -58}
+        - {x: 28, y: -58}
+        - {x: 61, y: -6}
+        - {x: 61, y: 58}
     - name: ShapeShiftCharacter_10
       rect:
         serializedVersion: 2
