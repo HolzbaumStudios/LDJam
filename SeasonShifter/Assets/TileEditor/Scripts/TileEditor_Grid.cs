@@ -42,7 +42,8 @@ public class TileEditor_Grid : MonoBehaviour {
         {
             Vector3 pos = Camera.current.transform.position;
             Gizmos.color = color;
-
+            
+            //GRID
             for (float y = 0; y < gridHeight; y += lineHeight)
             {
                 Gizmos.DrawLine(new Vector3(0, Mathf.Floor(y / lineHeight) * lineHeight, 0.0f),
@@ -87,4 +88,5 @@ public class TileEditor_Grid : MonoBehaviour {
     {
         this.gameObject.GetComponent<TileEditor_ObjectHandler>().CreateCollider();
     }
+
 }

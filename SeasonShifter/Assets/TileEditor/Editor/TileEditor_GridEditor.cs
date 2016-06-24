@@ -14,6 +14,7 @@ public class TileEditor_GridEditor : Editor {
 
     enum BrushMode { Create, Delete, Fill};
     BrushMode activeMode = BrushMode.Create;
+    bool eraserOn = false;
 
     public void OnEnable()
     {
@@ -43,11 +44,15 @@ public class TileEditor_GridEditor : Editor {
                 switch (activeMode)
                 {
                     case BrushMode.Create:
-                        grid.AddSprite(aligned);
-                        break;
-                    case BrushMode.Delete:
-                        grid.RemoveSprite(aligned);
-                        break;
+                        if (!eraserOn)
+                        {
+                            grid.AddSprite(aligned);
+                        }
+                        else
+                        {
+                            grid.RemoveSprite(aligned);
+                        }
+                        break;                        
                     case BrushMode.Fill:
                         grid.FillArea(aligned);
                         break;   
@@ -59,6 +64,40 @@ public class TileEditor_GridEditor : Editor {
             {
                 constantStroke = !constantStroke;
             }
+
+            ////////GUI/////////////
+            Handles.BeginGUI();
+            if (GUI.Button(new Rect(10, 10, 70, 30), "Brush"))
+            {
+                activeMode = BrushMode.Create;
+            }
+            if (GUI.Button(new Rect(80, 10, 70, 30), "Fill"))
+            {
+                activeMode = BrushMode.Fill;
+            }
+            if (GUI.Button(new Rect(150, 10, 70, 30), "Selection"))
+            {
+                Debug.Log("Pressed");
+            }
+
+            if(activeMode == BrushMode.Create)
+            {
+                if (eraserOn)
+                {
+                    if (GUI.Button(new Rect(10, 50, 70, 30), "Not Erase"))
+                    {
+                        eraserOn = false;
+                    }
+                }
+                else
+                {
+                    if (GUI.Button(new Rect(10, 50, 70, 30), "Erase"))
+                    {
+                        eraserOn = true;
+                    }
+                }
+            }
+            Handles.EndGUI();
 
         }
     }
@@ -97,10 +136,11 @@ public class TileEditor_GridEditor : Editor {
             if(GUILayout.Button("Create", GUILayout.Width(60)))
             {
                 activeMode = BrushMode.Create;
+                eraserOn = false;
             }
             if (GUILayout.Button("Delete", GUILayout.Width(60)))
             {
-                activeMode = BrushMode.Delete;
+                eraserOn = true;
             }
             if (GUILayout.Button("Fill", GUILayout.Width(60)))
             {
