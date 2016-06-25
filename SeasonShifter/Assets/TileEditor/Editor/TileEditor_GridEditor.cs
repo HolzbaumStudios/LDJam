@@ -12,10 +12,15 @@ public class TileEditor_GridEditor : Editor {
     TileEditor_Grid grid;
     private bool constantStroke = false; //If constant stroke is true, tile are painted on mouse over without click
 
-    enum BrushMode { Create, Delete, Fill};
+    enum BrushMode { Create, Fill, Select};
     BrushMode activeMode = BrushMode.Create;
     bool eraserOn = false;
-    Rect sceneButtonsRect = new Rect(0, 0, 210, 50);
+    Rect[] guiSections = new Rect[2] { new Rect(0, 0, 210, 50), new Rect(10, 50, 70, 30) }; //An array that contains all the areas occupied by gui
+
+    //Selection tool variables
+    private Vector3 startingPoint;
+    private Vector3 endPoint;
+    bool selectionOn;
 
 
     public void OnEnable()
@@ -33,35 +38,49 @@ public class TileEditor_GridEditor : Editor {
 
             Event e = Event.current;
 
-
             Ray r = Camera.current.ScreenPointToRay(new Vector3(e.mousePosition.x, -e.mousePosition.y + Camera.current.pixelHeight));
             Vector3 mousePos = r.origin;
 
             bool insideGUI = false;
+            if (MouseInRect(e.mousePosition)) insideGUI = true;
 
-            if (sceneButtonsRect.Contains(Input.mousePosition)) insideGUI = true;
+            Vector3 aligned = new Vector3(Mathf.Floor(mousePos.x / grid.lineWidth) * grid.lineWidth + grid.lineWidth / 2.0f,
+                                    Mathf.Floor(mousePos.y / grid.lineHeight) * grid.lineHeight + grid.lineHeight / 2.0f, 0.0f);
 
             //if mouse down or constantstroke on paint tiles
             if (e.isMouse && e.button == 0 && (e.type == EventType.MouseDown || e.type == EventType.MouseDrag || constantStroke) && !insideGUI) 
             {
-                Vector3 aligned = new Vector3(Mathf.Floor(mousePos.x / grid.lineWidth) * grid.lineWidth + grid.lineWidth / 2.0f,
-                                    Mathf.Floor(mousePos.y / grid.lineHeight) * grid.lineHeight + grid.lineHeight / 2.0f, 0.0f);
-
-                switch (activeMode)
+                if (!selectionOn)
                 {
-                    case BrushMode.Create:
-                        if (!eraserOn)
-                        {
-                            grid.AddSprite(aligned);
-                        }
-                        else
-                        {
-                            grid.RemoveSprite(aligned);
-                        }
-                        break;                        
-                    case BrushMode.Fill:
-                        grid.FillArea(aligned);
-                        break;   
+                    switch (activeMode)
+                    {
+                        case BrushMode.Create:
+                            if (!eraserOn)
+                            {
+                                grid.AddSprite(aligned);
+                            }
+                            else
+                            {
+                                grid.RemoveSprite(aligned);
+                            }
+                            break;
+                        case BrushMode.Fill:
+                            grid.FillArea(aligned);
+                            break;
+                        case BrushMode.Select:
+                            startingPoint = aligned;
+                            selectionOn = true;                            
+                            break;
+                    }
+                }
+            }
+            else if(selectionOn) //If selection tool is active and mouse is being pressed down
+            {
+                endPoint = aligned;
+                Debug.Log("Start Point: " + startingPoint + " End Point: " + endPoint);
+                if (e.isMouse && e.button == 0 && e.type == EventType.MouseUp)
+                {
+                    selectionOn = false;
                 }
             }
 
@@ -84,7 +103,7 @@ public class TileEditor_GridEditor : Editor {
             }
             if (GUI.Button(new Rect(150, 10, 70, 30), "Selection"))
             {
-                Debug.Log("Pressed");
+                activeMode = BrushMode.Select;
             }
 
             if(activeMode == BrushMode.Create)
@@ -112,6 +131,16 @@ public class TileEditor_GridEditor : Editor {
     public void OnDisable()
     {
         SceneView.onSceneGUIDelegate -= GridUpdate;
+    }
+
+    //Check if the mouse position is over a GUI Element
+    bool MouseInRect(Vector2 mousePosition)
+    {
+        foreach(Rect rect in guiSections)
+        {
+            if (rect.Contains(mousePosition)) return true;
+        }
+        return false;
     }
 
     public override void OnInspectorGUI()

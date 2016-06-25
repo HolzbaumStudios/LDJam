@@ -282,6 +282,7 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
         }
     }
 
+
     //Creates a collider based on the child objects
     public void CreateCollider()
     {
@@ -398,5 +399,8 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
 
         return false;
     }
+
+
+
 
 }
