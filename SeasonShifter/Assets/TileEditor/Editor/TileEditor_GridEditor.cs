@@ -76,6 +76,7 @@ public class TileEditor_GridEditor : Editor {
             }
             else if(selectionOn) //If selection tool is active and mouse is being pressed down
             {
+                GUI.DrawTexture(new Rect(startingPoint.x, startingPoint.y, endPoint.x, endPoint.y), new Texture2D(1,1));
                 endPoint = aligned;
                 Debug.Log("Start Point: " + startingPoint + " End Point: " + endPoint);
                 if (e.isMouse && e.button == 0 && e.type == EventType.MouseUp)
