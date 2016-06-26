@@ -261,6 +261,44 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
         
     }
 
+    /// <summary>
+    /// Selection of area
+    /// </summary>
+    public void SelectArea(Vector2 startingPoint, Vector2 endPoint)
+    {
+        int x1, x2, y1, y2;
+        if(startingPoint.x > endPoint.x)
+        {
+            x2 = (int)startingPoint.x;
+            x1 = (int)endPoint.x;
+        }
+        else
+        {
+            x1 = (int)startingPoint.x;
+            x2 = (int)endPoint.x;
+        }
+        if (startingPoint.y > endPoint.y)
+        {
+            y2 = (int)startingPoint.y;
+            y1 = (int)endPoint.y;
+        }
+        else
+        {
+            y1 = (int)startingPoint.y;
+            y2 = (int)endPoint.y;
+        }
+
+        for(int y = y1; y < y2; y++)
+        {
+            for (int x = x1; x < x2; x++)
+            {
+                AddSprite(new Vector3(x+0.5f, y+0.5f));
+            }
+        }
+
+    }
+
+
     bool CheckIfTileInList(GameObject tile)
     {
         foreach(GameObject tileObject in tileList)

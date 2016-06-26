@@ -73,6 +73,11 @@ public class TileEditor_Grid : MonoBehaviour {
         this.gameObject.GetComponent<TileEditor_ObjectHandler>().FillArea(position);
     }
 
+    public void SelectArea(Vector2 startingPoint, Vector2 endPoint)
+    {
+        this.gameObject.GetComponent<TileEditor_ObjectHandler>().SelectArea(startingPoint, endPoint);
+    }
+
     public void EnableEditor()
     {
         editorEnabled = !editorEnabled;
