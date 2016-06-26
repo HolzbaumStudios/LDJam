@@ -76,7 +76,30 @@ public class TileEditor_GridEditor : Editor {
             }
             else if(selectionOn) //If selection tool is active and mouse is being pressed down
             {
-                GUI.DrawTexture(new Rect(startingPoint.x, startingPoint.y, endPoint.x, endPoint.y), new Texture2D(1,1));
+                float x1, x2, y1, y2;
+                if (startingPoint.x > endPoint.x)
+                { 
+                    x1 = endPoint.x;
+                    x2 = startingPoint.x - endPoint.x;
+                }
+                else
+                {
+                    x1 = startingPoint.x;
+                    x2 = endPoint.x - startingPoint.x;
+                }
+                if (startingPoint.y > endPoint.y)
+                {
+                    y1 = endPoint.y;
+                    y2 = startingPoint.y - endPoint.y;
+                }
+                else
+                {
+                    y1 = startingPoint.y;
+                    y2 = endPoint.y - startingPoint.y;
+                }
+                Rect textureRect = new Rect(x1,y1,x2,y2);
+                Debug.Log("X: " + x1 + ", Y: " + y1 + ", Width: " + x2 + ", Height: " + y2);
+                GUI.DrawTexture(textureRect, new Texture2D(1,1));
                 endPoint = aligned;
                 Debug.Log("Start Point: " + startingPoint + " End Point: " + endPoint);
                 if (e.isMouse && e.button == 0 && e.type == EventType.MouseUp)
