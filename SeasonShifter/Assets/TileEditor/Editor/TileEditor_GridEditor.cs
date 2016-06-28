@@ -77,13 +77,16 @@ public class TileEditor_GridEditor : Editor {
             else if(selectionOn) //If selection tool is active and mouse is being pressed down
             {
                 endPoint = aligned;
-                Rect textureRect = new Rect(startingPoint.x-0.5f,startingPoint.y-0.5f,endPoint.x-startingPoint.x,endPoint.y - startingPoint.y);
+                float x1, x2, y1, y2; //Additional value that has to be added to the rect
+                if (startingPoint.x > endPoint.x) { x1 = 0.5f; x2 = -1.5f; } else { x1 = -0.5f; x2 = 0.5f; }
+                if (startingPoint.y > endPoint.y) { y1 = 0.5f; y2 = -1.5f; } else { y1 = -0.5f; y2 = 0.5f; }
+                Rect textureRect = new Rect(startingPoint.x+x1,startingPoint.y+y1,endPoint.x-startingPoint.x+x2,endPoint.y - startingPoint.y+y2);
                 Graphics.DrawTexture(textureRect, new Texture2D(1,1));
                 //Debug.Log("Start Point: " + startingPoint + " End Point: " + endPoint);
                 if (e.isMouse && e.button == 0 && e.type == EventType.MouseUp)
                 {
                     selectionOn = false;
-                    grid.SelectArea(startingPoint, endPoint);
+                    grid.SelectArea(startingPoint, endPoint, eraserOn);
                 }
             }
 
@@ -109,7 +112,7 @@ public class TileEditor_GridEditor : Editor {
                 activeMode = BrushMode.Select;
             }
 
-            if(activeMode == BrushMode.Create)
+            if(activeMode == BrushMode.Create || activeMode == BrushMode.Select)
             {
                 if (eraserOn)
                 {

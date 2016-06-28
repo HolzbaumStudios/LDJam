@@ -216,7 +216,11 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
         if (spriteArray[x, y] != null)
         {
             DestroyImmediate(spriteArray[x, y]);
-            if(TileEditor_BrushCollection.GetActiveBrush() != null)CheckSurroundingTiles(x, y);
+            brush = TileEditor_BrushCollection.GetActiveBrush();
+            if (brush != null)
+            {
+                CheckSurroundingTiles(x, y);
+            }
         }
     }
 
@@ -264,7 +268,7 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
     /// <summary>
     /// Selection of area
     /// </summary>
-    public void SelectArea(Vector2 startingPoint, Vector2 endPoint)
+    public void SelectArea(Vector2 startingPoint, Vector2 endPoint, bool erase)
     {
         int x1, x2, y1, y2;
         if(startingPoint.x > endPoint.x)
@@ -288,11 +292,18 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
             y2 = (int)endPoint.y;
         }
 
-        for(int y = y1; y < y2; y++)
+        for(int y = y1; y <= y2; y++)
         {
-            for (int x = x1; x < x2; x++)
+            for (int x = x1; x <= x2; x++)
             {
-                AddSprite(new Vector3(x+0.5f, y+0.5f));
+                if (!erase)
+                {
+                    AddSprite(new Vector3(x + 0.5f, y + 0.5f));
+                }
+                else
+                {
+                    RemoveSprite(new Vector3(x + 0.5f, y + 0.5f));
+                }
             }
         }
 
@@ -382,7 +393,7 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
                         case 3: xPosition--; break;
                     }
 
-                   // Debug.Log("X: " + xPosition + " , Y: " + yPosition);
+                    Debug.Log("X: " + xPosition + " , Y: " + yPosition);
 
                     switch (spriteArray[xPosition, yPosition].name)
                     {
