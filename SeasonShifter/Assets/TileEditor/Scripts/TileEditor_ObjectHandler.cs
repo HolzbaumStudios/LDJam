@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
+using UnityEditorInternal;
+using System.Reflection;
 
 [System.Serializable]
 public class TileEditor_ObjectHandler : MonoBehaviour {
@@ -11,6 +14,9 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
     private int columns;
     [SerializeField, HideInInspector]
     private int rows;
+
+    //Options relevant while creating objects
+    private string[] sortingLayers;
 
     List<GameObject> tileList; //User for the fill function
 
@@ -447,6 +453,32 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
         }
 
         return false;
+    }
+
+    //Retrieve information about sorting layers and materials
+    public void RetrieveInformation()
+    {
+        string[] tempArray = GetSortingLayerNames();
+        int arrayLength = tempArray.Length + 1;
+        sortingLayers = new string[arrayLength];
+        sortingLayers[0] = "Add new Layer...";
+        for(int x=1;x<arrayLength;x++)
+        {
+            sortingLayers[x] = tempArray[x - 1];
+        }
+    }
+
+    public string[] GetSortingLayerNames()
+    {
+        Type internalEditorUtilityType = typeof(InternalEditorUtility);
+        PropertyInfo sortingLayersProperty = internalEditorUtilityType.GetProperty("sortingLayerNames", BindingFlags.Static | BindingFlags.NonPublic);
+        return (string[])sortingLayersProperty.GetValue(null, new object[0]);
+    }
+    
+    //Return the sorting layers to the TileEditor_Grid script
+    public string[] ReturnSortingLayers()
+    {
+        return sortingLayers;
     }
 
 

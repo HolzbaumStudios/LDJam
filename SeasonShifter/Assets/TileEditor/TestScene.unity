@@ -6839,8 +6839,12 @@ MonoBehaviour:
   lineWidth: 1
   gridHeight: 50
   gridWidth: 50
-  editorEnabled: 0
-  color: {r: 1, g: 1, b: 1, a: 1}
+  editorEnabled: 1
+  sortingLayers:
+  - Add new Layer...
+  - Default
+  sortingLayerIndex: 1
+  color: {r: 1, g: 1, b: 1, a: 0.391}
 --- !u!114 &772327266
 MonoBehaviour:
   m_ObjectHideFlags: 0

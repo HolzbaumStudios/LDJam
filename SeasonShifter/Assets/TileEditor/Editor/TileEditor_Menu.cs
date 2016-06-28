@@ -8,6 +8,8 @@ public class TileEditor_Menu : EditorWindow
     private int levelWidth = 50;
     private int levelHeight = 50;
 
+    private Color32 color = new Color32(255,255,255,100);
+
     [MenuItem("Tools/TileEditor/Add Grid")]
     private static void ShowWindow()
     {
@@ -23,7 +25,7 @@ public class TileEditor_Menu : EditorWindow
 
     public void Init()
     {
-        this.minSize = new Vector2(200, 90);
+        this.minSize = new Vector2(200, 130);
     }
 
     void OnGUI()
@@ -44,6 +46,12 @@ public class TileEditor_Menu : EditorWindow
             GUILayout.Label("Height");
             levelHeight = EditorGUILayout.IntField(levelHeight, GUILayout.Width(40));
         GUILayout.EndHorizontal();
+        GUILayout.Space(20);
+        //Color picker
+        GUILayout.BeginHorizontal();
+        GUILayout.Label("Grid Color");
+        color = EditorGUILayout.ColorField(color, GUILayout.Width(80));
+        GUILayout.EndHorizontal();
 
         GUILayout.Space(5);
         //Button
@@ -62,5 +70,6 @@ public class TileEditor_Menu : EditorWindow
         editor.AddComponent<TileEditor_DisplayBrushCollection>();
         TileEditor_Grid grid = editor.AddComponent<TileEditor_Grid>();
         grid.InitializeGrid(levelWidth, levelHeight);
+        grid.color = color;
     }
 }

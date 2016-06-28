@@ -98,7 +98,7 @@ public class TileEditor_GridEditor : Editor {
 
             ////////GUI/////////////
             Handles.BeginGUI();
-            
+            //Buttons top left-------------
             if (GUI.Button(new Rect(10, 10, 70, 30), "Brush"))
             {
                 activeMode = BrushMode.Create;
@@ -129,6 +129,20 @@ public class TileEditor_GridEditor : Editor {
                     }
                 }
             }
+
+
+            //Buttons top right------------------
+            Rect areaRect = new Rect(sceneview.camera.pixelWidth - 200, 10, 100, 100);
+            GUILayout.BeginArea(areaRect);
+            GUILayout.BeginHorizontal();
+                GUILayout.Label("Sorting Layer:");
+            EditorGUI.Popup(new Rect(0, 0, 30, 15), grid.sortingLayerIndex, grid.sortingLayers);
+            GUILayout.EndHorizontal();
+
+                GUILayout.Label("Material:");
+                GUILayout.Label("Order in layer:");
+            GUILayout.EndArea();
+
             Handles.EndGUI();
 
         }

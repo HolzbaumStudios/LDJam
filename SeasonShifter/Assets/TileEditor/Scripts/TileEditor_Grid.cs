@@ -15,8 +15,13 @@ public class TileEditor_Grid : MonoBehaviour {
 
     public bool editorEnabled = false;
 
+    [HideInInspector]
+    public string[] sortingLayers;
+    public int sortingLayerIndex = 1;
 
     public Color color = Color.white;
+
+    
 
     //Constructor
     public TileEditor_Grid()
@@ -82,6 +87,7 @@ public class TileEditor_Grid : MonoBehaviour {
     {
         editorEnabled = !editorEnabled;
         EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene()); //Marks scene as dirty, so that editor changes are saved
+        if (editorEnabled) RetrieveInformation(); //Udate information like sorting layers and materials
     }
 
     public void LoadTiles()
@@ -92,6 +98,13 @@ public class TileEditor_Grid : MonoBehaviour {
     public void CreateCollider()
     {
         this.gameObject.GetComponent<TileEditor_ObjectHandler>().CreateCollider();
+    }
+
+    public void RetrieveInformation()
+    {
+        TileEditor_ObjectHandler objectHandler = this.gameObject.GetComponent<TileEditor_ObjectHandler>();
+        objectHandler.RetrieveInformation();
+        sortingLayers = objectHandler.ReturnSortingLayers();
     }
 
 }
