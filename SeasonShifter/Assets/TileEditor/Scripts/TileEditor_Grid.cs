@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using UnityEditor.SceneManagement;
 using System.Collections;
+using System;
+using UnityEditorInternal;
+using System.Reflection;
 
 [RequireComponent(typeof(TileEditor_ObjectHandler))]
 [RequireComponent(typeof(TileEditor_DisplayBrushCollection))]
@@ -17,7 +20,7 @@ public class TileEditor_Grid : MonoBehaviour {
 
     [HideInInspector]
     public string[] sortingLayers;
-    public int sortingLayerIndex = 1;
+    public int sortingLayerIndex;
 
     public Color color = Color.white;
 
@@ -100,11 +103,30 @@ public class TileEditor_Grid : MonoBehaviour {
         this.gameObject.GetComponent<TileEditor_ObjectHandler>().CreateCollider();
     }
 
+    //Retrieve information about sorting layers and materials
     public void RetrieveInformation()
     {
-        TileEditor_ObjectHandler objectHandler = this.gameObject.GetComponent<TileEditor_ObjectHandler>();
-        objectHandler.RetrieveInformation();
-        sortingLayers = objectHandler.ReturnSortingLayers();
+        string[] tempArray = GetSortingLayerNames();
+        int arrayLength = tempArray.Length + 1;
+        sortingLayers = new string[arrayLength];
+        sortingLayers[0] = "Add new Layer...";
+        for (int x = 1; x < arrayLength; x++)
+        {
+            sortingLayers[x] = tempArray[x - 1];
+        }
+    }
+
+    public string[] GetSortingLayerNames()
+    {
+        Type internalEditorUtilityType = typeof(InternalEditorUtility);
+        PropertyInfo sortingLayersProperty = internalEditorUtilityType.GetProperty("sortingLayerNames", BindingFlags.Static | BindingFlags.NonPublic);
+        return (string[])sortingLayersProperty.GetValue(null, new object[0]);
+    }
+
+    public void SetSortingLayer()
+    {
+        string name = sortingLayers[sortingLayerIndex];
+        this.gameObject.GetComponent<TileEditor_ObjectHandler>().SetSortingLayer(name);
     }
 
 }

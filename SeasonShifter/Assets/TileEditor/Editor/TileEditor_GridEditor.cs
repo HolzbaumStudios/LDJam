@@ -11,11 +11,12 @@ public class TileEditor_GridEditor : Editor {
 
     TileEditor_Grid grid;
     private bool constantStroke = false; //If constant stroke is true, tile are painted on mouse over without click
+    Rect[] guiSections; //An array that contains all the areas occupied by gui
 
     enum BrushMode { Create, Fill, Select};
     BrushMode activeMode = BrushMode.Create;
     bool eraserOn = false;
-    Rect[] guiSections = new Rect[2] { new Rect(0, 0, 210, 50), new Rect(10, 50, 70, 30) }; //An array that contains all the areas occupied by gui
+    
 
     //Selection tool variables
     private Vector3 startingPoint;
@@ -29,9 +30,11 @@ public class TileEditor_GridEditor : Editor {
         SceneView.onSceneGUIDelegate += GridUpdate;
     }
 
+
     public void GridUpdate(SceneView sceneview)
     {
-        
+        guiSections = new Rect[3] { new Rect(0, 0, 210, 50), new Rect(10, 50, 70, 30), new Rect(sceneview.camera.pixelWidth - 200, 10, 180, 100) }; //An array that contains all the areas occupied by gui
+
         if (grid.editorEnabled)
         {
             HandleUtility.AddDefaultControl(GUIUtility.GetControlID(FocusType.Passive));
@@ -132,18 +135,34 @@ public class TileEditor_GridEditor : Editor {
 
 
             //Buttons top right------------------
-            Rect areaRect = new Rect(sceneview.camera.pixelWidth - 200, 10, 100, 100);
+            Rect areaRect = new Rect(sceneview.camera.pixelWidth - 200, 10, 180, 100);
             GUILayout.BeginArea(areaRect);
             GUILayout.BeginHorizontal();
-                GUILayout.Label("Sorting Layer:");
-            EditorGUI.Popup(new Rect(0, 0, 30, 15), grid.sortingLayerIndex, grid.sortingLayers);
+                //GUILayout.Label("Sorting Layer:");
+            grid.sortingLayerIndex = EditorGUI.Popup(new Rect(0, 0, 120, 15), grid.sortingLayerIndex, grid.sortingLayers);
             GUILayout.EndHorizontal();
 
-                GUILayout.Label("Material:");
-                GUILayout.Label("Order in layer:");
+               // GUILayout.Label("Material:");
+                //GUILayout.Label("Order in layer:");
             GUILayout.EndArea();
 
             Handles.EndGUI();
+
+            //Check if there is a change in the gui 
+            if(GUI.changed)
+            {
+                //Sorting layers
+                if(grid.sortingLayerIndex==0)
+                {
+                    Debug.Log("Add new sorting layer..");
+                    grid.SetSortingLayer();
+                }
+                else
+                {
+                    Debug.Log("Index: " + grid.sortingLayerIndex);
+                    grid.SetSortingLayer();
+                }
+            }
 
         }
     }
