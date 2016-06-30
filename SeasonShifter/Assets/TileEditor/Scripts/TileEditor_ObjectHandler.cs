@@ -18,6 +18,9 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
     TileEditor_Brush brush;
 
     string activeSortingLayer = "Default";
+    int orderInLayer = 0;
+    Material activeMaterial;
+    bool flipX = false, flipY = false;
 
     public void CreateArray(int x, int y)
     {
@@ -26,9 +29,20 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
         rows = y;
     }
 
-    public void SetSortingLayer(string layerName)
+    public void SetSortingLayer(string layerName, int sortingOrder)
     {
         activeSortingLayer = layerName;
+        orderInLayer = sortingOrder;
+    }
+
+    public void SetMaterial(Material material)
+    {
+        activeMaterial = material;
+    }
+
+    public void SetFlipInformation(bool x, bool y)
+    {
+        flipX = x; flipY = y;
     }
 
     public void CheckIfArrayExists()
@@ -89,6 +103,10 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
         //Check which sprite has to be added
         SpriteRenderer tileImage = spriteArray[x, y].GetComponent<SpriteRenderer>();
         tileImage.sortingLayerName = activeSortingLayer; //Set the sorting layer of the sprite
+        if(activeMaterial!=null)tileImage.material = activeMaterial;
+        tileImage.sortingOrder = orderInLayer;
+        tileImage.flipX = this.flipX;
+        tileImage.flipY = this.flipY;
         string tileName;
         if(spriteArray[x, y+1] == null && spriteArray[x, y-1] == null) //if top and bottom tile null
         {

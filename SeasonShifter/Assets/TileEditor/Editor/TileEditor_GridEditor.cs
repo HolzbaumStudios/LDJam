@@ -33,7 +33,7 @@ public class TileEditor_GridEditor : Editor {
 
     public void GridUpdate(SceneView sceneview)
     {
-        guiSections = new Rect[3] { new Rect(0, 0, 210, 50), new Rect(10, 50, 70, 30), new Rect(sceneview.camera.pixelWidth - 200, 10, 180, 100) }; //An array that contains all the areas occupied by gui
+        guiSections = new Rect[3] { new Rect(0, 0, 210, 50), new Rect(10, 50, 70, 30), new Rect(sceneview.camera.pixelWidth - 220, 10, 190, 100) }; //An array that contains all the areas occupied by gui
 
         if (grid.editorEnabled)
         {
@@ -135,15 +135,40 @@ public class TileEditor_GridEditor : Editor {
 
 
             //Buttons top right------------------
-            Rect areaRect = new Rect(sceneview.camera.pixelWidth - 200, 10, 180, 100);
+            Rect areaRect = new Rect(sceneview.camera.pixelWidth - 220, 10, 190, 100);
             GUILayout.BeginArea(areaRect);
             GUILayout.BeginHorizontal();
                 //GUILayout.Label("Sorting Layer:");
-            grid.sortingLayerIndex = EditorGUI.Popup(new Rect(0, 0, 120, 15), grid.sortingLayerIndex, grid.sortingLayers);
+                GUILayout.Label("Sorting Layer:");
+                GUILayout.Space(5);
+                grid.sortingLayerIndex = EditorGUILayout.Popup(grid.sortingLayerIndex, grid.sortingLayers);
             GUILayout.EndHorizontal();
 
-               // GUILayout.Label("Material:");
-                //GUILayout.Label("Order in layer:");
+            GUILayout.BeginHorizontal();
+                GUILayout.Label("Order in layer:");
+                grid.orderInLayer = EditorGUILayout.IntField(grid.orderInLayer);
+                if (GUILayout.Button("+")) grid.orderInLayer++;
+                if (GUILayout.Button("-")) grid.orderInLayer--;
+            GUILayout.EndHorizontal();
+
+            GUILayout.Space(5);
+
+            GUILayout.BeginHorizontal();
+                GUILayout.Label("Material:");
+                grid.material = EditorGUILayout.ObjectField(grid.material,typeof(Material), true) as Material;
+            GUILayout.EndHorizontal();
+
+            GUILayout.Space(5);
+
+            GUILayout.BeginHorizontal();
+                GUILayout.Space(60);
+                GUILayout.Label("Flip X:");
+                grid.flipX = EditorGUILayout.Toggle(grid.flipX);
+                GUILayout.Space(3);
+                GUILayout.Label("Flip Y:");
+                grid.flipY = EditorGUILayout.Toggle(grid.flipY);
+            GUILayout.EndHorizontal();
+
             GUILayout.EndArea();
 
             Handles.EndGUI();
@@ -151,17 +176,7 @@ public class TileEditor_GridEditor : Editor {
             //Check if there is a change in the gui 
             if(GUI.changed)
             {
-                //Sorting layers
-                if(grid.sortingLayerIndex==0)
-                {
-                    Debug.Log("Add new sorting layer..");
-                    grid.SetSortingLayer();
-                }
-                else
-                {
-                    Debug.Log("Index: " + grid.sortingLayerIndex);
-                    grid.SetSortingLayer();
-                }
+                grid.SetObjectInformation(); //Set the sprite renderer information
             }
 
         }

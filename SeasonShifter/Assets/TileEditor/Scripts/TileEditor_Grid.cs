@@ -18,9 +18,13 @@ public class TileEditor_Grid : MonoBehaviour {
 
     public bool editorEnabled = false;
 
-    [HideInInspector]
     public string[] sortingLayers;
     public int sortingLayerIndex;
+    public int orderInLayer;
+    public Material material;
+    public bool flipX = false;
+    public bool flipY = false;
+
 
     public Color color = Color.white;
 
@@ -106,13 +110,22 @@ public class TileEditor_Grid : MonoBehaviour {
     //Retrieve information about sorting layers and materials
     public void RetrieveInformation()
     {
-        string[] tempArray = GetSortingLayerNames();
+        //Sorting layers
+        /*string[] tempArray = GetSortingLayerNames();
         int arrayLength = tempArray.Length + 1;
         sortingLayers = new string[arrayLength];
         sortingLayers[0] = "Add new Layer...";
         for (int x = 1; x < arrayLength; x++)
         {
             sortingLayers[x] = tempArray[x - 1];
+        }*/
+
+        sortingLayers = GetSortingLayerNames();
+
+        //Materials
+        if(material == null)
+        {
+            material = new SpriteRenderer().material;
         }
     }
 
@@ -123,10 +136,14 @@ public class TileEditor_Grid : MonoBehaviour {
         return (string[])sortingLayersProperty.GetValue(null, new object[0]);
     }
 
-    public void SetSortingLayer()
+
+    public void SetObjectInformation()
     {
+        TileEditor_ObjectHandler objectHandler = this.gameObject.GetComponent<TileEditor_ObjectHandler>();
         string name = sortingLayers[sortingLayerIndex];
-        this.gameObject.GetComponent<TileEditor_ObjectHandler>().SetSortingLayer(name);
+        objectHandler.SetSortingLayer(name, orderInLayer);
+        objectHandler.SetMaterial(material);
+        objectHandler.SetFlipInformation(flipX, flipY);
     }
 
 }
