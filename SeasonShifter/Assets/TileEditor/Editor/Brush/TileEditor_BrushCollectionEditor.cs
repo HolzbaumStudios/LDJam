@@ -18,35 +18,39 @@ public class TileEditor_BrushCollectionEditor : Editor {
         buttonStyle.normal.background = null;
 
         int brushCount = TileEditor_BrushCollection.brushContainer.Count;
-        Rect scrollview = GUILayoutUtility.GetRect(10,10,150,70);
-        Rect viewRect = new Rect(0, 0, 60 * brushCount, 70);
-        scrollPosition = GUI.BeginScrollView(scrollview,scrollPosition, viewRect);
-        GUILayout.BeginHorizontal();
+        //Rect scrollview = GUILayoutUtility.GetRect(10,10,150,70);
+        //Rect viewRect = new Rect(0, 0, 60 * brushCount, 70);
+        scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition, true, false, GUILayout.Width(Screen.width), GUILayout.Height(110));
+        EditorGUILayout.BeginHorizontal();
             for(int i = 0; i < brushCount; i++)
             {
-                TileEditor_Brush brush = TileEditor_BrushCollection.brushContainer[i];
-                int x = (5 + 5 * i) + 50 * i;
-                GUIStyle tempStyle = buttonStyle;
-                if (brush == TileEditor_BrushCollection.GetActiveBrush())
-                {
-                    tempStyle.normal = GUI.skin.button.active;
-                }
-                else
-                {
-                    tempStyle.normal.background = null;
-                }
-                if (GUI.Button(new Rect(x,10,50,50),brush.thumbnail, tempStyle))
-                {
-                    TileEditor_BrushCollection.ChangeActiveBrush(brush);
-                }
-                GUI.Label(new Rect(x, 60, 50, 20), brush.GetBrushName(), labelStyle);                
+                EditorGUILayout.BeginVertical();
+                    GUILayout.Space(10);
+                    TileEditor_Brush brush = TileEditor_BrushCollection.brushContainer[i];
+                    int x = (5 + 5 * i) + 50 * i;
+                    GUIStyle tempStyle = buttonStyle;
+                    if (brush == TileEditor_BrushCollection.GetActiveBrush())
+                    {
+                        tempStyle.normal = GUI.skin.button.active;
+                    }
+                    else
+                    {
+                        tempStyle.normal.background = null;
+                    }
+                    if (GUILayout.Button(brush.thumbnail, tempStyle, GUILayout.Width(50), GUILayout.Height(50)))
+                    {
+                        TileEditor_BrushCollection.ChangeActiveBrush(brush);
+                    }
+                    GUILayout.Label(brush.GetBrushName(), labelStyle, GUILayout.Width(50), GUILayout.Height(20));
+                EditorGUILayout.EndVertical();                
             }
-        GUILayout.EndHorizontal();
-        GUI.EndScrollView();
-
+        GUILayout.Space(20);
+        EditorGUILayout.EndHorizontal();
+        EditorGUILayout.EndScrollView();
 
         //Buttons
-       
+        GUILayout.Space(10);
+
         //if a brush is selected add buttons to delete and modify
         if (TileEditor_BrushCollection.GetActiveBrush() != null)
         {
