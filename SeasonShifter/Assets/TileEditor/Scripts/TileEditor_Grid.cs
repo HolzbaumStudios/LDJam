@@ -5,8 +5,6 @@ using System;
 using UnityEditorInternal;
 using System.Reflection;
 
-[RequireComponent(typeof(TileEditor_ObjectHandler))]
-[RequireComponent(typeof(TileEditor_DisplayBrushCollection))]
 [ExecuteInEditMode]
 public class TileEditor_Grid : MonoBehaviour {
 

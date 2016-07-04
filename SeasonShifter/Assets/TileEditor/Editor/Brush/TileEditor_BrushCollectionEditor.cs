@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using System.Collections;
+using System.IO;
 
 [CustomEditor(typeof(TileEditor_DisplayBrushCollection))]
 public class TileEditor_BrushCollectionEditor : Editor {
@@ -8,6 +9,7 @@ public class TileEditor_BrushCollectionEditor : Editor {
     Vector2 scrollPosition = Vector2.zero;
     GUIStyle labelStyle;
     GUIStyle buttonStyle;
+    Texture2D splitterTexture;
 
     public override void OnInspectorGUI()
     {
@@ -97,6 +99,39 @@ public class TileEditor_BrushCollectionEditor : Editor {
 
         GUILayout.EndHorizontal();
         GUILayout.Space(20);
+
+        //SPLITTER------------------------------------------------------
+        GUIStyle splitter = new GUIStyle();
+        Color color = new Color32(130, 130, 130, 255);
+        if (EditorGUIUtility.isProSkin) color = new Color32(80,80,80,255);
+        if (splitterTexture == null) //If texture is null, create one
+        {
+            splitterTexture = new Texture2D(2, 2);
+            Color[] pixelColors = new Color[4];
+            for(int i=0; i < pixelColors.Length; i++)
+            {
+                pixelColors[i] = color; 
+            }
+            splitterTexture.SetPixels(pixelColors);
+        }
+        splitter.normal.background = splitterTexture;
+        splitter.stretchWidth = true;
+        
+        
+
+        GUILayout.Box("", splitter, GUILayout.Width(Screen.width*0.94f), GUILayout.Height(2));
+
+        //SPRITES-------------------------------------------------------
+
+        GUILayout.Space(10);
+
+        if(GUILayout.Button("Import Spridesheet"))
+        {
+            TileEditor_SpritesheetWindow window = (TileEditor_SpritesheetWindow)EditorWindow.GetWindow(typeof(TileEditor_SpritesheetWindow));            
+            window.Init();
+        }
+
+
 
     }
 }

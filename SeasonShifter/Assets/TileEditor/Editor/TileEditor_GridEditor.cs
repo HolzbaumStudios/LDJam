@@ -219,25 +219,6 @@ public class TileEditor_GridEditor : Editor {
         grid.gridHeight = EditorGUILayout.FloatField(grid.gridHeight, GUILayout.Width(50));
         GUILayout.EndHorizontal();
 
-        //Buttons to change editor mode
-        if(grid.editorEnabled)
-        {
-            GUILayout.BeginHorizontal();
-            if(GUILayout.Button("Create", GUILayout.Width(60)))
-            {
-                activeMode = BrushMode.Create;
-                eraserOn = false;
-            }
-            if (GUILayout.Button("Delete", GUILayout.Width(60)))
-            {
-                eraserOn = true;
-            }
-            if (GUILayout.Button("Fill", GUILayout.Width(60)))
-            {
-                activeMode = BrushMode.Fill;
-            }
-            GUILayout.EndHorizontal();
-        }
 
         //Enabled and disables the editor
         string buttonText = "Enable Editor";

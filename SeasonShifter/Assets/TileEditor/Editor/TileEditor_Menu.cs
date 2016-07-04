@@ -65,10 +65,10 @@ public class TileEditor_Menu : EditorWindow
     void CreateEditorObject()
     {
         GameObject editor = new GameObject(objectName);
+        TileEditor_Grid grid = editor.AddComponent<TileEditor_Grid>();
         TileEditor_ObjectHandler objectHandler = editor.AddComponent<TileEditor_ObjectHandler>();
         objectHandler.CreateArray(levelWidth, levelHeight);
         editor.AddComponent<TileEditor_DisplayBrushCollection>();
-        TileEditor_Grid grid = editor.AddComponent<TileEditor_Grid>();
         grid.InitializeGrid(levelWidth, levelHeight);
         grid.color = color;
     }
