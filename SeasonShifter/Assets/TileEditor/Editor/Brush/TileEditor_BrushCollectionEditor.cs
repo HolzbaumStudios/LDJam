@@ -127,8 +127,18 @@ public class TileEditor_BrushCollectionEditor : Editor {
 
         if(GUILayout.Button("Import Spridesheet"))
         {
-            TileEditor_SpritesheetWindow window = (TileEditor_SpritesheetWindow)EditorWindow.GetWindow(typeof(TileEditor_SpritesheetWindow));            
+            //TileEditor_SpriteCollection.ImportSpritesheet();
+           TileEditor_SpritesheetWindow window = (TileEditor_SpritesheetWindow)EditorWindow.GetWindow(typeof(TileEditor_SpritesheetWindow));            
             window.Init();
+        }
+
+        if (TileEditor_SpriteCollection.spriteList != null)
+        {
+            foreach (Sprite sprite in TileEditor_SpriteCollection.spriteList)
+            {
+                Debug.Log(sprite.name);
+                GUILayout.Button(sprite.texture, GUILayout.Width(70), GUILayout.Height(70));
+            }
         }
 
 
