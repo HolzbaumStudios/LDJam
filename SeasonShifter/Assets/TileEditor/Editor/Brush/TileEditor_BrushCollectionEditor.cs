@@ -136,7 +136,7 @@ public class TileEditor_BrushCollectionEditor : Editor {
         {
             foreach (Sprite sprite in TileEditor_SpriteCollection.spriteList)
             {
-                Debug.Log(sprite.name);
+                //Debug.Log(sprite.name);
                 GUILayout.Button(sprite.texture, GUILayout.Width(70), GUILayout.Height(70));
             }
         }

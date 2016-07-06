@@ -11,7 +11,10 @@ public class TileEditor_SpritesheetWindow : EditorWindow {
     private float sizeMultiplier = 0.5f;
     private int sliceHeight;
     private int sliceWidth;
-    private List<SpriteMetaData> spriteList = new List<SpriteMetaData>(); 
+    private List<SpriteMetaData> spriteList = new List<SpriteMetaData>();
+
+    private int numberOfVerticalSlices = 0;
+    private int numberOfHorizontalSlices = 0;
 
 
     public void Init()
@@ -30,6 +33,7 @@ public class TileEditor_SpritesheetWindow : EditorWindow {
             if(GUILayout.Button("Slice"))
             {
                 SliceSprite();
+                //TileEditor_SpriteCollection.ImportSpritesheet(AssetDatabase.GetAssetPath(spriteSheet));
             }
         sizeMultiplier = EditorGUILayout.Slider(sizeMultiplier, 0.1f, 4);
         EditorGUILayout.EndHorizontal();
@@ -41,7 +45,25 @@ public class TileEditor_SpritesheetWindow : EditorWindow {
         {
             //Debug.Log("Changed!");
             this.minSize = size + new Vector2(5, 80);
+
+            if(sliceWidth!=0)numberOfVerticalSlices = spriteSheet.width / sliceWidth; else { numberOfVerticalSlices = 0; }
+            if (sliceHeight != 0) numberOfHorizontalSlices = spriteSheet.height / sliceHeight; else { numberOfHorizontalSlices = 0; }
         }
+
+
+        Handles.BeginGUI();
+        for(int i=0;i<=numberOfHorizontalSlices;i++)
+        {
+            float lineHeight = 20 + (sliceHeight * sizeMultiplier) * i;
+            Handles.DrawLine(new Vector3(5, lineHeight), new Vector3(size.x, lineHeight));
+        }
+        for (int i = 0; i <= numberOfVerticalSlices; i++)
+        {
+            float lineWidth = (sliceWidth * sizeMultiplier) * i;
+            Handles.DrawLine(new Vector3(lineWidth, 21), new Vector3(lineWidth, size.y));
+        }
+
+        Handles.EndGUI();
     }
 
    
@@ -50,9 +72,7 @@ public class TileEditor_SpritesheetWindow : EditorWindow {
     
     void SliceSprite()
     {
-        int numberOfVerticalSlices = spriteSheet.width / sliceWidth;
-        int numberOfHorizontalSlices = spriteSheet.height / sliceHeight;
-
+        
         List<Rect> spriteRects = new List<Rect>();
 
         //Store the rect information of the slices
@@ -100,10 +120,11 @@ public class TileEditor_SpritesheetWindow : EditorWindow {
         }
 
         //Create new sprites with the pixelinformation
-        foreach(Color[,] pixelBlock in pixelInformation)
+        Sprite newSprite = new Sprite(); 
+        foreach (Color[,] pixelBlock in pixelInformation)
         {
-            Texture2D newTexture = new Texture2D(sliceWidth, sliceHeight);
-            for(int x=0; x<sliceWidth;x++)
+            Texture2D newTexture = new Texture2D(sliceWidth, sliceHeight, TextureFormat.ARGB32, false);
+            for (int x=0; x<sliceWidth;x++)
             {
                 for (int y = 0; y < sliceHeight; y++)
                 {
@@ -111,9 +132,9 @@ public class TileEditor_SpritesheetWindow : EditorWindow {
                 }
             }
 
+            newTexture.Apply();
 
-            Sprite newSprite = new Sprite();
-            newSprite = Sprite.Create(newTexture, new Rect(0, 0, sliceWidth, sliceHeight), new Vector2(0.5f, 0.5f), newTexture.width);
+            newSprite = Sprite.Create(newTexture, new Rect(0, 0, sliceWidth, sliceHeight), new Vector2(0.5f, 0.5f));
             TileEditor_SpriteCollection.AddSprite(newSprite);
             
         }
