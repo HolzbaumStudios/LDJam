@@ -21,6 +21,12 @@ public static class TileEditor_SpriteCollection{
         spriteList.Add(sprite);
     }
 
+    public static void ChangeActiveSprite(int index)
+    {
+        activeSprite = spriteList[index];
+        TileEditor_BrushCollection.ChangeActiveBrush(null);
+    }
+
 
     public static void ImportSpritesheet(string path)
     {

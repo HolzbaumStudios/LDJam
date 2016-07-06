@@ -6,7 +6,8 @@ using System.IO;
 [CustomEditor(typeof(TileEditor_DisplayBrushCollection))]
 public class TileEditor_BrushCollectionEditor : Editor {
 
-    Vector2 scrollPosition = Vector2.zero;
+    Vector2 scrollPosition = Vector2.zero; //Brushes
+    Vector2 scrollPosition2 = Vector2.zero; //Sprites
     GUIStyle labelStyle;
     GUIStyle buttonStyle;
     Texture2D splitterTexture;
@@ -56,7 +57,7 @@ public class TileEditor_BrushCollectionEditor : Editor {
         //if a brush is selected add buttons to delete and modify
         if (TileEditor_BrushCollection.GetActiveBrush() != null)
         {
-            GUILayout.BeginHorizontal();
+            EditorGUILayout.BeginHorizontal();
 
             if (GUILayout.Button("Delete", GUILayout.Width(80)))
             {
@@ -77,12 +78,12 @@ public class TileEditor_BrushCollectionEditor : Editor {
                 TileEditor_SaveLoad.SaveSingleBrush();
             }
 
-            GUILayout.EndHorizontal();
+            EditorGUILayout.EndHorizontal();
         }
 
         GUILayout.Space(5);
 
-        GUILayout.BeginHorizontal();
+        EditorGUILayout.BeginHorizontal();
             //Opens window to add brush
             if (GUILayout.Button("+ Brush", GUILayout.Width(80)))
             {
@@ -97,7 +98,7 @@ public class TileEditor_BrushCollectionEditor : Editor {
                 TileEditor_SaveLoad.LoadSingleBrush();
             }
 
-        GUILayout.EndHorizontal();
+        EditorGUILayout.EndHorizontal();
         GUILayout.Space(20);
 
         //SPLITTER------------------------------------------------------
@@ -132,16 +133,36 @@ public class TileEditor_BrushCollectionEditor : Editor {
             window.Init();
         }
 
-        if (TileEditor_SpriteCollection.spriteList != null)
+
+        if (TileEditor_SpriteCollection.spriteList.Count > 0)
         {
-            foreach (Sprite sprite in TileEditor_SpriteCollection.spriteList)
+            int buttonWidth = 50;
+            int columns = (int)((Screen.width * 0.9f) / (buttonWidth + 5));
+
+            EditorGUILayout.BeginVertical();
+            scrollPosition2 = EditorGUILayout.BeginScrollView(scrollPosition2, false, false);
+
+            int countSprites = TileEditor_SpriteCollection.spriteList.Count;
+            for (int i = 0; i < countSprites; i++)
             {
-                //Debug.Log(sprite.name);
-                GUILayout.Button(sprite.texture, GUILayout.Width(70), GUILayout.Height(70));
+                EditorGUILayout.BeginHorizontal();
+                for (int j = 0; j < columns; j++)
+                {
+                    int sum = i * columns + j;
+                    if (sum < countSprites)
+                    {
+                        if(GUILayout.Button(TileEditor_SpriteCollection.spriteList[i * columns + j].texture, GUILayout.Width(buttonWidth), GUILayout.Height(buttonWidth)))
+                        {
+                            TileEditor_SpriteCollection.ChangeActiveSprite(sum);
+                        }
+                    }                          
+                }
+                EditorGUILayout.EndHorizontal();
             }
+            EditorGUILayout.EndScrollView();
+            EditorGUILayout.EndVertical();
         }
-
-
-
+        GUILayout.Space(5);  
+        
     }
 }
