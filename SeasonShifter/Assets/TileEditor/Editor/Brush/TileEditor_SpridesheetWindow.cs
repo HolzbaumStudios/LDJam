@@ -105,11 +105,6 @@ public class TileEditor_SpritesheetWindow : EditorWindow {
             {
                 for (int y = (int)rect.yMin; y < rect.height; y++)
                 {
-                    //Debug.Log(rect);
-                    //Debug.Log("Set pixel X: " + x + " Y: " + y);
-                    //Debug.Log("Rect: " + rect);
-                    //Debug.Log("Rect MIn and max: " + rect.xMin + ", " + rect.yMin + ", " + rect.width + ", " + rect.height + ", ");
-                    //Debug.Log("Set pixel Count X: " + countX + "Count Y: " + countY);
                     tempPixel[countX,countY] = spriteSheet.GetPixel(x, y);
                     countY++;
                 }
@@ -134,10 +129,12 @@ public class TileEditor_SpritesheetWindow : EditorWindow {
 
             newTexture.Apply();
 
-            newSprite = Sprite.Create(newTexture, new Rect(0, 0, sliceWidth, sliceHeight), new Vector2(0.5f, 0.5f));
+            newSprite = Sprite.Create(newTexture, new Rect(0, 0, newTexture.width, newTexture.height), new Vector2(0.5f, 0.5f));
             TileEditor_SpriteCollection.AddSprite(newSprite);
             
         }
+        //Save the new sprites
+        TileEditor_SpriteCollection.Save();
 
     }
 }

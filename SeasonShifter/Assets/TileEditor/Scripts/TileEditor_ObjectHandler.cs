@@ -57,8 +57,17 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
     {
         //Get active brush
         //brushCollection = this.gameObject.GetComponent<TileEditor_BrushCollection>();
-        brush = TileEditor_BrushCollection.GetActiveBrush();
-        if (brush != null)
+        bool singleSprite = false;
+        if(TileEditor_BrushCollection.GetActiveBrush() != null)
+        {
+            brush = TileEditor_BrushCollection.GetActiveBrush();
+        }
+        else
+        {
+            singleSprite = true;
+        }
+        
+        if (brush != null || TileEditor_SpriteCollection.GetActiveSprite() != null)
         {
             //Get array value by rounding down position
             int x = (int)position.x;
@@ -66,21 +75,29 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
             //If there is no object, create it now
             if (spriteArray[x, y] == null)
             {
-                spriteArray[x, y] = new GameObject("Tile");
+                spriteArray[x, y] = new GameObject("Object"); //If it is a tile, the name is changed in the ChangeSprite function
                 spriteArray[x, y].transform.position = position;
                 spriteArray[x, y].transform.SetParent(this.transform);
                 spriteArray[x, y].AddComponent<SpriteRenderer>();
             }
-        
+
             //Change sprite of the selected field
-            ChangeSprite(x, y);
-            CheckSurroundingTiles(x, y);
+            if (!singleSprite)
+            {
+                ChangeSprite(x, y);
+                CheckSurroundingTiles(x, y);
+            }
+            else
+            {
+                ChangeSingleSprite(x, y);
+            }
         }
         else
         {
             Debug.LogWarning("You have to select a brush first!");
         }
-    }   
+    }
+
 
     void CheckSurroundingTiles(int x, int y)
     {
@@ -231,6 +248,19 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
         }
 
         spriteArray[x, y].name = tileName;
+    }
+
+    //if no brush is used
+    public void ChangeSingleSprite(int x, int y)
+    {
+        SpriteRenderer sprite = spriteArray[x, y].GetComponent<SpriteRenderer>();
+        sprite.sortingLayerName = activeSortingLayer; //Set the sorting layer of the sprite
+        if (activeMaterial != null) sprite.material = activeMaterial;
+        sprite.sortingOrder = orderInLayer;
+        sprite.flipX = this.flipX;
+        sprite.flipY = this.flipY;
+        
+        sprite.sprite = TileEditor_SpriteCollection.GetActiveSprite();
     }
 
     public void RemoveSprite(Vector3 position)

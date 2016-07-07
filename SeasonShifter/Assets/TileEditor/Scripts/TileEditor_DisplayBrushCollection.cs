@@ -14,5 +14,6 @@ public class TileEditor_DisplayBrushCollection : MonoBehaviour {
     {
         //Debug.Log("Load brushes");
         TileEditor_BrushCollection.LoadBrushCollection();
+        TileEditor_SpriteCollection.Load();
     }
 }
