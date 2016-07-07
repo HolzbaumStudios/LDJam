@@ -21,6 +21,11 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
     int orderInLayer = 0;
     Material activeMaterial;
     bool flipX = false, flipY = false;
+    //Collider variables
+    int colliderType = 0;
+    bool isTrigger = false;
+    private Vector2 boxColliderSize = new Vector2(1, 1);
+    private Vector2 boxColliderOffset = new Vector2(0, 0);
 
     public void CreateArray(int x, int y)
     {
@@ -43,6 +48,14 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
     public void SetFlipInformation(bool x, bool y)
     {
         flipX = x; flipY = y;
+    }
+
+    public void SetColliderInformation(int index, bool isTrigger, Vector2 size, Vector2 offset)
+    {
+        colliderType = index;
+        this.isTrigger = isTrigger;
+        boxColliderSize = size;
+        boxColliderOffset = offset;
     }
 
     public void CheckIfArrayExists()
@@ -259,8 +272,32 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
         sprite.sortingOrder = orderInLayer;
         sprite.flipX = this.flipX;
         sprite.flipY = this.flipY;
-        
+
         sprite.sprite = TileEditor_SpriteCollection.GetActiveSprite();
+
+        switch (colliderType)
+        {
+            case 1:
+            {
+                BoxCollider2D boxCollider = spriteArray[x, y].AddComponent<BoxCollider2D>();
+                if (isTrigger) boxCollider.isTrigger = true;
+                boxCollider.size = boxColliderSize;
+                boxCollider.offset = boxColliderOffset;
+                break; 
+            }
+            case 2:
+            {
+                CircleCollider2D circleCollider = spriteArray[x, y].AddComponent<CircleCollider2D>();
+                if (isTrigger) circleCollider.isTrigger = true;
+                break;
+            }
+            case 3:
+            {
+                PolygonCollider2D polygonCollider = spriteArray[x, y].AddComponent<PolygonCollider2D>();
+                if (isTrigger) polygonCollider.isTrigger = true;
+                break;
+            }
+        }    
     }
 
     public void RemoveSprite(Vector3 position)

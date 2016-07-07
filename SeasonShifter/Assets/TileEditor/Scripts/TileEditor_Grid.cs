@@ -16,12 +16,20 @@ public class TileEditor_Grid : MonoBehaviour {
 
     public bool editorEnabled = false;
 
+    //For brushes and single sprites
     public string[] sortingLayers;
     public int sortingLayerIndex;
     public int orderInLayer;
     public Material material;
     public bool flipX = false;
     public bool flipY = false;
+
+    //For single sprites
+    public string[] colliderType = new string[] { "None", "Box Collider 2D", "Circle Collider 2D", "Polygon Collider 2D" };
+    public int colliderTypeIndex;
+    public bool isTrigger = false;
+    public Vector2 boxColliderSize = new Vector2(1,1);
+    public Vector2 boxColliderOffset = new Vector2(0,0);
 
 
     public Color color = Color.white;
@@ -142,6 +150,7 @@ public class TileEditor_Grid : MonoBehaviour {
         objectHandler.SetSortingLayer(name, orderInLayer);
         objectHandler.SetMaterial(material);
         objectHandler.SetFlipInformation(flipX, flipY);
+        objectHandler.SetColliderInformation(colliderTypeIndex, isTrigger, boxColliderSize, boxColliderOffset);
     }
 
 }

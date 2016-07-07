@@ -16,7 +16,8 @@ public class TileEditor_GridEditor : Editor {
     enum BrushMode { Create, Fill, Select};
     BrushMode activeMode = BrushMode.Create;
     bool eraserOn = false;
-    
+
+    Rect areaRect = new Rect(0,0,0,0);
 
     //Selection tool variables
     private Vector3 startingPoint;
@@ -33,7 +34,7 @@ public class TileEditor_GridEditor : Editor {
 
     public void GridUpdate(SceneView sceneview)
     {
-        guiSections = new Rect[3] { new Rect(0, 0, 210, 50), new Rect(10, 50, 70, 30), new Rect(sceneview.camera.pixelWidth - 220, 10, 190, 100) }; //An array that contains all the areas occupied by gui
+        guiSections = new Rect[3] { new Rect(0, 0, 210, 50), new Rect(10, 50, 70, 30), areaRect }; //An array that contains all the areas occupied by gui
 
         if (grid.editorEnabled)
         {
@@ -135,40 +136,83 @@ public class TileEditor_GridEditor : Editor {
 
 
             //Buttons top right------------------
-            Rect areaRect = new Rect(sceneview.camera.pixelWidth - 220, 10, 190, 100);
+            Texture2D image = new Texture2D(2, 2);
+            if (TileEditor_BrushCollection.GetActiveBrush() != null)
+            {
+                image = TileEditor_BrushCollection.GetActiveBrush().thumbnail;
+                areaRect = new Rect(sceneview.camera.pixelWidth - 220, 10, 190, 150);
+            }
+            else if(TileEditor_SpriteCollection.GetActiveSprite() != null)
+            {
+                image = TileEditor_SpriteCollection.GetActiveSprite().texture;
+                areaRect = new Rect(sceneview.camera.pixelWidth - 220, 10, 190, 250);
+            }           
+
             GUILayout.BeginArea(areaRect);
-            GUILayout.BeginHorizontal();
+            EditorGUILayout.BeginHorizontal();
+                GUILayout.FlexibleSpace();
+                GUILayout.Box(image, GUILayout.Width(50), GUILayout.Height(50));
+                GUILayout.FlexibleSpace();
+            EditorGUILayout.EndHorizontal();
+
+            EditorGUILayout.BeginHorizontal();
                 //GUILayout.Label("Sorting Layer:");
                 GUILayout.Label("Sorting Layer:");
                 GUILayout.Space(5);
                 grid.sortingLayerIndex = EditorGUILayout.Popup(grid.sortingLayerIndex, grid.sortingLayers);
-            GUILayout.EndHorizontal();
+            EditorGUILayout.EndHorizontal();
 
-            GUILayout.BeginHorizontal();
+            EditorGUILayout.BeginHorizontal();
                 GUILayout.Label("Order in layer:");
                 grid.orderInLayer = EditorGUILayout.IntField(grid.orderInLayer);
                 if (GUILayout.Button("+")) grid.orderInLayer++;
                 if (GUILayout.Button("-")) grid.orderInLayer--;
-            GUILayout.EndHorizontal();
+            EditorGUILayout.EndHorizontal();
 
             GUILayout.Space(5);
 
-            GUILayout.BeginHorizontal();
+            EditorGUILayout.BeginHorizontal();
                 GUILayout.Label("Material:");
                 grid.material = EditorGUILayout.ObjectField(grid.material,typeof(Material), true) as Material;
-            GUILayout.EndHorizontal();
+            EditorGUILayout.EndHorizontal();
 
             GUILayout.Space(5);
 
-            GUILayout.BeginHorizontal();
+            EditorGUILayout.BeginHorizontal();
                 GUILayout.Space(60);
                 GUILayout.Label("Flip X:");
                 grid.flipX = EditorGUILayout.Toggle(grid.flipX);
                 GUILayout.Space(3);
                 GUILayout.Label("Flip Y:");
                 grid.flipY = EditorGUILayout.Toggle(grid.flipY);
-            GUILayout.EndHorizontal();
+            EditorGUILayout.EndHorizontal();
 
+            GUILayout.Space(2);
+
+            if(TileEditor_SpriteCollection.GetActiveSprite() != null)
+            {
+                EditorGUILayout.Separator();
+                GUILayout.Space(2);
+                EditorGUILayout.BeginHorizontal();
+                    GUILayout.Label("Collider:");
+                    GUILayout.Space(5);
+                    grid.colliderTypeIndex = EditorGUILayout.Popup(grid.colliderTypeIndex, grid.colliderType);
+                EditorGUILayout.EndHorizontal();
+                if (grid.colliderTypeIndex != 0)
+                {
+                    EditorGUILayout.BeginHorizontal();
+                    GUILayout.Label("Is trigger");
+                    grid.isTrigger = EditorGUILayout.Toggle(grid.isTrigger);
+                    EditorGUILayout.EndHorizontal();
+
+                    if(grid.colliderTypeIndex == 1)
+                    {
+                        grid.boxColliderSize = EditorGUILayout.Vector2Field("Size",grid.boxColliderSize);
+                        grid.boxColliderOffset = EditorGUILayout.Vector2Field("Offset", grid.boxColliderOffset);
+                    }
+                }
+            }
+            
             GUILayout.EndArea();
 
             Handles.EndGUI();
