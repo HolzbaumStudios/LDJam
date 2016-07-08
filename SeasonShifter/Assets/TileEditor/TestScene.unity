@@ -9268,7 +9268,7 @@ MonoBehaviour:
   lineWidth: 1
   gridHeight: 50
   gridWidth: 50
-  editorEnabled: 1
+  editorEnabled: 0
   sortingLayers:
   - Default
   - Default

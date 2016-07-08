@@ -10,6 +10,7 @@ public static class TileEditor_SaveLoad {
 
     //public static TileEditor_BrushCollection savedBrushCollection;
     public static List<TileEditor_Brush> savedBrushList;
+    public static List<TileEditor_Sprites> savedSpritesList;
 
 
     public static void Save()
@@ -23,10 +24,10 @@ public static class TileEditor_SaveLoad {
 
     public static void SaveSpriteCollection()
     {
-        List<byte[]> spriteBytes = TileEditor_SpriteCollection.byteList;
+        savedSpritesList = TileEditor_SpriteCollection.spriteGroupCollection;
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Create(Application.persistentDataPath + "/spriteCollection.tef"); //tef = tile editor file
-        bf.Serialize(file, spriteBytes);
+        bf.Serialize(file, savedSpritesList);
         file.Close();
     }
 
@@ -73,12 +74,11 @@ public static class TileEditor_SaveLoad {
     {
         if (File.Exists(Application.persistentDataPath + "/spriteCollection.tef"))
         {
-            List<byte[]> spriteBytes = new List<byte[]>();
             BinaryFormatter bf = new BinaryFormatter();
             FileStream file = File.Open(Application.persistentDataPath + "/spriteCollection.tef", FileMode.Open);
-            spriteBytes = (List<byte[]>)bf.Deserialize(file);
+            TileEditor_SaveLoad.savedSpritesList = (List<TileEditor_Sprites>)bf.Deserialize(file);
             file.Close();
-            TileEditor_SpriteCollection.byteList = spriteBytes;
+            TileEditor_SpriteCollection.spriteGroupCollection = savedSpritesList;
         }
         else
         {

@@ -10,26 +10,24 @@ public static class TileEditor_SpriteCollection{
 
     [System.NonSerialized]
     private static Sprite activeSprite;
+
+    public static int activeGroupIndex = 0;
     [System.NonSerialized]
-    public static List<Sprite> spriteList = new List<Sprite>();
-
-    [SerializeField]
-    public static List<byte[]> byteList;
-
-
+    public static List<TileEditor_Sprites> spriteGroupCollection = new List<TileEditor_Sprites>();
+    
     public static Sprite GetActiveSprite()
     {
         return activeSprite;
     }
 
-    public static void AddSprite(Sprite sprite)
+    public static void AddGroup(TileEditor_Sprites spriteGroup)
     {
-        spriteList.Add(sprite);
+        spriteGroupCollection.Add(spriteGroup);
     }
 
     public static void ChangeActiveSprite(int index)
     {
-        activeSprite = spriteList[index];
+        activeSprite = spriteGroupCollection[activeGroupIndex].spriteGroup[index];
         TileEditor_BrushCollection.ChangeActiveBrush(null);
     }
 
@@ -41,7 +39,6 @@ public static class TileEditor_SpriteCollection{
 
     public static void ImportSpritesheet(string path)
     {
-        Debug.Log("Executed");
         //string path = EditorUtility.OpenFilePanel("Select a spritesheet", "", "png");
         //path = path.Replace(Application.dataPath, "Assets");
         Sprite[] sprites = AssetDatabase.LoadAllAssetRepresentationsAtPath(path).OfType<Sprite>().ToArray();
@@ -52,14 +49,17 @@ public static class TileEditor_SpriteCollection{
 
             Sprite newSprite = Sprite.Create(sprite.texture, new Rect(0, 0, sprite.texture.width, sprite.texture.height), new Vector2(0.5f, 0.5f));
 
-            spriteList.Add(newSprite); 
+            spriteGroupCollection[activeGroupIndex].spriteGroup.Add(newSprite); 
         }
     }
 
     //Saves the sprite collection
     public static void Save()
     {
-        ConvertToPng();
+        foreach (TileEditor_Sprites spriteGroup in TileEditor_SpriteCollection.spriteGroupCollection)
+        {
+            spriteGroup.ConvertToPng();
+        }
         TileEditor_SaveLoad.SaveSpriteCollection();
     }
 
@@ -67,43 +67,10 @@ public static class TileEditor_SpriteCollection{
     public static void Load()
     {
         TileEditor_SaveLoad.LoadSpriteCollection();
-        if(byteList != null)ConvertToSprite();
-    }
-
-
-    //Convert sprite info to byte to make it serializable
-    public static void ConvertToPng()
-    {
-        byteList = new List<byte[]>();
-        for (int i = 0; i < spriteList.Count; i++)
+        foreach (TileEditor_Sprites spriteGroup in TileEditor_SpriteCollection.spriteGroupCollection)
         {
-            byte[] imageBytes;
-            if (spriteList[i] != null)
-            {
-                Texture2D texture = spriteList[i].texture;
-                imageBytes = texture.EncodeToPNG();
-
-            }
-            else
-            {
-                imageBytes = new byte[0];
-            }
-            byteList.Add(imageBytes);
+            spriteGroup.ConvertToSprite();
         }
     }
 
-
-    //Convert bytes to sprite
-    public static void ConvertToSprite()
-    {
-        spriteList = new List<Sprite>();
-        for (int i = 0; i < byteList.Count; i++)
-        {
-            Texture2D texture = new Texture2D(2, 2);
-            texture.LoadImage(byteList[i]);
-            spriteList.Add(Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f), texture.width));
-
-        }
-
-    }
 }

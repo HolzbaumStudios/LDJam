@@ -134,8 +134,11 @@ public class TileEditor_BrushCollectionEditor : Editor {
             window.Init();
         }
 
-
-        if (TileEditor_SpriteCollection.spriteList.Count > 0)
+        TileEditor_SpriteCollection.activeGroupIndex = EditorGUILayout.Popup(TileEditor_SpriteCollection.activeGroupIndex, new string[] { "Hallo" });
+        int index = TileEditor_SpriteCollection.activeGroupIndex;
+        
+        int countSprites = TileEditor_SpriteCollection.spriteGroupCollection[index].spriteGroup.Count;
+        if (countSprites > 0)
         {
             int buttonWidth = 50;
             int columns = (int)((Screen.width * 0.9f) / (buttonWidth));
@@ -143,7 +146,6 @@ public class TileEditor_BrushCollectionEditor : Editor {
             EditorGUILayout.BeginVertical();
             scrollPosition2 = EditorGUILayout.BeginScrollView(scrollPosition2, false, false);
 
-            int countSprites = TileEditor_SpriteCollection.spriteList.Count;
             for (int i = 0; i < countSprites; i++)
             {
                 EditorGUILayout.BeginHorizontal();
@@ -154,7 +156,7 @@ public class TileEditor_BrushCollectionEditor : Editor {
                     {
                         GUIStyle tempStyle = buttonStyle;
                         tempStyle.margin = new RectOffset(0, 0, 0, 0);
-                        if (TileEditor_SpriteCollection.spriteList[sum] == TileEditor_SpriteCollection.GetActiveSprite())
+                        if (TileEditor_SpriteCollection.spriteGroupCollection[index].spriteGroup[sum] == TileEditor_SpriteCollection.GetActiveSprite())
                         {
                             tempStyle.normal = GUI.skin.button.active;
                         }
@@ -162,7 +164,7 @@ public class TileEditor_BrushCollectionEditor : Editor {
                         {
                             tempStyle.normal.background = null;
                         }
-                        if (GUILayout.Button(TileEditor_SpriteCollection.spriteList[i * columns + j].texture, tempStyle, GUILayout.Width(buttonWidth), GUILayout.Height(buttonWidth)))
+                        if (GUILayout.Button(TileEditor_SpriteCollection.spriteGroupCollection[index].spriteGroup[i * columns + j].texture, tempStyle, GUILayout.Width(buttonWidth), GUILayout.Height(buttonWidth)))
                         {
                             TileEditor_SpriteCollection.ChangeActiveSprite(sum);
                         }

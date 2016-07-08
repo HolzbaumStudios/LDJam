@@ -130,7 +130,7 @@ public class TileEditor_SpritesheetWindow : EditorWindow {
             newTexture.Apply();
 
             newSprite = Sprite.Create(newTexture, new Rect(0, 0, newTexture.width, newTexture.height), new Vector2(0.5f, 0.5f));
-            TileEditor_SpriteCollection.AddSprite(newSprite);
+            TileEditor_SpriteCollection.spriteGroupCollection[TileEditor_SpriteCollection.activeGroupIndex].AddSprite(newSprite);
             
         }
         //Save the new sprites
