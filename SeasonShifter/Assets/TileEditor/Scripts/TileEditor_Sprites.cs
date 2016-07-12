@@ -15,9 +15,8 @@ public class TileEditor_Sprites {
     private List<byte[]> byteList;
 
 
-    public TileEditor_Sprites( int index, string name)
+    public TileEditor_Sprites(string name)
     {
-        spriteGroupName = "spriteGroup" + index;
         if(spriteGroup== null) spriteGroup = new List<Sprite>();
         SetGroupName(name);
         

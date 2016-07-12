@@ -125,19 +125,25 @@ public class TileEditor_BrushCollectionEditor : Editor {
 
         //SPRITES-------------------------------------------------------
 
+        TileEditor_Sprites spriteGroup = TileEditor_SpriteCollection.GetActiveSpriteGroup();
+
+
         GUILayout.Space(10);
 
-        if(GUILayout.Button("Import Spridesheet"))
-        {
-            //TileEditor_SpriteCollection.ImportSpritesheet();
-           TileEditor_SpritesheetWindow window = (TileEditor_SpritesheetWindow)EditorWindow.GetWindow(typeof(TileEditor_SpritesheetWindow));            
-            window.Init();
-        }
+        string[] groupNames = TileEditor_SpriteCollection.GetGroupNames();
 
-        TileEditor_SpriteCollection.activeGroupIndex = EditorGUILayout.Popup(TileEditor_SpriteCollection.activeGroupIndex, new string[] { "Hallo" });
-        int index = TileEditor_SpriteCollection.activeGroupIndex;
+        EditorGUILayout.BeginHorizontal();
+            TileEditor_SpriteCollection.activeGroupIndex = EditorGUILayout.Popup(TileEditor_SpriteCollection.activeGroupIndex, groupNames);
+            if (spriteGroup != null)
+            {
+                if (GUILayout.Button("Delete")) TileEditor_SpriteCollection.DeleteGroup();
+            }
+            if (GUILayout.Button("Add Group")) OpenNewGroupWindow();
+        EditorGUILayout.EndHorizontal();
+
         
-        int countSprites = TileEditor_SpriteCollection.spriteGroupCollection[index].spriteGroup.Count;
+        int countSprites = 0;
+        if (spriteGroup != null && spriteGroup.spriteGroup != null) countSprites = spriteGroup.spriteGroup.Count;
         if (countSprites > 0)
         {
             int buttonWidth = 50;
@@ -156,7 +162,7 @@ public class TileEditor_BrushCollectionEditor : Editor {
                     {
                         GUIStyle tempStyle = buttonStyle;
                         tempStyle.margin = new RectOffset(0, 0, 0, 0);
-                        if (TileEditor_SpriteCollection.spriteGroupCollection[index].spriteGroup[sum] == TileEditor_SpriteCollection.GetActiveSprite())
+                        if (spriteGroup.spriteGroup[sum] == TileEditor_SpriteCollection.GetActiveSprite())
                         {
                             tempStyle.normal = GUI.skin.button.active;
                         }
@@ -164,7 +170,7 @@ public class TileEditor_BrushCollectionEditor : Editor {
                         {
                             tempStyle.normal.background = null;
                         }
-                        if (GUILayout.Button(TileEditor_SpriteCollection.spriteGroupCollection[index].spriteGroup[i * columns + j].texture, tempStyle, GUILayout.Width(buttonWidth), GUILayout.Height(buttonWidth)))
+                        if (GUILayout.Button(spriteGroup.spriteGroup[i * columns + j].texture, tempStyle, GUILayout.Width(buttonWidth), GUILayout.Height(buttonWidth)))
                         {
                             TileEditor_SpriteCollection.ChangeActiveSprite(sum);
                         }
@@ -175,7 +181,32 @@ public class TileEditor_BrushCollectionEditor : Editor {
             EditorGUILayout.EndScrollView();
             EditorGUILayout.EndVertical();
         }
-        GUILayout.Space(5);  
-        
+        GUILayout.Space(5);
+
+        if (spriteGroup != null)
+        {
+            if (GUILayout.Button("Import Spridesheet"))
+            {
+                //TileEditor_SpriteCollection.ImportSpritesheet();
+                TileEditor_SpritesheetWindow window = (TileEditor_SpritesheetWindow)EditorWindow.GetWindow(typeof(TileEditor_SpritesheetWindow));
+                window.Init();
+            }
+        }
+
+
+        //Detect changes on GUI
+        if (GUI.changed)
+        {
+            //Change the sprite group
+            TileEditor_SpriteCollection.ChangeActiveSpriteGroup(TileEditor_SpriteCollection.activeGroupIndex);
+        } 
+    }
+
+
+    //Open a window to add a new spriteGroup
+    public static void OpenNewGroupWindow()
+    {
+        TileEditor_AddGroupWindow groupWindow = (TileEditor_AddGroupWindow)EditorWindow.GetWindow(typeof(TileEditor_AddGroupWindow));
+        groupWindow.Init();
     }
 }

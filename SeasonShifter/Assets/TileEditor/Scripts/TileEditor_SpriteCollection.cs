@@ -10,6 +10,7 @@ public static class TileEditor_SpriteCollection{
 
     [System.NonSerialized]
     private static Sprite activeSprite;
+    private static TileEditor_Sprites activeSpriteGroup;
 
     public static int activeGroupIndex = 0;
     [System.NonSerialized]
@@ -18,6 +19,11 @@ public static class TileEditor_SpriteCollection{
     public static Sprite GetActiveSprite()
     {
         return activeSprite;
+    }
+
+    public static TileEditor_Sprites GetActiveSpriteGroup()
+    {
+        return activeSpriteGroup;
     }
 
     public static void AddGroup(TileEditor_Sprites spriteGroup)
@@ -29,6 +35,18 @@ public static class TileEditor_SpriteCollection{
     {
         activeSprite = spriteGroupCollection[activeGroupIndex].spriteGroup[index];
         TileEditor_BrushCollection.ChangeActiveBrush(null);
+    }
+
+    public static void ChangeActiveSpriteGroup(int index)
+    {
+        if (spriteGroupCollection.Count > 0)
+        {
+            activeSpriteGroup = spriteGroupCollection[index];
+        }
+        else
+        {
+            activeSpriteGroup = null;
+        }
     }
 
     public static void SetSpriteNull()
@@ -71,6 +89,35 @@ public static class TileEditor_SpriteCollection{
         {
             spriteGroup.ConvertToSprite();
         }
+    }
+
+    public static string[] GetGroupNames()
+    {
+
+        List<string> groupNames = new List<string>();
+        foreach(TileEditor_Sprites group in spriteGroupCollection)
+        {
+            groupNames.Add(group.GetGrouphName());
+        }
+        return groupNames.ToArray();
+    }
+
+
+
+    public static void AddGroup(string name)
+    {
+        spriteGroupCollection.Add(new TileEditor_Sprites(name));
+        activeSpriteGroup = spriteGroupCollection.Last();
+        activeGroupIndex = spriteGroupCollection.Count - 1;
+        Save();
+    }
+
+    public static void DeleteGroup()
+    {
+        spriteGroupCollection.Remove(activeSpriteGroup);
+        activeSpriteGroup = null;
+        activeGroupIndex = 0;
+        Save();
     }
 
 }
