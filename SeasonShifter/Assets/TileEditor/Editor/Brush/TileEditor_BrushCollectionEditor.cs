@@ -141,56 +141,70 @@ public class TileEditor_BrushCollectionEditor : Editor {
             if (GUILayout.Button("Add Group")) OpenNewGroupWindow();
         EditorGUILayout.EndHorizontal();
 
+        if(spriteGroup!=null)
+        { 
+            int countSprites = 0;
+            if (spriteGroup != null && spriteGroup.spriteGroup != null) countSprites = spriteGroup.spriteGroup.Count;
+            Rect boxRect;
         
-        int countSprites = 0;
-        if (spriteGroup != null && spriteGroup.spriteGroup != null) countSprites = spriteGroup.spriteGroup.Count;
-        if (countSprites > 0)
-        {
-            int buttonWidth = 50;
-            int columns = (int)((Screen.width * 0.9f) / (buttonWidth));
-
-            EditorGUILayout.BeginVertical();
-            scrollPosition2 = EditorGUILayout.BeginScrollView(scrollPosition2, false, false);
-
-            for (int i = 0; i < countSprites; i++)
+            if (countSprites > 0)
             {
-                EditorGUILayout.BeginHorizontal();
-                for (int j = 0; j < columns; j++)
-                {
-                    int sum = i * columns + j;
-                    if (sum < countSprites)
-                    {
-                        GUIStyle tempStyle = buttonStyle;
-                        tempStyle.margin = new RectOffset(0, 0, 0, 0);
-                        if (spriteGroup.spriteGroup[sum] == TileEditor_SpriteCollection.GetActiveSprite())
-                        {
-                            tempStyle.normal = GUI.skin.button.active;
-                        }
-                        else
-                        {
-                            tempStyle.normal.background = null;
-                        }
-                        if (GUILayout.Button(spriteGroup.spriteGroup[i * columns + j].texture, tempStyle, GUILayout.Width(buttonWidth), GUILayout.Height(buttonWidth)))
-                        {
-                            TileEditor_SpriteCollection.ChangeActiveSprite(sum);
-                        }
-                    }                          
-                }
-                EditorGUILayout.EndHorizontal();
-            }
-            EditorGUILayout.EndScrollView();
-            EditorGUILayout.EndVertical();
-        }
-        GUILayout.Space(5);
+                int buttonWidth = 50;
+                int columns = (int)((Screen.width * 0.9f) / (buttonWidth));
 
-        if (spriteGroup != null)
-        {
+                EditorGUILayout.BeginVertical();
+                scrollPosition2 = EditorGUILayout.BeginScrollView(scrollPosition2, false, false);
+
+                for (int i = 0; i < countSprites; i++)
+                {
+                    EditorGUILayout.BeginHorizontal();
+                    for (int j = 0; j < columns; j++)
+                    {
+                        int sum = i * columns + j;
+                        if (sum < countSprites)
+                        {
+                            GUIStyle tempStyle = buttonStyle;
+                            tempStyle.margin = new RectOffset(0, 0, 0, 0);
+                            if (spriteGroup.spriteGroup[sum] == TileEditor_SpriteCollection.GetActiveSprite())
+                            {
+                                tempStyle.normal = GUI.skin.button.active;
+                            }
+                            else
+                            {
+                                tempStyle.normal.background = null;
+                            }
+                            if (GUILayout.Button(spriteGroup.spriteGroup[i * columns + j].texture, tempStyle, GUILayout.Width(buttonWidth), GUILayout.Height(buttonWidth)))
+                            {
+                                TileEditor_SpriteCollection.ChangeActiveSprite(sum);
+                            }
+                        }                          
+                    }
+                    EditorGUILayout.EndHorizontal();
+                }
+                EditorGUILayout.EndScrollView();
+                boxRect = GUILayoutUtility.GetLastRect(); ;
+                EditorGUILayout.EndVertical();
+            }
+            else
+            {
+                boxRect = GUILayoutUtility.GetRect(Screen.width, 100);
+                GUILayout.BeginArea(boxRect);
+               GUILayout.EndArea();
+            }
+            
+            GUILayout.Space(5);
+
             if (GUILayout.Button("Import Spridesheet"))
             {
                 //TileEditor_SpriteCollection.ImportSpritesheet();
                 TileEditor_SpritesheetWindow window = (TileEditor_SpritesheetWindow)EditorWindow.GetWindow(typeof(TileEditor_SpritesheetWindow));
                 window.Init();
             }
+
+            //Check for drag and drop of sprites
+            bool showBox = false;
+            if (countSprites == 0) showBox = true;
+            DropAreaGUI(boxRect, showBox);
         }
 
 
@@ -199,7 +213,9 @@ public class TileEditor_BrushCollectionEditor : Editor {
         {
             //Change the sprite group
             TileEditor_SpriteCollection.ChangeActiveSpriteGroup(TileEditor_SpriteCollection.activeGroupIndex);
-        } 
+        }
+
+        
     }
 
 
@@ -208,5 +224,52 @@ public class TileEditor_BrushCollectionEditor : Editor {
     {
         TileEditor_AddGroupWindow groupWindow = (TileEditor_AddGroupWindow)EditorWindow.GetWindow(typeof(TileEditor_AddGroupWindow));
         groupWindow.Init();
+    }
+
+
+
+    //--------DRAG AND DROP------------------------------------------------------------------------------
+
+    public void DropAreaGUI(Rect area, bool showBox)
+    {
+        Event evt = Event.current;
+        Rect dropArea = area;
+        if(showBox)GUI.Box(dropArea, "Drag and Drop sprites in here.");
+        //GUILayout.Box("Drag and Drop sprites in here.", GUILayout.ExpandHeight(true), GUILayout.ExpandWidth(true));
+
+        switch (evt.type)
+        {
+            case EventType.DragUpdated:
+            case EventType.DragPerform:
+                if (!dropArea.Contains(evt.mousePosition))
+                    return;
+
+                DragAndDrop.visualMode = DragAndDropVisualMode.Copy;
+
+                if (evt.type == EventType.DragPerform)
+                {
+                    DragAndDrop.AcceptDrag();
+
+                    foreach (Object draggedObject in DragAndDrop.objectReferences)
+                    {
+                        // Do On Drag Stuff here
+                        Debug.Log(draggedObject.name);
+                        string path = AssetDatabase.GetAssetPath(draggedObject);
+                        if(AssetDatabase.LoadAssetAtPath(path, typeof(Sprite)))
+                        {
+                            TextureImporter ti = (TextureImporter)TextureImporter.GetAtPath(path);
+                            ti.isReadable = true;
+                            AssetDatabase.ImportAsset(path);
+                            Sprite sprite = AssetDatabase.LoadAssetAtPath(path, typeof(Sprite)) as Sprite;
+                            TileEditor_SpriteCollection.GetActiveSpriteGroup().AddSprite(sprite);
+                            TileEditor_SpriteCollection.Save();
+                            ti.isReadable = false;
+                            AssetDatabase.ImportAsset(path);
+                            TileEditor_SpriteCollection.Load();
+                        }
+                    }
+                }
+                break;
+        }
     }
 }
