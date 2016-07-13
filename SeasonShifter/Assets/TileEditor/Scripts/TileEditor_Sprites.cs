@@ -37,6 +37,11 @@ public class TileEditor_Sprites {
         spriteGroup.Add(sprite);
     }
 
+    public void RemoveSprite(Sprite sprite)
+    {
+        spriteGroup.Remove(sprite);
+    }
+
 
     //Convert sprite info to byte to make it serializable
     public void ConvertToPng()

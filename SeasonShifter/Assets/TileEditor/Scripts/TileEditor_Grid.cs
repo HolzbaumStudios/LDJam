@@ -34,6 +34,8 @@ public class TileEditor_Grid : MonoBehaviour {
 
     public Color color = Color.white;
 
+    public Color defaultButtonBackground = new Color32(255,255,255,255);
+    public Color selectedButtonBackground = new Color32(255,255,255,255);
     
 
     //Constructor

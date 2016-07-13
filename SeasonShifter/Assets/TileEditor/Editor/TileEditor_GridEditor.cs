@@ -103,31 +103,47 @@ public class TileEditor_GridEditor : Editor {
             ////////GUI/////////////
             Handles.BeginGUI();
             //Buttons top left-------------
-            if (GUI.Button(new Rect(10, 10, 70, 30), "Brush"))
+            float buttonWidth = Screen.width / 17;
+            float buttonHeight = Screen.height / 20;
+            EditorGUILayout.BeginHorizontal();
+            //Set the color of the button
+            if(activeMode == BrushMode.Create){ GUI.backgroundColor = grid.selectedButtonBackground; } else { GUI.backgroundColor = grid.defaultButtonBackground; }
+            if(GUILayout.Button("Brush", GUILayout.Width(buttonWidth), GUILayout.Height(buttonHeight)))
+            //if (GUI.Button(new Rect(10, 10, 70, 30), "Brush"))
             {
                 activeMode = BrushMode.Create;
             }
-            if (GUI.Button(new Rect(80, 10, 70, 30), "Fill"))
+            if (activeMode == BrushMode.Fill) { GUI.backgroundColor = grid.selectedButtonBackground; } else { GUI.backgroundColor = grid.defaultButtonBackground; }
+            if (GUILayout.Button("Fill", GUILayout.Width(buttonWidth), GUILayout.Height(buttonHeight)))
+            //if (GUI.Button(new Rect(80, 10, 70, 30), "Fill"))
             {
                 activeMode = BrushMode.Fill;
             }
-            if (GUI.Button(new Rect(150, 10, 70, 30), "Selection"))
+            if (activeMode == BrushMode.Select) { GUI.backgroundColor = grid.selectedButtonBackground; } else { GUI.backgroundColor = grid.defaultButtonBackground; }
+            if (GUILayout.Button("Selection", GUILayout.Width(buttonWidth), GUILayout.Height(buttonHeight)))
+            //if (GUI.Button(new Rect(150, 10, 70, 30), "Selection"))
             {
                 activeMode = BrushMode.Select;
             }
+            EditorGUILayout.EndHorizontal();
+
+            //Set back background color
+            GUI.backgroundColor = Color.white;
 
             if(activeMode == BrushMode.Create || activeMode == BrushMode.Select)
             {
                 if (eraserOn)
                 {
-                    if (GUI.Button(new Rect(10, 50, 70, 30), "Not Erase"))
+                    if (GUILayout.Button("Not Erase", GUILayout.Width(buttonWidth), GUILayout.Height(buttonHeight)))
+                    //if (GUI.Button(new Rect(10, 50, 70, 30), "Not Erase"))
                     {
                         eraserOn = false;
                     }
                 }
                 else
                 {
-                    if (GUI.Button(new Rect(10, 50, 70, 30), "Erase"))
+                    if (GUILayout.Button("Erase", GUILayout.Width(buttonWidth), GUILayout.Height(buttonHeight)))
+                    //if (GUI.Button(new Rect(10, 50, 70, 30), "Erase"))
                     {
                         eraserOn = true;
                     }

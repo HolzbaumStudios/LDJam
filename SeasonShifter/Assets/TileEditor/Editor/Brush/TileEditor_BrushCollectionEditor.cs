@@ -136,7 +136,7 @@ public class TileEditor_BrushCollectionEditor : Editor {
             TileEditor_SpriteCollection.activeGroupIndex = EditorGUILayout.Popup(TileEditor_SpriteCollection.activeGroupIndex, groupNames);
             if (spriteGroup != null)
             {
-                if (GUILayout.Button("Delete")) TileEditor_SpriteCollection.DeleteGroup();
+                if (GUILayout.Button("Delete Group")) TileEditor_SpriteCollection.DeleteGroup();
             }
             if (GUILayout.Button("Add Group")) OpenNewGroupWindow();
         EditorGUILayout.EndHorizontal();
@@ -199,6 +199,13 @@ public class TileEditor_BrushCollectionEditor : Editor {
                 //TileEditor_SpriteCollection.ImportSpritesheet();
                 TileEditor_SpritesheetWindow window = (TileEditor_SpritesheetWindow)EditorWindow.GetWindow(typeof(TileEditor_SpritesheetWindow));
                 window.Init();
+            }
+            if (TileEditor_SpriteCollection.GetActiveSprite() != null)
+            {
+                if (GUILayout.Button("Remove Sprite"))
+                {
+                    TileEditor_SpriteCollection.RemoveSprite();                    
+                }
             }
 
             //Check for drag and drop of sprites
@@ -266,6 +273,10 @@ public class TileEditor_BrushCollectionEditor : Editor {
                             ti.isReadable = false;
                             AssetDatabase.ImportAsset(path);
                             TileEditor_SpriteCollection.Load();
+                        }
+                        else
+                        {
+                            Debug.Log("Object must be a sprite.");
                         }
                     }
                 }

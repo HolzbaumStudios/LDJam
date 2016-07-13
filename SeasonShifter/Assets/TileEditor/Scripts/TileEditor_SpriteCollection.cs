@@ -120,4 +120,13 @@ public static class TileEditor_SpriteCollection{
         Save();
     }
 
+    public static void RemoveSprite()
+    {
+        if (activeSprite != null)
+        {
+            activeSpriteGroup.RemoveSprite(activeSprite);
+            Save();
+        }
+    }
+
 }
