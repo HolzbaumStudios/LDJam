@@ -34,8 +34,8 @@ public class TileEditor_Grid : MonoBehaviour {
 
     public Color color = Color.white;
 
-    public Color defaultButtonBackground = new Color32(255,255,255,255);
-    public Color selectedButtonBackground = new Color32(255,255,255,255);
+    public Color defaultButtonBackground = new Color32(125,125,125,255);
+    public Color selectedButtonBackground = new Color32(100,200,130,255);
     
 
     //Constructor
@@ -78,14 +78,14 @@ public class TileEditor_Grid : MonoBehaviour {
         }
     }
 
-    public void AddSprite(Vector3 position)
+    public void AddSprite(Vector3 position, bool checkSurrounding)
     {
-        this.gameObject.GetComponent<TileEditor_ObjectHandler>().AddSprite(position);
+        this.gameObject.GetComponent<TileEditor_ObjectHandler>().AddSprite(position, checkSurrounding);
     }
 
-    public void RemoveSprite(Vector3 position)
+    public void RemoveSprite(Vector3 position, bool checkSurrounding)
     {
-        this.gameObject.GetComponent<TileEditor_ObjectHandler>().RemoveSprite(position);
+        this.gameObject.GetComponent<TileEditor_ObjectHandler>().RemoveSprite(position, checkSurrounding);
     }
 
     public void FillArea(Vector3 position)
@@ -93,9 +93,9 @@ public class TileEditor_Grid : MonoBehaviour {
         this.gameObject.GetComponent<TileEditor_ObjectHandler>().FillArea(position);
     }
 
-    public void SelectArea(Vector2 startingPoint, Vector2 endPoint, bool erase)
+    public void SelectArea(Vector2 startingPoint, Vector2 endPoint, bool erase, bool checkSurrounding)
     {
-        this.gameObject.GetComponent<TileEditor_ObjectHandler>().SelectArea(startingPoint, endPoint, erase);
+        this.gameObject.GetComponent<TileEditor_ObjectHandler>().SelectArea(startingPoint, endPoint, erase, checkSurrounding);
     }
 
     public void EnableEditor()
@@ -133,7 +133,8 @@ public class TileEditor_Grid : MonoBehaviour {
         //Materials
         if(material == null)
         {
-            material = new SpriteRenderer().material;
+           //SpriteRenderer renderer = new SpriteRenderer();
+           //material = renderer.material;
         }
     }
 

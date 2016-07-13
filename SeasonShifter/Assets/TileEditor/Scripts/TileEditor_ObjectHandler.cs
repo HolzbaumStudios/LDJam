@@ -66,7 +66,7 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
         }
     }
 
-    public void AddSprite(Vector3 position)
+    public void AddSprite(Vector3 position, bool checkSurrounding)
     {
         //Get active brush
         //brushCollection = this.gameObject.GetComponent<TileEditor_BrushCollection>();
@@ -98,7 +98,7 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
             if (!singleSprite)
             {
                 ChangeSprite(x, y);
-                CheckSurroundingTiles(x, y);
+                if(checkSurrounding)CheckSurroundingTiles(x, y);
             }
             else
             {
@@ -300,7 +300,7 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
         }    
     }
 
-    public void RemoveSprite(Vector3 position)
+    public void RemoveSprite(Vector3 position, bool checkSurrounding)
     {
         //Get array value by rounding down position
         int x = (int)position.x;
@@ -310,7 +310,7 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
         {
             DestroyImmediate(spriteArray[x, y]);
             brush = TileEditor_BrushCollection.GetActiveBrush();
-            if (brush != null)
+            if (brush != null && checkSurrounding)
             {
                 CheckSurroundingTiles(x, y);
             }
@@ -330,7 +330,7 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
         int x = (int)position.x;
         int y = (int)position.y;
 
-        AddSprite(position);
+        AddSprite(position, true);
         tileList.Add(spriteArray[x,y]);
 
 
@@ -361,7 +361,7 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
     /// <summary>
     /// Selection of area
     /// </summary>
-    public void SelectArea(Vector2 startingPoint, Vector2 endPoint, bool erase)
+    public void SelectArea(Vector2 startingPoint, Vector2 endPoint, bool erase, bool checkSurrounding)
     {
         int x1, x2, y1, y2;
         if(startingPoint.x > endPoint.x)
@@ -391,11 +391,11 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
             {
                 if (!erase)
                 {
-                    AddSprite(new Vector3(x + 0.5f, y + 0.5f));
+                    AddSprite(new Vector3(x + 0.5f, y + 0.5f), checkSurrounding);
                 }
                 else
                 {
-                    RemoveSprite(new Vector3(x + 0.5f, y + 0.5f));
+                    RemoveSprite(new Vector3(x + 0.5f, y + 0.5f), checkSurrounding);
                 }
             }
         }

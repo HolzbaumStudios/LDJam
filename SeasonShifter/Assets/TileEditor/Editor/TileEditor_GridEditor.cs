@@ -16,8 +16,10 @@ public class TileEditor_GridEditor : Editor {
     enum BrushMode { Create, Fill, Select};
     BrushMode activeMode = BrushMode.Create;
     bool eraserOn = false;
+    bool changeSurrounding = true;
 
     Rect areaRect = new Rect(0,0,0,0);
+    Rect controlsRect = new Rect (0,0,0,0);
 
     //Selection tool variables
     private Vector3 startingPoint;
@@ -34,7 +36,7 @@ public class TileEditor_GridEditor : Editor {
 
     public void GridUpdate(SceneView sceneview)
     {
-        guiSections = new Rect[3] { new Rect(0, 0, 210, 50), new Rect(10, 50, 70, 30), areaRect }; //An array that contains all the areas occupied by gui
+        guiSections = new Rect[3] { controlsRect, new Rect(10, 50, 70, 30), areaRect }; //An array that contains all the areas occupied by gui
 
         if (grid.editorEnabled)
         {
@@ -61,11 +63,11 @@ public class TileEditor_GridEditor : Editor {
                         case BrushMode.Create:
                             if (!eraserOn)
                             {
-                                grid.AddSprite(aligned);
+                                grid.AddSprite(aligned, changeSurrounding);
                             }
                             else
                             {
-                                grid.RemoveSprite(aligned);
+                                grid.RemoveSprite(aligned, changeSurrounding);
                             }
                             break;
                         case BrushMode.Fill:
@@ -90,7 +92,7 @@ public class TileEditor_GridEditor : Editor {
                 if (e.isMouse && e.button == 0 && e.type == EventType.MouseUp)
                 {
                     selectionOn = false;
-                    grid.SelectArea(startingPoint, endPoint, eraserOn);
+                    grid.SelectArea(startingPoint, endPoint, eraserOn, changeSurrounding);
                 }
             }
 
@@ -105,53 +107,73 @@ public class TileEditor_GridEditor : Editor {
             //Buttons top left-------------
             float buttonWidth = Screen.width / 17;
             float buttonHeight = Screen.height / 20;
+
+            controlsRect = new Rect(10, 10, buttonWidth * 3.2f, buttonHeight * 1.2f);
+
+            GUILayout.BeginArea(controlsRect);
             EditorGUILayout.BeginHorizontal();
             //Set the color of the button
             if(activeMode == BrushMode.Create){ GUI.backgroundColor = grid.selectedButtonBackground; } else { GUI.backgroundColor = grid.defaultButtonBackground; }
             if(GUILayout.Button("Brush", GUILayout.Width(buttonWidth), GUILayout.Height(buttonHeight)))
-            //if (GUI.Button(new Rect(10, 10, 70, 30), "Brush"))
             {
                 activeMode = BrushMode.Create;
             }
             if (activeMode == BrushMode.Fill) { GUI.backgroundColor = grid.selectedButtonBackground; } else { GUI.backgroundColor = grid.defaultButtonBackground; }
             if (GUILayout.Button("Fill", GUILayout.Width(buttonWidth), GUILayout.Height(buttonHeight)))
-            //if (GUI.Button(new Rect(80, 10, 70, 30), "Fill"))
             {
                 activeMode = BrushMode.Fill;
             }
             if (activeMode == BrushMode.Select) { GUI.backgroundColor = grid.selectedButtonBackground; } else { GUI.backgroundColor = grid.defaultButtonBackground; }
             if (GUILayout.Button("Selection", GUILayout.Width(buttonWidth), GUILayout.Height(buttonHeight)))
-            //if (GUI.Button(new Rect(150, 10, 70, 30), "Selection"))
             {
                 activeMode = BrushMode.Select;
             }
             EditorGUILayout.EndHorizontal();
-
-            //Set back background color
-            GUI.backgroundColor = Color.white;
-
-            if(activeMode == BrushMode.Create || activeMode == BrushMode.Select)
+            GUILayout.EndArea();
+            
+            
+            EditorGUILayout.BeginHorizontal();
+            
+            if (activeMode == BrushMode.Create || activeMode == BrushMode.Select)
             {
-                if (eraserOn)
+                string textSurrounding;
+                if (changeSurrounding)
                 {
-                    if (GUILayout.Button("Not Erase", GUILayout.Width(buttonWidth), GUILayout.Height(buttonHeight)))
-                    //if (GUI.Button(new Rect(10, 50, 70, 30), "Not Erase"))
-                    {
-                        eraserOn = false;
-                    }
+                    textSurrounding = "Change Surrounding";
+                    GUI.backgroundColor = grid.selectedButtonBackground;
                 }
                 else
                 {
-                    if (GUILayout.Button("Erase", GUILayout.Width(buttonWidth), GUILayout.Height(buttonHeight)))
-                    //if (GUI.Button(new Rect(10, 50, 70, 30), "Erase"))
-                    {
-                        eraserOn = true;
-                    }
+                    textSurrounding = "Don't change";
+                    GUI.backgroundColor = grid.defaultButtonBackground;
                 }
+                if (GUILayout.Button(textSurrounding, GUILayout.Width(buttonWidth), GUILayout.Height(buttonHeight)))
+                {
+                    changeSurrounding = !changeSurrounding;
+                }
+                string textErase;
+                if (eraserOn)
+                {
+                    textErase = "Not erase";
+                    GUI.backgroundColor = grid.defaultButtonBackground;
+                }
+                else
+                {
+                    textErase = "erase";
+                    GUI.backgroundColor = grid.selectedButtonBackground;
+                }
+                if (GUILayout.Button(textErase, GUILayout.Width(buttonWidth), GUILayout.Height(buttonHeight)))
+                {
+                    eraserOn = !eraserOn;
+                }
+                
             }
+            EditorGUILayout.EndHorizontal();
 
+            //Set back background color back
+            GUI.backgroundColor = Color.white;
 
-            //Buttons top right------------------
+            //---Buttons top right-------------------------------------
             Texture2D image = new Texture2D(2, 2);
             if (TileEditor_BrushCollection.GetActiveBrush() != null)
             {
