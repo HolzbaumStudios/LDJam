@@ -26,6 +26,8 @@ public class TileEditor_GridEditor : Editor {
     private Vector3 endPoint;
     bool selectionOn;
 
+    int sortingLayerIndex = 0;
+
 
     public void OnEnable()
     {
@@ -314,10 +316,20 @@ public class TileEditor_GridEditor : Editor {
    
         if(grid.editorEnabled)
         {
+            EditorGUILayout.BeginHorizontal();
             if (GUILayout.Button("Create Collider", GUILayout.Width(255)))
             {
-                grid.CreateCollider();
+                grid.CreateCollider(sortingLayerIndex);
             }
+            GUILayout.Label("Layer");
+            var sortingLayers = SortingLayer.layers;
+            string[] sortingLayerNames = new string[sortingLayers.Length];
+            for(int i=0; i < sortingLayers.Length; i++)
+            {
+                sortingLayerNames[i] = sortingLayers[i].name;
+            }
+            sortingLayerIndex = EditorGUILayout.Popup(sortingLayerIndex, sortingLayerNames);
+            EditorGUILayout.EndHorizontal();
 
             if (GUILayout.Button("Properties", GUILayout.Width(255)))
             {

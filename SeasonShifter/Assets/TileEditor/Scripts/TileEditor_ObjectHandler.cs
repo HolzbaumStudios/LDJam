@@ -5,7 +5,7 @@ using System.Collections.Generic;
 [System.Serializable]
 public class TileEditor_ObjectHandler : MonoBehaviour {
 
-    private GameObject[,] spriteArray;
+    private GameObject[,,] spriteArray;
 
     [SerializeField, HideInInspector]
     private int columns;
@@ -18,6 +18,7 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
     TileEditor_Brush brush;
 
     string activeSortingLayer = "Default";
+    int layerCount;
     int orderInLayer = 0;
     Material activeMaterial;
     bool flipX = false, flipY = false;
@@ -29,7 +30,8 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
 
     public void CreateArray(int x, int y)
     {
-        spriteArray = new GameObject[x, y];
+        layerCount = SortingLayer.layers.Length;
+        spriteArray = new GameObject[x, y, layerCount];
         columns = x;
         rows = y;
     }
@@ -62,7 +64,7 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
     {
         if(spriteArray == null )
         {
-            spriteArray = new GameObject[columns, rows];
+            spriteArray = new GameObject[columns, rows, layerCount];
         }
     }
 
@@ -85,24 +87,35 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
             //Get array value by rounding down position
             int x = (int)position.x;
             int y = (int)position.y;
+            int layerId = SortingLayer.GetLayerValueFromName(activeSortingLayer);
+            Debug.Log("Layer ID: " + layerId);
             //If there is no object, create it now
-            if (spriteArray[x, y] == null)
+            if (spriteArray[x, y, layerId] == null)
             {
-                spriteArray[x, y] = new GameObject("Object"); //If it is a tile, the name is changed in the ChangeSprite function
-                spriteArray[x, y].transform.position = position;
-                spriteArray[x, y].transform.SetParent(this.transform);
-                spriteArray[x, y].AddComponent<SpriteRenderer>();
+                GameObject layerContainer = this.transform.FindChild(activeSortingLayer).gameObject;
+                if (layerContainer != null)
+                {
+                    spriteArray[x, y, layerId] = new GameObject("Object"); //If it is a tile, the name is changed in the ChangeSprite function
+                    spriteArray[x, y, layerId].transform.position = position;
+                    spriteArray[x, y, layerId].transform.SetParent(layerContainer.transform);
+                    spriteArray[x, y, layerId].AddComponent<SpriteRenderer>();
+                }
+                else
+                {
+                    Debug.LogError("A corresponding layer container is missing!");
+                    return;
+                }
             }
 
             //Change sprite of the selected field
             if (!singleSprite)
             {
-                ChangeSprite(x, y);
-                if(checkSurrounding)CheckSurroundingTiles(x, y);
+                ChangeSprite(x, y, layerId);
+                if(checkSurrounding)CheckSurroundingTiles(x, y, layerId);
             }
             else
             {
-                ChangeSingleSprite(x, y);
+                ChangeSingleSprite(x, y, layerId);
             }
         }
         else
@@ -112,40 +125,40 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
     }
 
 
-    void CheckSurroundingTiles(int x, int y)
+    void CheckSurroundingTiles(int x, int y, int layer)
     {
         //Check the surrounding tiles and change them if necessary
         //Middle line
-        if (spriteArray[x + 1, y] != null) ChangeSprite(x + 1, y);
-        if (spriteArray[x - 1, y] != null) ChangeSprite(x - 1, y);
+        if (spriteArray[x + 1, y, layer] != null) ChangeSprite(x + 1, y, layer);
+        if (spriteArray[x - 1, y, layer] != null) ChangeSprite(x - 1, y, layer);
         //Top line
-        if (spriteArray[x + 1, y + 1] != null) ChangeSprite(x + 1, y + 1);
-        if (spriteArray[x, y + 1] != null) ChangeSprite(x, y + 1);
-        if (spriteArray[x - 1, y + 1] != null) ChangeSprite(x - 1, y + 1);
+        if (spriteArray[x + 1, y + 1, layer] != null) ChangeSprite(x + 1, y + 1, layer);
+        if (spriteArray[x, y + 1, layer] != null) ChangeSprite(x, y + 1, layer);
+        if (spriteArray[x - 1, y + 1, layer] != null) ChangeSprite(x - 1, y + 1, layer);
         //Bottom line
-        if (spriteArray[x + 1, y - 1] != null) ChangeSprite(x + 1, y - 1);
-        if (spriteArray[x, y - 1] != null) ChangeSprite(x, y - 1);
-        if (spriteArray[x - 1, y - 1] != null) ChangeSprite(x - 1, y - 1);
+        if (spriteArray[x + 1, y - 1, layer] != null) ChangeSprite(x + 1, y - 1, layer);
+        if (spriteArray[x, y - 1, layer] != null) ChangeSprite(x, y - 1, layer);
+        if (spriteArray[x - 1, y - 1, layer] != null) ChangeSprite(x - 1, y - 1, layer);
     }
 
-    void ChangeSprite(int x, int y)
+    void ChangeSprite(int x, int y, int layer)
     {
         //Check which sprite has to be added
-        SpriteRenderer tileImage = spriteArray[x, y].GetComponent<SpriteRenderer>();
+        SpriteRenderer tileImage = spriteArray[x, y, layer].GetComponent<SpriteRenderer>();
         tileImage.sortingLayerName = activeSortingLayer; //Set the sorting layer of the sprite
         if(activeMaterial!=null)tileImage.material = activeMaterial;
         tileImage.sortingOrder = orderInLayer;
         tileImage.flipX = this.flipX;
         tileImage.flipY = this.flipY;
         string tileName;
-        if(spriteArray[x, y+1] == null && spriteArray[x, y-1] == null) //if top and bottom tile null
+        if(spriteArray[x, y+1, layer] == null && spriteArray[x, y-1, layer] == null) //if top and bottom tile null
         {
-            if (spriteArray[x -1, y] == null) //if right top and right bottom tile are free set a single horizontal sprite
+            if (spriteArray[x -1, y, layer] == null) //if right top and right bottom tile are free set a single horizontal sprite
             {
                 tileImage.sprite = brush.sprites[13];
                 tileName = "Tile_Id13";
             }
-            else if (spriteArray[x + 1, y] == null) //if right top and right bottom tile are free set a single horizontal sprite
+            else if (spriteArray[x + 1, y, layer] == null) //if right top and right bottom tile are free set a single horizontal sprite
             {
                 tileImage.sprite = brush.sprites[15];
                 tileName = "Tile_Id15";
@@ -156,9 +169,9 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
                 tileName = "Tile_Id14";
             }
         }
-        else if (spriteArray[x, y + 1] == null)
+        else if (spriteArray[x, y + 1, layer] == null)
         {
-            if(spriteArray[x - 1, y] == null && spriteArray[x + 1, y] == null) //Tile is a top tile and has no side tiles
+            if(spriteArray[x - 1, y, layer] == null && spriteArray[x + 1, y, layer] == null) //Tile is a top tile and has no side tiles
             {
                 if (brush.sprites[16] != null)
                 {
@@ -171,12 +184,12 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
                     tileName = "Tile_Id4";
                 }
             }
-            else if (spriteArray[x - 1, y] == null) //tile is a top tile and has no left tile
+            else if (spriteArray[x - 1, y, layer] == null) //tile is a top tile and has no left tile
             {
                 tileImage.sprite = brush.sprites[0];
                 tileName = "Tile_Id0";
             }
-            else if (spriteArray[x + 1, y] == null) //tile is a top tile and has no right tile
+            else if (spriteArray[x + 1, y, layer] == null) //tile is a top tile and has no right tile
             {
                 tileImage.sprite = brush.sprites[2];
                 tileName = "Tile_Id2";
@@ -187,20 +200,20 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
                 tileName = "Tile_Id1";
             }
         }
-        else if (spriteArray[x, y - 1] == null)
+        else if (spriteArray[x, y - 1, layer] == null)
         {
             
-            if(spriteArray[x - 1, y] == null && spriteArray[x + 1, y] == null) //Tile is a bottom tile and has no left or right tile
+            if(spriteArray[x - 1, y, layer] == null && spriteArray[x + 1, y, layer] == null) //Tile is a bottom tile and has no left or right tile
             {
                 tileImage.sprite = brush.sprites[18];
                 tileName = "Tile_Id18";
             }
-            else if (spriteArray[x - 1, y] == null)  //Tile is a bottom tile and has no right tile
+            else if (spriteArray[x - 1, y, layer] == null)  //Tile is a bottom tile and has no right tile
             {
                 tileImage.sprite = brush.sprites[6];
                 tileName = "Tile_Id6";
             }
-            else if (spriteArray[x + 1, y] == null) //Tile is a bottom tile and has no left tile
+            else if (spriteArray[x + 1, y, layer] == null) //Tile is a bottom tile and has no left tile
             {
                 tileImage.sprite = brush.sprites[8];
                 tileName = "Tile_Id8";
@@ -214,17 +227,17 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
         else
         {
             //Tile is a middle tile
-            if(spriteArray[x - 1, y] == null && spriteArray[x + 1, y] == null)
+            if(spriteArray[x - 1, y,layer] == null && spriteArray[x + 1, y,layer] == null)
             {
                 tileImage.sprite = brush.sprites[17];
                 tileName = "Tile_Id17";
             }
-            else if (spriteArray[x - 1, y] == null)
+            else if (spriteArray[x - 1, y, layer] == null)
             {
                 tileImage.sprite = brush.sprites[3]; //else set a normal side tile
                 tileName = "Tile_Id3";
             }
-            else if (spriteArray[x + 1, y] == null)
+            else if (spriteArray[x + 1, y, layer] == null)
             {
                 tileImage.sprite = brush.sprites[5];
                 tileName = "Tile_Id5";
@@ -232,22 +245,22 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
             else //The center tiles
             {
                 //Check for edges
-                if (spriteArray[x - 1, y + 1] == null) //top left inner edge
+                if (spriteArray[x - 1, y + 1, layer] == null) //top left inner edge
                 {
                     tileImage.sprite = brush.sprites[9];
                     tileName = "Tile_Id9";
                 }
-                else if (spriteArray[x + 1, y + 1] == null) //top right inner edge
+                else if (spriteArray[x + 1, y + 1, layer] == null) //top right inner edge
                 {
                     tileImage.sprite = brush.sprites[10];
                     tileName = "Tile_Id10";
                 }
-                else if (spriteArray[x - 1, y - 1] == null) //bottom left inner edge
+                else if (spriteArray[x - 1, y - 1, layer] == null) //bottom left inner edge
                 {
                     tileImage.sprite = brush.sprites[11];
                     tileName = "Tile_Id11";
                 }
-                else if (spriteArray[x + 1, y - 1] == null) //bottom right inner edge
+                else if (spriteArray[x + 1, y - 1, layer] == null) //bottom right inner edge
                 {
                     tileImage.sprite = brush.sprites[12];
                     tileName = "Tile_Id12";
@@ -260,13 +273,13 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
             }
         }
 
-        spriteArray[x, y].name = tileName;
+        spriteArray[x, y, layer].name = tileName;
     }
 
     //if no brush is used
-    public void ChangeSingleSprite(int x, int y)
+    public void ChangeSingleSprite(int x, int y, int layer)
     {
-        SpriteRenderer sprite = spriteArray[x, y].GetComponent<SpriteRenderer>();
+        SpriteRenderer sprite = spriteArray[x, y, layer].GetComponent<SpriteRenderer>();
         sprite.sortingLayerName = activeSortingLayer; //Set the sorting layer of the sprite
         if (activeMaterial != null) sprite.material = activeMaterial;
         sprite.sortingOrder = orderInLayer;
@@ -279,7 +292,7 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
         {
             case 1:
             {
-                BoxCollider2D boxCollider = spriteArray[x, y].AddComponent<BoxCollider2D>();
+                BoxCollider2D boxCollider = spriteArray[x, y, layer].AddComponent<BoxCollider2D>();
                 if (isTrigger) boxCollider.isTrigger = true;
                 boxCollider.size = boxColliderSize;
                 boxCollider.offset = boxColliderOffset;
@@ -287,13 +300,13 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
             }
             case 2:
             {
-                CircleCollider2D circleCollider = spriteArray[x, y].AddComponent<CircleCollider2D>();
+                CircleCollider2D circleCollider = spriteArray[x, y, layer].AddComponent<CircleCollider2D>();
                 if (isTrigger) circleCollider.isTrigger = true;
                 break;
             }
             case 3:
             {
-                PolygonCollider2D polygonCollider = spriteArray[x, y].AddComponent<PolygonCollider2D>();
+                PolygonCollider2D polygonCollider = spriteArray[x, y, layer].AddComponent<PolygonCollider2D>();
                 if (isTrigger) polygonCollider.isTrigger = true;
                 break;
             }
@@ -305,14 +318,15 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
         //Get array value by rounding down position
         int x = (int)position.x;
         int y = (int)position.y;
+        int layerId = SortingLayer.GetLayerValueFromName(activeSortingLayer);
         //If there is a object, delete it now
-        if (spriteArray[x, y] != null)
+        if (spriteArray[x, y, layerId] != null)
         {
-            DestroyImmediate(spriteArray[x, y]);
+            DestroyImmediate(spriteArray[x, y, layerId]);
             brush = TileEditor_BrushCollection.GetActiveBrush();
             if (brush != null && checkSurrounding)
             {
-                CheckSurroundingTiles(x, y);
+                CheckSurroundingTiles(x, y, layerId);
             }
         }
     }
@@ -329,28 +343,29 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
     {
         int x = (int)position.x;
         int y = (int)position.y;
+        int layerId = SortingLayer.GetLayerValueFromName(activeSortingLayer);
 
         AddSprite(position, true);
-        tileList.Add(spriteArray[x,y]);
+        tileList.Add(spriteArray[x,y, layerId]);
 
 
         GameObject tempTile;
-        tempTile = spriteArray[x + 1, y];
+        tempTile = spriteArray[x + 1, y, layerId];
         if (tempTile != null && !CheckIfTileInList(tempTile))
         {             
             FillTiles(new Vector3(x + 1, y));
         }
-        tempTile = spriteArray[x - 1, y];
+        tempTile = spriteArray[x - 1, y, layerId];
         if (tempTile != null && !CheckIfTileInList(tempTile))
         {
             FillTiles(new Vector3(x - 1, y));
         }
-        tempTile = spriteArray[x, y + 1];
+        tempTile = spriteArray[x, y + 1, layerId];
         if (tempTile != null && !CheckIfTileInList(tempTile))
         {
             FillTiles(new Vector3(x, y + 1));
         }
-        tempTile = spriteArray[x, y - 1];
+        tempTile = spriteArray[x, y - 1, layerId];
         if (tempTile != null && !CheckIfTileInList(tempTile))
         {
             FillTiles(new Vector3(x, y - 1));
@@ -415,18 +430,44 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
     //Creates new array and loads all the tiles
     public void LoadTiles()
     {
-        spriteArray = new GameObject[columns,rows];
+        spriteArray = new GameObject[columns,rows, layerCount];
         foreach(Transform child in this.transform)
         {
-            int x = (int)child.position.x;
-            int y = (int)child.position.y;
-            spriteArray[x, y] = child.gameObject;
+            foreach (Transform subchild in child)
+            {
+                int x = (int)subchild.position.x;
+                int y = (int)subchild.position.y;
+                int layerId = SortingLayer.GetLayerValueFromName(child.name);
+                Debug.Log("Layer ID: " + layerId);
+                spriteArray[x, y, layerId] = child.gameObject;
+            }
         }
     }
 
+    //Get the number of sorting layers
+    public void CountSortingLayers()
+    {
+        layerCount = SortingLayer.layers.Length;
+    }
+
+    //Create layer containers if not present
+    public void CreateLayerContainers()
+    {
+        var layers = SortingLayer.layers;
+
+        foreach(var layer in layers)
+        {
+            Debug.Log("Layer Name: " + layer.name);
+            if(!this.transform.FindChild(layer.name))
+            {
+                GameObject container = new GameObject(layer.name);
+                container.transform.SetParent(this.gameObject.transform);
+            }
+        }
+    }
 
     //Creates a collider based on the child objects
-    public void CreateCollider()
+    public void CreateCollider(int layer = 0)
     {
         PolygonCollider2D collider;
         if (gameObject.GetComponent<PolygonCollider2D>())
@@ -455,11 +496,11 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
             {
                 for (int x = 0; x < columns; x++)
                 {
-                    if (spriteArray[x, y] != null && spriteArray[x, y].name == "Tile_Id6" && !CheckIfVectorExists(spriteArray[x,y],bottomLeftTiles))
+                    if (spriteArray[x, y, layer] != null && spriteArray[x, y, layer].name == "Tile_Id6" && !CheckIfVectorExists(spriteArray[x,y, layer],bottomLeftTiles))
                     {
                         Debug.Log("Tile_Id6 found");
                         edgeTileFound = true;
-                        startTile = spriteArray[x, y];
+                        startTile = spriteArray[x, y, layer];
                         bottomLeftTiles.Add(startTile);
                         x = columns;
                         y = rows;
@@ -488,20 +529,20 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
 
                     Debug.Log("X: " + xPosition + " , Y: " + yPosition);
 
-                    switch (spriteArray[xPosition, yPosition].name)
+                    switch (spriteArray[xPosition, yPosition, layer].name)
                     {
-                        case "Tile_Id0": direction = 1; pathPoints.Add(spriteArray[xPosition, yPosition].transform.position + new Vector3(-0.5f, 0.5f, 0)); break;
-                        case "Tile_Id2": direction = 2; pathPoints.Add(spriteArray[xPosition, yPosition].transform.position + new Vector3(0.5f, 0.5f, 0)); break;
-                        case "Tile_Id6": direction = 0; pathPoints.Add(spriteArray[xPosition, yPosition].transform.position + new Vector3(-0.5f, -0.5f, 0)); bottomLeftTiles.Add(spriteArray[xPosition,yPosition]); break;
-                        case "Tile_Id8": direction = 3; pathPoints.Add(spriteArray[xPosition, yPosition].transform.position + new Vector3(0.5f, -0.5f, 0)); break;
-                        case "Tile_Id9": direction = 0; pathPoints.Add(spriteArray[xPosition, yPosition].transform.position + new Vector3(-0.5f, 0.5f, 0)); break;
-                        case "Tile_Id10": direction = 1; pathPoints.Add(spriteArray[xPosition, yPosition].transform.position + new Vector3(0.5f, 0.5f, 0)); break;
-                        case "Tile_Id11": direction = 3; pathPoints.Add(spriteArray[xPosition, yPosition].transform.position + new Vector3(-0.5f, -0.5f, 0)); break;
-                        case "Tile_Id12": direction = 2; pathPoints.Add(spriteArray[xPosition, yPosition].transform.position + new Vector3(0.5f, -0.5f, 0)); break;
+                        case "Tile_Id0": direction = 1; pathPoints.Add(spriteArray[xPosition, yPosition, layer].transform.position + new Vector3(-0.5f, 0.5f, 0)); break;
+                        case "Tile_Id2": direction = 2; pathPoints.Add(spriteArray[xPosition, yPosition, layer].transform.position + new Vector3(0.5f, 0.5f, 0)); break;
+                        case "Tile_Id6": direction = 0; pathPoints.Add(spriteArray[xPosition, yPosition, layer].transform.position + new Vector3(-0.5f, -0.5f, 0)); bottomLeftTiles.Add(spriteArray[xPosition,yPosition, layer]); break;
+                        case "Tile_Id8": direction = 3; pathPoints.Add(spriteArray[xPosition, yPosition, layer].transform.position + new Vector3(0.5f, -0.5f, 0)); break;
+                        case "Tile_Id9": direction = 0; pathPoints.Add(spriteArray[xPosition, yPosition, layer].transform.position + new Vector3(-0.5f, 0.5f, 0)); break;
+                        case "Tile_Id10": direction = 1; pathPoints.Add(spriteArray[xPosition, yPosition, layer].transform.position + new Vector3(0.5f, 0.5f, 0)); break;
+                        case "Tile_Id11": direction = 3; pathPoints.Add(spriteArray[xPosition, yPosition, layer].transform.position + new Vector3(-0.5f, -0.5f, 0)); break;
+                        case "Tile_Id12": direction = 2; pathPoints.Add(spriteArray[xPosition, yPosition, layer].transform.position + new Vector3(0.5f, -0.5f, 0)); break;
                         default: break;
                     }
 
-                    if (spriteArray[xPosition, yPosition] == startTile)
+                    if (spriteArray[xPosition, yPosition, layer] == startTile)
                     {
                         edgeTileFound = false;
                     }

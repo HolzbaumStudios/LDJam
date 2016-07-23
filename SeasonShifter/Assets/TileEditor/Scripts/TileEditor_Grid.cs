@@ -107,12 +107,15 @@ public class TileEditor_Grid : MonoBehaviour {
 
     public void LoadTiles()
     {
-        this.gameObject.GetComponent<TileEditor_ObjectHandler>().LoadTiles();
+        var objectHandler = this.gameObject.GetComponent<TileEditor_ObjectHandler>();
+        objectHandler.CountSortingLayers();
+        objectHandler.CreateLayerContainers();
+        objectHandler.LoadTiles();
     }
 
-    public void CreateCollider()
+    public void CreateCollider(int layer)
     {
-        this.gameObject.GetComponent<TileEditor_ObjectHandler>().CreateCollider();
+        this.gameObject.GetComponent<TileEditor_ObjectHandler>().CreateCollider(layer);
     }
 
     //Retrieve information about sorting layers and materials
