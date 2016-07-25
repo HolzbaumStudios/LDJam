@@ -5,7 +5,7 @@ using UnityEditor;
 using System.Linq;
 using System;
 
-[System.Serializable]
+[System.Serializable, InitializeOnLoad]
 public static class TileEditor_SpriteCollection{
 
     [System.NonSerialized]
@@ -15,6 +15,11 @@ public static class TileEditor_SpriteCollection{
     public static int activeGroupIndex = 0;
     [System.NonSerialized]
     public static List<TileEditor_Sprites> spriteGroupCollection = new List<TileEditor_Sprites>();
+
+    static TileEditor_SpriteCollection()
+    {
+        TileEditor_SpriteCollection.Load();     
+    }
     
     public static Sprite GetActiveSprite()
     {
@@ -89,6 +94,11 @@ public static class TileEditor_SpriteCollection{
         {
             spriteGroup.ConvertToSprite();
         }
+        if (activeGroupIndex == null) 
+            ChangeActiveSpriteGroup(0);
+        else
+            ChangeActiveSpriteGroup(activeGroupIndex);
+        
     }
 
     public static string[] GetGroupNames()

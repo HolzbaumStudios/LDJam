@@ -173,9 +173,12 @@ public class TileEditor_BrushCollectionEditor : Editor {
                             {
                                 tempStyle.normal.background = null;
                             }
-                            if (GUILayout.Button(spriteGroup.spriteGroup[i * columns + j].texture, tempStyle, GUILayout.Width(buttonWidth), GUILayout.Height(buttonWidth)))
+                            if (spriteGroup.spriteGroup[i * columns + j] != null)
                             {
-                                TileEditor_SpriteCollection.ChangeActiveSprite(sum);
+                                if (GUILayout.Button(spriteGroup.spriteGroup[i * columns + j].texture, tempStyle, GUILayout.Width(buttonWidth), GUILayout.Height(buttonWidth)))
+                                {
+                                    TileEditor_SpriteCollection.ChangeActiveSprite(sum);
+                                }
                             }
                         }                          
                     }
