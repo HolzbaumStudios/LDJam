@@ -15,6 +15,7 @@ public class TileEditor_SpritesheetWindow : EditorWindow {
 
     private int numberOfVerticalSlices = 0;
     private int numberOfHorizontalSlices = 0;
+    private Rect imageRect = new Rect(0, 0, 0, 0);
 
 
     public void Init()
@@ -38,6 +39,7 @@ public class TileEditor_SpritesheetWindow : EditorWindow {
         sizeMultiplier = EditorGUILayout.Slider(sizeMultiplier, 0.1f, 4);
         EditorGUILayout.EndHorizontal();
         spriteSheet =   EditorGUILayout.ObjectField(spriteSheet, typeof(Texture2D), GUILayout.Width(size.x), GUILayout.Height(size.y)) as Texture2D;
+        imageRect = GUILayoutUtility.GetLastRect();
         size = new Vector2(spriteSheet.width, spriteSheet.height);
         size *= sizeMultiplier;
 
@@ -54,12 +56,12 @@ public class TileEditor_SpritesheetWindow : EditorWindow {
         Handles.BeginGUI();
         for(int i=0;i<=numberOfHorizontalSlices;i++)
         {
-            float lineHeight = 20 + (sliceHeight * sizeMultiplier) * i;
+            float lineHeight = imageRect.yMin + (sliceHeight * sizeMultiplier) * i;
             Handles.DrawLine(new Vector3(5, lineHeight), new Vector3(size.x, lineHeight));
         }
         for (int i = 0; i <= numberOfVerticalSlices; i++)
         {
-            float lineWidth = (sliceWidth * sizeMultiplier) * i;
+            float lineWidth = imageRect.xMin + (sliceWidth * sizeMultiplier) * i;
             Handles.DrawLine(new Vector3(lineWidth, 21), new Vector3(lineWidth, size.y));
         }
 

@@ -439,7 +439,7 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
                 int y = (int)subchild.position.y;
                 int layerId = SortingLayer.GetLayerValueFromName(child.name);
                 Debug.Log("Layer ID: " + layerId);
-                spriteArray[x, y, layerId] = child.gameObject;
+                spriteArray[x, y, layerId] = subchild.gameObject;
             }
         }
     }

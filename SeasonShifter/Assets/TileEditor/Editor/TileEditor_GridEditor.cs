@@ -20,6 +20,7 @@ public class TileEditor_GridEditor : Editor {
 
     Rect areaRect = new Rect(0,0,0,0);
     Rect controlsRect = new Rect (0,0,0,0);
+    Rect controlsRect2 = new Rect(0, 0, 0, 0);
 
     //Selection tool variables
     private Vector3 startingPoint;
@@ -38,7 +39,7 @@ public class TileEditor_GridEditor : Editor {
 
     public void GridUpdate(SceneView sceneview)
     {
-        guiSections = new Rect[3] { controlsRect, new Rect(10, 50, 70, 30), areaRect }; //An array that contains all the areas occupied by gui
+        guiSections = new Rect[3] { controlsRect, controlsRect2, areaRect }; //An array that contains all the areas occupied by gui
 
         if (grid.editorEnabled)
         {
@@ -111,6 +112,7 @@ public class TileEditor_GridEditor : Editor {
             float buttonHeight = Screen.height / 20;
 
             controlsRect = new Rect(10, 10, buttonWidth * 3.2f, buttonHeight * 1.2f);
+            controlsRect2 = new Rect(buttonWidth * 4, 10, buttonWidth * 2.15f, buttonHeight * 1.2f);
 
             GUILayout.BeginArea(controlsRect);
             EditorGUILayout.BeginHorizontal();
@@ -132,27 +134,13 @@ public class TileEditor_GridEditor : Editor {
             }
             EditorGUILayout.EndHorizontal();
             GUILayout.EndArea();
-            
-            
+
+            GUILayout.BeginArea(controlsRect2);
             EditorGUILayout.BeginHorizontal();
             
             if (activeMode == BrushMode.Create || activeMode == BrushMode.Select)
             {
-                string textSurrounding;
-                if (changeSurrounding)
-                {
-                    textSurrounding = "Change Surrounding";
-                    GUI.backgroundColor = grid.selectedButtonBackground;
-                }
-                else
-                {
-                    textSurrounding = "Don't change";
-                    GUI.backgroundColor = grid.defaultButtonBackground;
-                }
-                if (GUILayout.Button(textSurrounding, GUILayout.Width(buttonWidth), GUILayout.Height(buttonHeight)))
-                {
-                    changeSurrounding = !changeSurrounding;
-                }
+                //Button to erase or not erase
                 string textErase;
                 if (eraserOn)
                 {
@@ -168,9 +156,26 @@ public class TileEditor_GridEditor : Editor {
                 {
                     eraserOn = !eraserOn;
                 }
-                
+
+                //Button to prevent change on surrounding tiles
+                string textSurrounding;
+                if (changeSurrounding)
+                {
+                    textSurrounding = "Change Surrounding";
+                    GUI.backgroundColor = grid.selectedButtonBackground;
+                }
+                else
+                {
+                    textSurrounding = "Don't change";
+                    GUI.backgroundColor = grid.defaultButtonBackground;
+                }
+                if (GUILayout.Button(textSurrounding, GUILayout.Width(buttonWidth), GUILayout.Height(buttonHeight)))
+                {
+                    changeSurrounding = !changeSurrounding;
+                }
             }
             EditorGUILayout.EndHorizontal();
+            GUILayout.EndArea();
 
             //Set back background color back
             GUI.backgroundColor = Color.white;
