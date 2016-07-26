@@ -23,7 +23,7 @@ public class TileEditor_BrushCollectionEditor : Editor {
         int brushCount = TileEditor_BrushCollection.brushContainer.Count;
         //Rect scrollview = GUILayoutUtility.GetRect(10,10,150,70);
         //Rect viewRect = new Rect(0, 0, 60 * brushCount, 70);
-        scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition, true, false, GUILayout.Width(Screen.width), GUILayout.Height(110));
+        scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition, false, false, GUILayout.Width(Screen.width), GUILayout.Height(100));
         EditorGUILayout.BeginHorizontal();
             for(int i = 0; i < brushCount; i++)
             {
@@ -48,6 +48,7 @@ public class TileEditor_BrushCollectionEditor : Editor {
                     GUILayout.Label(brush.GetBrushName(), labelStyle, GUILayout.Width(50), GUILayout.Height(20));
                 EditorGUILayout.EndVertical();                
             }
+        GUILayout.FlexibleSpace();
         GUILayout.Space(20);
         EditorGUILayout.EndHorizontal();
         EditorGUILayout.EndScrollView();

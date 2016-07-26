@@ -74,7 +74,9 @@ public class TileEditor_SpritesheetWindow : EditorWindow {
     
     void SliceSprite()
     {
-        
+        //Change the properties of the image
+        SetSpriteAsReadable();
+
         List<Rect> spriteRects = new List<Rect>();
 
         //Store the rect information of the slices
@@ -90,11 +92,6 @@ public class TileEditor_SpritesheetWindow : EditorWindow {
             countY = 0;
             countX++;
         }
-
-       /*foreach(Rect rect in spriteRects)
-        {
-            Debug.Log(rect);
-        }*/
 
         List<Color[,]> pixelInformation = new List<Color[,]>();
 
@@ -137,6 +134,33 @@ public class TileEditor_SpritesheetWindow : EditorWindow {
         }
         //Save the new sprites
         TileEditor_SpriteCollection.Save();
+        TileEditor_SpriteCollection.Load();
 
+        //Set the source as unreadable again
+        SetSpriteAsUnreadable();
+    }
+
+    void SetSpriteAsReadable()
+    {
+        string path = AssetDatabase.GetAssetPath(spriteSheet);
+        if (AssetDatabase.LoadAssetAtPath(path, typeof(Sprite)))
+        {
+            TextureImporter ti = (TextureImporter)TextureImporter.GetAtPath(path);
+            ti.isReadable = true;
+            AssetDatabase.ImportAsset(path);
+            Sprite sprite = AssetDatabase.LoadAssetAtPath(path, typeof(Sprite)) as Sprite;
+            spriteSheet = sprite.texture;
+        }
+    }
+
+    void SetSpriteAsUnreadable()
+    {
+        string path = AssetDatabase.GetAssetPath(spriteSheet);
+        if (AssetDatabase.LoadAssetAtPath(path, typeof(Sprite)))
+        {
+            TextureImporter ti = (TextureImporter)TextureImporter.GetAtPath(path);
+            ti.isReadable = false;
+            AssetDatabase.ImportAsset(path);
+        }
     }
 }
