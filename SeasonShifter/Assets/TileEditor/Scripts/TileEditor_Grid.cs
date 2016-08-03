@@ -42,7 +42,6 @@ public class TileEditor_Grid : MonoBehaviour {
     public TileEditor_Grid()
     {
         editorEnabled = false;
-        RetrieveInformation(); 
     }
 
     void Start()
