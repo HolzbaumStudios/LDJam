@@ -42,11 +42,13 @@ public class TileEditor_Grid : MonoBehaviour {
     public TileEditor_Grid()
     {
         editorEnabled = false;
+        RetrieveInformation(); 
     }
 
     void Start()
     {
         editorEnabled = false;
+        RetrieveInformation();
     }
 
     //Is called by tileeditor_menu.cs
@@ -121,16 +123,6 @@ public class TileEditor_Grid : MonoBehaviour {
     //Retrieve information about sorting layers and materials
     public void RetrieveInformation()
     {
-        //Sorting layers
-        /*string[] tempArray = GetSortingLayerNames();
-        int arrayLength = tempArray.Length + 1;
-        sortingLayers = new string[arrayLength];
-        sortingLayers[0] = "Add new Layer...";
-        for (int x = 1; x < arrayLength; x++)
-        {
-            sortingLayers[x] = tempArray[x - 1];
-        }*/
-
         sortingLayers = GetSortingLayerNames();
 
         //Materials
