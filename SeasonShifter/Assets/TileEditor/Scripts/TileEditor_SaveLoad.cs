@@ -10,6 +10,7 @@ public static class TileEditor_SaveLoad {
 
     //public static TileEditor_BrushCollection savedBrushCollection;
     public static List<TileEditor_Brush> savedBrushList;
+    public static List<TileEditor_Sprites> savedSpritesList;
 
 
     public static void Save()
@@ -18,6 +19,15 @@ public static class TileEditor_SaveLoad {
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Create(Application.persistentDataPath + "/brushCollection.tef"); //tef = tile editor file
         bf.Serialize(file, TileEditor_SaveLoad.savedBrushList);
+        file.Close();
+    }
+
+    public static void SaveSpriteCollection()
+    {
+        savedSpritesList = TileEditor_SpriteCollection.spriteGroupCollection;
+        BinaryFormatter bf = new BinaryFormatter();
+        FileStream file = File.Create(Application.persistentDataPath + "/spriteCollection.tef"); //tef = tile editor file
+        bf.Serialize(file, savedSpritesList);
         file.Close();
     }
 
@@ -59,6 +69,23 @@ public static class TileEditor_SaveLoad {
             Debug.Log("Savefile doesn't exist");
         }
     }
+
+    public static  void LoadSpriteCollection()
+    {
+        if (File.Exists(Application.persistentDataPath + "/spriteCollection.tef"))
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream file = File.Open(Application.persistentDataPath + "/spriteCollection.tef", FileMode.Open);
+            TileEditor_SaveLoad.savedSpritesList = (List<TileEditor_Sprites>)bf.Deserialize(file);
+            file.Close();
+            TileEditor_SpriteCollection.spriteGroupCollection = savedSpritesList;
+        }
+        else
+        {
+            Debug.Log("Savefile doesn't exist");
+        }
+    }
+
 
 
     /*

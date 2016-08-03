@@ -4,7 +4,7 @@ using System.Collections;
 [ExecuteInEditMode]
 public class TileEditor_DisplayBrushCollection : MonoBehaviour {
 
-	////
+    ////
     ///  THIS SCRIPT MAY NOT BE DELETED. IT IS ACCESSED BY THE BRUSH COLLECTION EDITOR TO DISPLAY THE STATIC SCRIPT BRUSHCOLLECTION
     ///
     ////
@@ -14,5 +14,7 @@ public class TileEditor_DisplayBrushCollection : MonoBehaviour {
     {
         //Debug.Log("Load brushes");
         TileEditor_BrushCollection.LoadBrushCollection();
+        TileEditor_SpriteCollection.Load();
+        TileEditor_SpriteCollection.SetSpriteNull();
     }
 }

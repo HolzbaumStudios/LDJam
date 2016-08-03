@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 using UnityEditor.SceneManagement;
 using System.Collections;
+using System;
+using UnityEditorInternal;
+using System.Reflection;
 
-[RequireComponent(typeof(TileEditor_ObjectHandler))]
-[RequireComponent(typeof(TileEditor_DisplayBrushCollection))]
 [ExecuteInEditMode]
 public class TileEditor_Grid : MonoBehaviour {
 
@@ -15,18 +16,39 @@ public class TileEditor_Grid : MonoBehaviour {
 
     public bool editorEnabled = false;
 
+    //For brushes and single sprites
+    public string[] sortingLayers;
+    public int sortingLayerIndex;
+    public int orderInLayer;
+    public Material material;
+    public bool flipX = false;
+    public bool flipY = false;
+
+    //For single sprites
+    public string[] colliderType = new string[] { "None", "Box Collider 2D", "Circle Collider 2D", "Polygon Collider 2D" };
+    public int colliderTypeIndex;
+    public bool isTrigger = false;
+    public Vector2 boxColliderSize = new Vector2(1,1);
+    public Vector2 boxColliderOffset = new Vector2(0,0);
+
 
     public Color color = Color.white;
+
+    public Color defaultButtonBackground = new Color32(125,125,125,255);
+    public Color selectedButtonBackground = new Color32(100,200,130,255);
+    
 
     //Constructor
     public TileEditor_Grid()
     {
         editorEnabled = false;
+        RetrieveInformation(); 
     }
 
     void Start()
     {
         editorEnabled = false;
+        RetrieveInformation();
     }
 
     //Is called by tileeditor_menu.cs
@@ -42,7 +64,8 @@ public class TileEditor_Grid : MonoBehaviour {
         {
             Vector3 pos = Camera.current.transform.position;
             Gizmos.color = color;
-
+            
+            //GRID
             for (float y = 0; y < gridHeight; y += lineHeight)
             {
                 Gizmos.DrawLine(new Vector3(0, Mathf.Floor(y / lineHeight) * lineHeight, 0.0f),
@@ -57,14 +80,14 @@ public class TileEditor_Grid : MonoBehaviour {
         }
     }
 
-    public void AddSprite(Vector3 position)
+    public void AddSprite(Vector3 position, bool checkSurrounding)
     {
-        this.gameObject.GetComponent<TileEditor_ObjectHandler>().AddSprite(position);
+        this.gameObject.GetComponent<TileEditor_ObjectHandler>().AddSprite(position, checkSurrounding);
     }
 
-    public void RemoveSprite(Vector3 position)
+    public void RemoveSprite(Vector3 position, bool checkSurrounding)
     {
-        this.gameObject.GetComponent<TileEditor_ObjectHandler>().RemoveSprite(position);
+        this.gameObject.GetComponent<TileEditor_ObjectHandler>().RemoveSprite(position, checkSurrounding);
     }
 
     public void FillArea(Vector3 position)
@@ -72,19 +95,60 @@ public class TileEditor_Grid : MonoBehaviour {
         this.gameObject.GetComponent<TileEditor_ObjectHandler>().FillArea(position);
     }
 
+    public void SelectArea(Vector2 startingPoint, Vector2 endPoint, bool erase, bool checkSurrounding)
+    {
+        this.gameObject.GetComponent<TileEditor_ObjectHandler>().SelectArea(startingPoint, endPoint, erase, checkSurrounding);
+    }
+
     public void EnableEditor()
     {
         editorEnabled = !editorEnabled;
         EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene()); //Marks scene as dirty, so that editor changes are saved
+        if (editorEnabled) RetrieveInformation(); //Udate information like sorting layers and materials
     }
 
     public void LoadTiles()
     {
-        this.gameObject.GetComponent<TileEditor_ObjectHandler>().LoadTiles();
+        var objectHandler = this.gameObject.GetComponent<TileEditor_ObjectHandler>();
+        objectHandler.CountSortingLayers();
+        objectHandler.CreateLayerContainers();
+        objectHandler.LoadTiles();
     }
 
-    public void CreateCollider()
+    public void CreateCollider(int layer)
     {
-        this.gameObject.GetComponent<TileEditor_ObjectHandler>().CreateCollider();
+        this.gameObject.GetComponent<TileEditor_ObjectHandler>().CreateCollider(layer);
     }
+
+    //Retrieve information about sorting layers and materials
+    public void RetrieveInformation()
+    {
+        sortingLayers = GetSortingLayerNames();
+
+        //Materials
+        if(material == null)
+        {
+           //SpriteRenderer renderer = new SpriteRenderer();
+           //material = renderer.material;
+        }
+    }
+
+    public string[] GetSortingLayerNames()
+    {
+        Type internalEditorUtilityType = typeof(InternalEditorUtility);
+        PropertyInfo sortingLayersProperty = internalEditorUtilityType.GetProperty("sortingLayerNames", BindingFlags.Static | BindingFlags.NonPublic);
+        return (string[])sortingLayersProperty.GetValue(null, new object[0]);
+    }
+
+
+    public void SetObjectInformation()
+    {
+        TileEditor_ObjectHandler objectHandler = this.gameObject.GetComponent<TileEditor_ObjectHandler>();
+        string name = sortingLayers[sortingLayerIndex];
+        objectHandler.SetSortingLayer(name, orderInLayer);
+        objectHandler.SetMaterial(material);
+        objectHandler.SetFlipInformation(flipX, flipY);
+        objectHandler.SetColliderInformation(colliderTypeIndex, isTrigger, boxColliderSize, boxColliderOffset);
+    }
+
 }
