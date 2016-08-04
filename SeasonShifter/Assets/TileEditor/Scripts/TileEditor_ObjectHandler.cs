@@ -583,6 +583,12 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
         return false;
     }
 
+    public GameObject[,,] GetSpriteArray()
+    {
+        if (spriteArray == null)
+            LoadTiles();
+        return spriteArray;
+    }
 
 
 }
