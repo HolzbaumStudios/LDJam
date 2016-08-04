@@ -144,12 +144,12 @@ public class TileEditor_GridEditor : Editor {
                 string textErase;
                 if (eraserOn)
                 {
-                    textErase = "Not erase";
+                    textErase = "Erase";
                     GUI.backgroundColor = grid.defaultButtonBackground;
                 }
                 else
                 {
-                    textErase = "erase";
+                    textErase = "Erase";
                     GUI.backgroundColor = grid.selectedButtonBackground;
                 }
                 if (GUILayout.Button(textErase, GUILayout.Width(buttonWidth), GUILayout.Height(buttonHeight)))
@@ -161,7 +161,7 @@ public class TileEditor_GridEditor : Editor {
                 string textSurrounding;
                 if (changeSurrounding)
                 {
-                    textSurrounding = "Change Surrounding";
+                    textSurrounding = "Don't change";
                     GUI.backgroundColor = grid.selectedButtonBackground;
                 }
                 else
@@ -169,7 +169,7 @@ public class TileEditor_GridEditor : Editor {
                     textSurrounding = "Don't change";
                     GUI.backgroundColor = grid.defaultButtonBackground;
                 }
-                if (GUILayout.Button(textSurrounding, GUILayout.Width(buttonWidth), GUILayout.Height(buttonHeight)))
+                if (GUILayout.Button(textSurrounding, GUILayout.Width(buttonWidth*1.2f), GUILayout.Height(buttonHeight)))
                 {
                     changeSurrounding = !changeSurrounding;
                 }
