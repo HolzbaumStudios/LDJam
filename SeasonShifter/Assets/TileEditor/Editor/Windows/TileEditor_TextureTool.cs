@@ -121,6 +121,7 @@ public class TileEditor_TextureTool : EditorWindow {
                 Vector2 pixelCoordinate = new Vector2((difference.x * texture.width), difference.y * texture.height);
                 //Set the texture
                 Texture2D newTexture = new Texture2D(texture.width, texture.height);
+                newTexture.wrapMode = TextureWrapMode.Clamp;
                 newTexture.SetPixels32(texture.GetPixels32()) ;
                 switch(textureMode)
                 {

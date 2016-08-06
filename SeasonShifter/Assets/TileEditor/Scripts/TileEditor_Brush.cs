@@ -69,6 +69,7 @@ public class TileEditor_Brush {
         {
             Texture2D texture = new Texture2D(2,2);
             texture.LoadImage(byteList[i]);
+            texture.wrapMode = TextureWrapMode.Clamp;
             sprites[i] = Sprite.Create(texture, new Rect(0,0,texture.width,texture.height), new Vector2(0.5f,0.5f), texture.width);
             
         }
