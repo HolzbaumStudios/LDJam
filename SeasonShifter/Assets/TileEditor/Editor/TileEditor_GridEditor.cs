@@ -145,12 +145,13 @@ public class TileEditor_GridEditor : Editor {
                 if (eraserOn)
                 {
                     textErase = "Erase";
-                    GUI.backgroundColor = grid.defaultButtonBackground;
+                    GUI.backgroundColor = grid.selectedButtonBackground;
+                    
                 }
                 else
                 {
                     textErase = "Erase";
-                    GUI.backgroundColor = grid.selectedButtonBackground;
+                    GUI.backgroundColor = grid.defaultButtonBackground;
                 }
                 if (GUILayout.Button(textErase, GUILayout.Width(buttonWidth), GUILayout.Height(buttonHeight)))
                 {
