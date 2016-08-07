@@ -42,13 +42,11 @@ public class TileEditor_Grid : MonoBehaviour {
     public TileEditor_Grid()
     {
         editorEnabled = false;
-        RetrieveInformation(); 
     }
 
     void Start()
     {
         editorEnabled = false;
-        RetrieveInformation();
     }
 
     //Is called by tileeditor_menu.cs
@@ -104,7 +102,9 @@ public class TileEditor_Grid : MonoBehaviour {
     {
         editorEnabled = !editorEnabled;
         EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene()); //Marks scene as dirty, so that editor changes are saved
-        if (editorEnabled) RetrieveInformation(); //Udate information like sorting layers and materials
+        if (editorEnabled)
+            RetrieveInformation(); //Udate information like sorting layers and materials
+            SetObjectInformation();
     }
 
     public void LoadTiles()

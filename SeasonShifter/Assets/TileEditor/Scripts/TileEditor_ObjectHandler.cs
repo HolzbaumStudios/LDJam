@@ -469,14 +469,15 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
     //Creates a collider based on the child objects
     public void CreateCollider(int layer = 0)
     {
+        GameObject child = this.transform.FindChild(SortingLayer.layers[layer].name).gameObject;
         PolygonCollider2D collider;
-        if (gameObject.GetComponent<PolygonCollider2D>())
+        if (child.GetComponent<PolygonCollider2D>())
         {
-            collider = this.gameObject.GetComponent<PolygonCollider2D>();
+            collider = child.GetComponent<PolygonCollider2D>();
         }
         else
         {
-            collider = this.gameObject.AddComponent<PolygonCollider2D>();
+            collider = child.AddComponent<PolygonCollider2D>();
         }
 
         //Determine path points
@@ -583,6 +584,12 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
         return false;
     }
 
+    public GameObject[,,] GetSpriteArray()
+    {
+        if (spriteArray == null)
+            LoadTiles();
+        return spriteArray;
+    }
 
 
 }
