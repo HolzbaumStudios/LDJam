@@ -10,6 +10,10 @@ public static class TileEditor_BrushCollection {
     private static TileEditor_Brush activeBrush;
     public static List<TileEditor_Brush> brushContainer =  new List<TileEditor_Brush>(); // A container for all brushes
    
+    static TileEditor_BrushCollection()
+    {
+        LoadBrushCollection();
+    }
 
     public static TileEditor_Brush AddBrush(TileEditor_Brush brush)
     {

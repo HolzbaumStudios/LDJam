@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 
 [System.Serializable]
 public class TileEditor_Brush {
@@ -41,9 +42,9 @@ public class TileEditor_Brush {
             byte[] imageBytes;
             if (sprites[i] != null)
             {
+                SetSpriteAsReadable(sprites[i].texture);
                 Texture2D texture = sprites[i].texture;
                 imageBytes = texture.EncodeToPNG();
-                
             }
             else
             {
@@ -53,7 +54,9 @@ public class TileEditor_Brush {
         }
         if (thumbnail != null)
         {
+            SetSpriteAsReadable(thumbnail);
             thumbnailByte = thumbnail.EncodeToPNG();
+            SetSpriteAsUnreadable(thumbnail);
         }
         else
         {
@@ -69,6 +72,7 @@ public class TileEditor_Brush {
         {
             Texture2D texture = new Texture2D(2,2);
             texture.LoadImage(byteList[i]);
+            texture.wrapMode = TextureWrapMode.Clamp;
             sprites[i] = Sprite.Create(texture, new Rect(0,0,texture.width,texture.height), new Vector2(0.5f,0.5f), texture.width);
             
         }
@@ -76,5 +80,27 @@ public class TileEditor_Brush {
         Texture2D thumbnailTexture = new Texture2D(2, 2);
         thumbnailTexture.LoadImage(thumbnailByte);
         thumbnail = thumbnailTexture;
+    }
+
+    void SetSpriteAsReadable(Texture2D sprite)
+    {
+        string path = AssetDatabase.GetAssetPath(sprite);
+        if (AssetDatabase.LoadAssetAtPath(path, typeof(Sprite)))
+        {
+            TextureImporter ti = (TextureImporter)TextureImporter.GetAtPath(path);
+            ti.isReadable = true;
+            AssetDatabase.ImportAsset(path);
+        }
+    }
+
+    void SetSpriteAsUnreadable(Texture2D sprite)
+    {
+        string path = AssetDatabase.GetAssetPath(sprite);
+        if (AssetDatabase.LoadAssetAtPath(path, typeof(Sprite)))
+        {
+            TextureImporter ti = (TextureImporter)TextureImporter.GetAtPath(path);
+            ti.isReadable = false;
+            AssetDatabase.ImportAsset(path);
+        }
     }
 }
