@@ -6,21 +6,21 @@ public class StaffScript : MonoBehaviour {
     bool staffEnabled = false;
     SpriteRenderer staffRenderer;
     public enum Season { spring, summer, fall, winter };
-    Season currentSeason;
-    ChangeSeason seasonManager;
+    SeasonManager.Season currentSeason;
+    SeasonManager seasonManager;
     public Sprite winterStaff;
     public Sprite summerStaff;
 
     // Use this for initialization
     void Start () {
         staffRenderer = GetComponent<SpriteRenderer>();
-        seasonManager = GameObject.Find("GameManager").GetComponent<ChangeSeason>();
+        seasonManager = GameObject.Find("GameManager").GetComponent<SeasonManager>();
         if(PlayerPrefs.GetInt("StaffEnabled") == 1)
         {
             staffEnabled = true;
             staffRenderer.enabled = true;
-            int seasonNumber = seasonManager.GetSeason();
-            currentSeason = (Season)seasonNumber;
+            
+            currentSeason = seasonManager.currentSeason;
             ChangeSprite();
         }
         else
@@ -32,10 +32,9 @@ public class StaffScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        int seasonNumber = seasonManager.GetSeason();
-        if((Season)seasonNumber != currentSeason)
+        if(currentSeason != seasonManager.currentSeason)
         {
-            currentSeason = (Season)seasonNumber;
+            currentSeason = seasonManager.currentSeason;
             ChangeSprite();
         }
     }
@@ -50,8 +49,8 @@ public class StaffScript : MonoBehaviour {
     {
         switch(currentSeason)
         {
-            case Season.summer: staffRenderer.sprite = summerStaff; break;
-            case Season.winter: staffRenderer.sprite = winterStaff; break;
+            case SeasonManager.Season.summer: staffRenderer.sprite = summerStaff; break;
+            case SeasonManager.Season.winter: staffRenderer.sprite = winterStaff; break;
         }
     }
 }
