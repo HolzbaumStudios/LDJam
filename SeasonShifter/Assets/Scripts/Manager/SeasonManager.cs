@@ -10,6 +10,17 @@ public class SeasonManager : MonoBehaviour {
 
     void Start()
     {
+        //Get the season objects
+        seasonObject = new GameObject[4];
+        if(GameObject.Find("Spring"))
+            seasonObject[0] = GameObject.Find("Spring");
+        if (GameObject.Find("Summer"))
+            seasonObject[1] = GameObject.Find("Summer");
+        if (GameObject.Find("Fall"))
+            seasonObject[2] = GameObject.Find("Fall");
+        if (GameObject.Find("Winter"))
+            seasonObject[3] = GameObject.Find("Winter");
+
         currentSeason = Season.summer;
         SetSeason();
     }
@@ -44,7 +55,8 @@ public class SeasonManager : MonoBehaviour {
     {
         foreach(GameObject season in seasonObject)
         {
-            season.SetActive(false);
+            if(season != null)
+                season.SetActive(false);
         }
         seasonObject[(int)currentSeason].SetActive(true);
     }
