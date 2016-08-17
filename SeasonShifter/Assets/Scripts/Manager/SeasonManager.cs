@@ -8,6 +8,11 @@ public class SeasonManager : MonoBehaviour {
 
     public GameObject[] seasonObject; //0 = spring, 1 = summer, 2 = fall, 3 = winter;
 
+    private Transform effectOrigin; //Where the change season effect is instantiated
+    private GameObject changeEffect; //The effect to change the season
+    private AudioClip changeSound; //The sound when the season changes
+    private AudioSource audioSource;
+
     void Start()
     {
         //Get the season objects
@@ -23,7 +28,21 @@ public class SeasonManager : MonoBehaviour {
 
         currentSeason = Season.summer;
         SetSeason();
+
+        audioSource = GetComponent<AudioSource>();
     }
+
+    void Update()
+    {
+        if (Input.GetButtonDown("Fire1"))
+        {
+            SeasonChange();
+        }
+    }
+
+    //Event handler
+    public delegate void SeasonHandler(object source);
+    public event SeasonHandler CHANGE_SEASON;
 
     //Starts the change effect coroutine. This function is also called from other scripts
     public void SeasonChange()
@@ -33,8 +52,9 @@ public class SeasonManager : MonoBehaviour {
 
     IEnumerator ChangeEffect()
     {
-        //Vector3 instantiatePosition = new Vector3(originObject.position.x, originObject.position.y, 1);
-        //GameObject changeEffect = Instantiate(changeSeasonEffect, instantiatePosition, transform.rotation) as GameObject;
+        audioSource.PlayOneShot(changeSound, 1);
+        Vector3 instantiatePosition = new Vector3(effectOrigin.position.x, effectOrigin.position.y, 1);
+        GameObject changeEffectObject = Instantiate(changeEffect, instantiatePosition, transform.rotation) as GameObject;
         yield return new WaitForSeconds(0.5f);
         if (currentSeason == Season.summer)
         {
@@ -45,8 +65,9 @@ public class SeasonManager : MonoBehaviour {
             currentSeason = Season.summer;
         }
         SetSeason();
+        CHANGE_SEASON(this);//Call event, that season has changed
         yield return new WaitForSeconds(0.2f);
-        //Destroy(changeEffect);
+        Destroy(changeEffectObject);
     }
 
 
@@ -70,4 +91,13 @@ public class SeasonManager : MonoBehaviour {
             seasonObject[i] = objects[i];
         }
     }
+
+    //Sets the origin of the change season effect -> is called by the LevelManager
+    public void SetUpManager(Transform origin, GameObject changeEffect, AudioClip changeSound)
+    {
+        effectOrigin = origin;
+        this.changeEffect = changeEffect;
+        this.changeSound = changeSound;
+    }
+
 }

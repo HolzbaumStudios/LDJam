@@ -40,6 +40,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   backgroundPrefab: {fileID: 147666, guid: a3a724443509fa54fbee6de7c5dbc74b, type: 2}
+  SM_ChangeEffect: {fileID: 152762, guid: a1065c4d375f6c34fbbbf849398c6ca6, type: 2}
+  SM_ChangeSound: {fileID: 8300000, guid: c4a334f9e05c86245814516321941036, type: 3}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

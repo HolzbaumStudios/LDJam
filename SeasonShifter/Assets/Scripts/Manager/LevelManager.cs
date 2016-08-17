@@ -9,6 +9,8 @@ public class LevelManager : MonoBehaviour {
     public static SeasonManager seasonManagerInstance = null; //static variable for the season manager
 
     public GameObject backgroundPrefab; //prefab slot
+    public GameObject SM_ChangeEffect;
+    public AudioClip SM_ChangeSound;
     private GameObject mainCamera;
     private GameObject player;
 
@@ -24,6 +26,9 @@ public class LevelManager : MonoBehaviour {
             Destroy(gameObject); //Make sure there is only one object
         }
 
+        //Player
+        player = GameObject.FindGameObjectWithTag("Player");
+
         //Season Manager
         if (seasonManagerInstance == null)
         {
@@ -32,9 +37,7 @@ public class LevelManager : MonoBehaviour {
             else
                 seasonManagerInstance = this.gameObject.GetComponent<SeasonManager>();
         }
-
-        //Player
-        player = GameObject.FindGameObjectWithTag("Player");
+        seasonManagerInstance.SetUpManager(player.GetComponent<PlayerMovement>().rightHand, SM_ChangeEffect, SM_ChangeSound); //Sets the origin of the change season effect
 
         //Camera
         Camera2DFollow cameraScript;
@@ -54,6 +57,10 @@ public class LevelManager : MonoBehaviour {
         }
         else
             Debug.LogWarning("No background created. Either it's already present or there is no prefab assigned");
+
+        //Add audio source
+        if (!GetComponent<AudioSource>())
+            this.gameObject.AddComponent<AudioSource>();
     }
 
 }
