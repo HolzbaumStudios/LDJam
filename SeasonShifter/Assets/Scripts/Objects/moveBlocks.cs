@@ -3,20 +3,20 @@ using System.Collections;
 
 public class moveBlocks : MonoBehaviour {
     // Variablen
-    private bool altPressed = false;
+    private bool fPressed = false;
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey("left alt"))
+        if (Input.GetKey(KeyCode.F))
         {
-            Debug.Log("Alt left key was pressed in update");
-            altPressed = true;
+            Debug.Log("F key was pressed in update");
+            fPressed = true;
         }
         else
         {
-            Debug.Log("Alt left key is not pressed anymore in update");
-            altPressed = false;
+            Debug.Log("F key is not pressed anymore in update");
+            fPressed = false;
             this.transform.SetParent(null);
             Debug.Log("Box has no more parent =(");
         }
@@ -28,16 +28,18 @@ public class moveBlocks : MonoBehaviour {
         if (coll.gameObject.CompareTag("Player"))
         {
             Debug.Log("Player hit the box");
-            if (altPressed == true)
+            if (fPressed == true)
             {
                 this.transform.SetParent(coll.transform);
                 Debug.Log("Box has a new parent");
                 coll.transform.GetComponent<PlayerMovement>().maxSpeed = 1;
+                coll.transform.GetComponent<PlayerMovement>().jumpingPower = 0;
                 Debug.Log("speed is now 1");
             }
             else
             {
                 coll.transform.GetComponent<PlayerMovement>().maxSpeed = 10;
+                coll.transform.GetComponent<PlayerMovement>().jumpingPower = 400;
                 Debug.Log("speed is 10 again");
             }
         }
