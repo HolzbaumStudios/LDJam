@@ -7,36 +7,31 @@ public class MusicManager : MonoBehaviour {
     public GameObject musicSummer;
     public GameObject musicWinter;
     public GameObject musicObjects;
-    ChangeSeason seasonManager;
-    public enum Season { spring, summer, fall, winter };
-    Season currentSeason;
+    SeasonManager seasonManager;
 
 
     // Use this for initialization
     void Start () {
-        seasonManager = GameObject.Find("GameManager").GetComponent<ChangeSeason>();
+        seasonManager = GameObject.Find("LevelManager").GetComponent<SeasonManager>();
+        //Subscribe to event handler
+        seasonManager.CHANGE_SEASON += this.SeasonChanged;
     }
 	
-	// Update is called once per frame
-	void Update () {
-
-        int seasonNumber = seasonManager.GetSeason();
-        if ((Season)seasonNumber != currentSeason)
-        {
-            currentSeason = (Season)seasonNumber;
-            SwitchMusic();
-        }
-	}
 
     public void SwitchMusic()
     {
-        switch (currentSeason)
+        switch (seasonManager.currentSeason)
         {
-            case Season.summer: this.musicSummer.GetComponent<AudioSource>().mute = false;
+            case SeasonManager.Season.summer: this.musicSummer.GetComponent<AudioSource>().mute = false;
             this.musicWinter.GetComponent<AudioSource>().mute = true; break;
-            case Season.winter: this.musicWinter.GetComponent<AudioSource>().mute = false;
+            case SeasonManager.Season.winter: this.musicWinter.GetComponent<AudioSource>().mute = false;
             this.musicSummer.GetComponent<AudioSource>().mute = true; break;
         }
+    }
+
+    private void SeasonChanged(object source)
+    {
+        SwitchMusic();
     }
 
 
