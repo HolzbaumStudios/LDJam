@@ -5,22 +5,19 @@ public class StaffScript : MonoBehaviour {
 
     bool staffEnabled = false;
     SpriteRenderer staffRenderer;
-    public enum Season { spring, summer, fall, winter };
-    Season currentSeason;
-    ChangeSeason seasonManager;
+    SeasonManager seasonManager;
     public Sprite winterStaff;
     public Sprite summerStaff;
 
     // Use this for initialization
     void Start () {
         staffRenderer = GetComponent<SpriteRenderer>();
-        seasonManager = GameObject.Find("GameManager").GetComponent<ChangeSeason>();
-        if(PlayerPrefs.GetInt("StaffEnabled") == 1)
+        seasonManager = GameObject.Find("LevelManager").GetComponent<SeasonManager>();
+        seasonManager.CHANGE_SEASON += this.SeasonChanged;
+        if (PlayerPrefs.GetInt("StaffEnabled") == 1)
         {
             staffEnabled = true;
             staffRenderer.enabled = true;
-            int seasonNumber = seasonManager.GetSeason();
-            currentSeason = (Season)seasonNumber;
             ChangeSprite();
         }
         else
@@ -29,16 +26,6 @@ public class StaffScript : MonoBehaviour {
         }
 	}
 	
-	// Update is called once per frame
-	void Update ()
-    {
-        int seasonNumber = seasonManager.GetSeason();
-        if((Season)seasonNumber != currentSeason)
-        {
-            currentSeason = (Season)seasonNumber;
-            ChangeSprite();
-        }
-    }
 
     public void EnableStaff()
     {
@@ -48,10 +35,15 @@ public class StaffScript : MonoBehaviour {
 
     void ChangeSprite()
     {
-        switch(currentSeason)
+        switch(seasonManager.currentSeason)
         {
-            case Season.summer: staffRenderer.sprite = summerStaff; break;
-            case Season.winter: staffRenderer.sprite = winterStaff; break;
+            case SeasonManager.Season.summer: staffRenderer.sprite = summerStaff; break;
+            case SeasonManager.Season.winter: staffRenderer.sprite = winterStaff; break;
         }
+    }
+
+    private void SeasonChanged(object source)
+    {
+        ChangeSprite();
     }
 }
