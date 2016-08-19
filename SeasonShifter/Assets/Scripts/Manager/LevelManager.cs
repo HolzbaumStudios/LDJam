@@ -40,13 +40,12 @@ public class LevelManager : MonoBehaviour {
         seasonManagerInstance.SetUpManager(player.GetComponent<PlayerMovement>().rightHand, SM_ChangeEffect, SM_ChangeSound); //Sets the origin of the change season effect
 
         //Camera
-        Camera2DFollow cameraScript;
+        CameraMovement cameraScript;
         mainCamera = Camera.main.gameObject;
-       /* if (!mainCamera.GetComponent<Camera2DFollow>())
+        if(!mainCamera.GetComponent<CameraMovement>())
         {
-            cameraScript = mainCamera.AddComponent<Camera2DFollow>();
-            cameraScript.target = player.transform;
-        }*/
+            cameraScript = mainCamera.AddComponent<CameraMovement>();
+        }
 
         //Create the level background
         GameObject background;
