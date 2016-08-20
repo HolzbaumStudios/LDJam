@@ -36,12 +36,12 @@ public class CameraMovement : MonoBehaviour {
         //Check if character crosses lines
         if(target.position.x < transform.position.x - horizontalRange || target.position.x > transform.position.x + horizontalRange)
         {
-            Debug.Log("Player crossed horizontal range!");
+           // Debug.Log("Player crossed horizontal range!");
             moveX = true;
         }
         if(target.position.y > transform.position.y + topRange || target.position.y < transform.position.y - bottomRange)
         {
-            Debug.Log("Player crossed vertical range!");
+            //Debug.Log("Player crossed vertical range!");
             moveY = true;
         }
 
