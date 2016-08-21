@@ -6,20 +6,16 @@ public class PlayerMovement : MonoBehaviour
 
     public float maxSpeed = 10;
     public float jumpingPower = 400;
-    public float waterJumpingPower = 5;
+    public float waterJumpingPower = 50;
     public float swimmingSpeed = 4;
     public Transform rightHand;
     public Transform feetCollider;
-
-    enum Season { spring, summer, fall, winter };
-    Season currentSeason = Season.summer;
-    private ChangeSeason seasonManager;
+    private SeasonManager seasonManager;
 
     private bool grounded; //if the player touches the ground
-    public bool swimming = false;
-    private bool jumping = false;
+    private bool swimming = false;
+    private bool disabledWaterJump = false; //If this is set to true, player can't rise higher on the water
     private bool isGliding = false;
-    private bool airControl = true; //if the character can be controlled in air
     private Animator playerAnimator;
     private Rigidbody2D rigidbody;
     private bool facingRight = true; //If the character is looking right or left
@@ -43,133 +39,127 @@ public class PlayerMovement : MonoBehaviour
         boxCollider = GetComponent<BoxCollider2D>();
         circleCollider = GetComponent<CircleCollider2D>();
         soundScript = GetComponent<PlayerSound>();
-        //Get other components
-        seasonManager = GameObject.Find("GameManager").GetComponent<ChangeSeason>();
+
+        seasonManager = GameObject.Find("LevelManager").GetComponent<SeasonManager>();
+
         //Get Start Values
         boxColliderSize = boxCollider.size;
         boxColliderPosition = boxCollider.offset;
 
     }
 
-    // Update is called once per frame
+    //Check if the state changes
     void FixedUpdate()
     {
-        //Check if the character is touching the ground
-        if (groundCheckEnabled)
+        //Do a raycast to check if it hits something
+        RaycastHit2D hit = Physics2D.Raycast(feetCollider.position, -Vector2.up, 0.12f);
+        //Check if the ground is hit
+        if (hit)
         {
-            RaycastHit2D hit = Physics2D.Raycast(feetCollider.position, -Vector2.up, 0.12f);
-            if (hit && !jumping)
-            {
-                if (hit.collider.CompareTag("Water"))
-                {
-                    if (!swimming)
-                    {
-                        grounded = false;
-                        ChangeSwimmingState(true);
-                    }
-                }
-                else //if ground
-                {
-                    if (swimming) ChangeSwimmingState(false);
-                    if (!grounded) soundScript.Land();
-                    grounded = true;
-                }
-            }
-            else
+            if (hit.collider.CompareTag("Water") && !swimming)
             {
                 grounded = false;
-                if (swimming) ChangeSwimmingState(false);
-            }
-        }
+                ChangeSwimmingState(true);
 
-        if(!grounded)
-        {
-            playerAnimator.SetBool("Grounded", false);
+            }
+            else if (!grounded)
+            {
+                soundScript.Land();
+                grounded = true;
+            }
         }
         else
         {
-            playerAnimator.SetBool("Grounded", true);
+            grounded = false; // if collider doesn't hit, set grounded to false
         }
+
+        //If swimming, check when out of water
+        if(swimming)
+        {
+            RaycastHit2D upHit = Physics2D.Raycast(feetCollider.position + new Vector3(0, 0.6f, 0), Vector2.up, 0.1f);
+
+            if (!upHit && !disabledWaterJump)
+            {
+                disabledWaterJump = true;
+                rigidbody.velocity = new Vector2(rigidbody.velocity.x, 0);
+                Debug.Log(rigidbody.velocity);
+
+            }
+            else if(upHit && disabledWaterJump)
+            {
+                disabledWaterJump = false;
+            }
+        }
+
+        //Set animation bool
+        if(grounded)
+            playerAnimator.SetBool("Grounded", true);
+        else
+            playerAnimator.SetBool("Grounded", false);
     }
 
-    //move vertical is only used when swimming
-    public void Move(float move, bool jump, bool gliding)
+    //move is called by the player input script
+    public void Move(float move, bool jump, bool staffAction) //StaffAction = is controll pressed
     {
-        if (grounded || airControl || swimming)
+        // The Speed animator parameter is set to the absolute value of the horizontal input.
+        float speed = Mathf.Abs(move);
+        playerAnimator.SetFloat("Speed", speed);
+        //Set the speed of the rigidbody
+        float rigidbodySpeed = maxSpeed;
+        if (swimming)
+            rigidbodySpeed = swimmingSpeed;
+        //Move the player
+        rigidbody.velocity = new Vector2(move * rigidbodySpeed, rigidbody.velocity.y);
+        //Jump
+        if (jump && (grounded || swimming))
         {
-            // The Speed animator parameter is set to the absolute value of the horizontal input.
-            float speed = Mathf.Abs(move);
-            playerAnimator.SetFloat("Speed", speed);
-            // Move the character
-            float rigidbodySpeed = maxSpeed;
-            if (swimming) { rigidbodySpeed = swimmingSpeed;  }
-            rigidbody.velocity = new Vector2(move * rigidbodySpeed, rigidbody.velocity.y);
+            playerAnimator.SetBool("Jump", true); //Change this to a trigger !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            if (!swimming)
+            {
+                rigidbody.AddForce(new Vector2(0f, jumpingPower));
+                soundScript.Jump();
+            }
+            else if (rigidbody.velocity.y < 3.8f && !disabledWaterJump) //Jump in the water, but check that the speed doesn't get too high
+            {
+                rigidbody.AddForce(new Vector2(0f, waterJumpingPower));
+            }
+        }
+        
+        //Check if staff action is used
+        if(seasonManager.currentSeason == SeasonManager.Season.fall)
+            Glide(staffAction); //Glide
 
-            if (jump && (grounded || swimming))
-            {
-                playerAnimator.SetBool("Jump", true);
-                if (!swimming)
-                {
-                    rigidbody.AddForce(new Vector2(0f, jumpingPower));
-                    soundScript.Jump();
-                }
-                else
-                {
-                    if (rigidbody.velocity.y < 3.8f)
-                    { 
-                        rigidbody.AddForce(new Vector2(0f, waterJumpingPower));
-                    }     
-                }
-            }
-            else
-            {
-                playerAnimator.SetBool("Jump", false);
-            }
+        ///Set facing direction/////////////////
+        if ((move > 0 && !facingRight) || (move < 0 && facingRight))
+            Flip();
 
+    }
 
-            ////Check gliding state////////////////
-            if(isGliding && gliding)
-            {
-                float currentVelocity = -rigidbody.velocity.y;
-                Debug.Log(currentVelocity);
-                if (currentVelocity > 3.5f)rigidbody.AddForce(new Vector2(0, currentVelocity*20));
-            }
-            if (gliding && !isGliding && !grounded && !swimming)
-            {
-                int seasonNumber = seasonManager.GetSeason();
-                if ((Season)seasonNumber == Season.summer)
-                {
-                    rightHand.FindChild("staff").gameObject.SetActive(false);
-                    rightHand.FindChild("staff_sum_umbrella").gameObject.SetActive(true);
-                    playerAnimator.SetBool("Gliding", true);
-                    rigidbody.gravityScale = 0.35f;
-                    isGliding = gliding;
-                }
-            }
-            if((gliding && isGliding && (grounded || swimming)) || (!gliding && isGliding))
-            {
-                rightHand.FindChild("staff").gameObject.SetActive(true);
-                rightHand.FindChild("staff_sum_umbrella").gameObject.SetActive(false);
-                playerAnimator.SetBool("Gliding", false);
-                if(swimming)rigidbody.gravityScale = 0.05f; else rigidbody.gravityScale = 3;
-                isGliding = false;
-            }
-
-            ///Set facing direction/////////////////
-            if (move > 0 && !facingRight)
-            {
-                Flip();
-            }
-            else if (move < 0 && facingRight)
-            {
-                Flip();
-            }
+    //All the mechanics of gliding
+    public void Glide(bool glide)
+    {
+        if(glide && (!isGliding && !grounded && !swimming))
+        {
+            rightHand.FindChild("staff").gameObject.SetActive(false);
+            rightHand.FindChild("staff_sum_umbrella").gameObject.SetActive(true);
+            playerAnimator.SetBool("Gliding", true);
+            rigidbody.gravityScale = 0.45f;
+            rigidbody.velocity = new Vector2(rigidbody.velocity.x, 0);
+            isGliding = true;
+        }
+        else if((glide && isGliding && (grounded || swimming)) || (!glide && isGliding))
+        {
+            rightHand.FindChild("staff").gameObject.SetActive(true);
+            rightHand.FindChild("staff_sum_umbrella").gameObject.SetActive(false);
+            playerAnimator.SetBool("Gliding", false);
+            if (swimming) rigidbody.gravityScale = 0.1f; else rigidbody.gravityScale = 3;
+            isGliding = false;
         }
     }
 
     // Switch the way the player is labelled as facing.
     private void Flip()
-    {      
+    {
         facingRight = !facingRight;
 
         // Multiply the player's x local scale by -1.
@@ -178,24 +168,29 @@ public class PlayerMovement : MonoBehaviour
         transform.localScale = theScale;
     }
 
-    public bool ReturnGroundedState()
+    //Get Player States
+    public bool GetGroundedState()
     {
         return grounded;
     }
 
+    public bool GetSwimmingState()
+    {
+        return swimming;
+    }
+
+    //Change swimming state
     public void ChangeSwimmingState(bool swimState)
     {
-        Debug.Log("SwimStat: " + swimState);
         swimming = swimState; //Invert Value
         playerAnimator.SetBool("Swimming", swimState);
         if (swimming)
         {
             //Add force up to slow down initial velocity
             float currentVelocity = -rigidbody.velocity.y;
-            rigidbody.AddForce(new Vector2(0, currentVelocity * 28));
-            rigidbody.gravityScale = 0.05f;
+            rigidbody.gravityScale = 0.1f;
             //Change Collider position and shape
-            boxCollider.size = new Vector2(2.1f,1.6f);
+            boxCollider.size = new Vector2(2.1f, 1.6f);
             boxCollider.offset = new Vector2(0f, -0.4f);
         }
         else
@@ -203,23 +198,7 @@ public class PlayerMovement : MonoBehaviour
             rigidbody.gravityScale = 3;
             boxCollider.offset = boxColliderPosition;
             boxCollider.size = boxColliderSize;
-        } 
-    }
-
-    //returns false if the player is in a position where he can't change season. Is called by changeseason
-    public bool ReturnPlayerState()
-    {
-        if(swimming == true || grounded == false)
-        {
-            return false;
         }
-        return true;
-    }
-
-    //Use this function to temporarly disable all ground checks
-    public void DisableGroundCheck(bool disable)
-    {
-        groundCheckEnabled = !disable;
     }
 
 }

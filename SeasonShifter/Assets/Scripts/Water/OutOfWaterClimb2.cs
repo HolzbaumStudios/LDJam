@@ -25,7 +25,7 @@ public class OutOfWaterClimb2 : MonoBehaviour {
             {
                 float xValue = 0.2f;
                 if (leftSide) xValue *= -1;
-                targetPosition = transform.position + new Vector3(xValue, 0.5f);
+                targetPosition = transform.position + new Vector3(xValue, 1.2f);
                 StartCoroutine(GetOutOfWater(col.gameObject));
             }
         }

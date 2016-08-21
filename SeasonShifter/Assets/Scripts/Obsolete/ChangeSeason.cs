@@ -30,10 +30,10 @@ public class ChangeSeason : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-	    if(Input.GetButtonDown("Fire1") && changeAllowed && GetPlayerState())
+	   /* if(Input.GetButtonDown("Fire1") && changeAllowed && GetPlayerState())
         {
             SeasonChange();
-        }
+        }*/
 	}
 
     //Starts the change effect coroutine. This function is also called from other scripts
@@ -77,9 +77,9 @@ public class ChangeSeason : MonoBehaviour {
     }
 
     //Ask player movement if the player may change the season
-    public bool GetPlayerState()
+   /* public bool GetPlayerState()
     {
-        bool playerState = player.GetComponent<PlayerMovement>().ReturnPlayerState();
-        return playerState;
-    }
+        //bool playerState = player.GetComponent<PlayerMovement>().ReturnPlayerState();
+        //return playerState;
+    }*/
 }

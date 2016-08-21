@@ -12,6 +12,7 @@ public class SeasonManager : MonoBehaviour {
     private GameObject changeEffect; //The effect to change the season
     private AudioClip changeSound; //The sound when the season changes
     private AudioSource audioSource;
+    private PlayerMovement playerMovement;
 
     void Start()
     {
@@ -30,11 +31,13 @@ public class SeasonManager : MonoBehaviour {
         SetSeason();
 
         audioSource = GetComponent<AudioSource>();
+
+        playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
     }
 
     void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1") && playerMovement.GetGroundedState() && !playerMovement.GetSwimmingState())
         {
             SeasonChange();
         }

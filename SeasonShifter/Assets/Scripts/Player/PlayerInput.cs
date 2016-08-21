@@ -16,6 +16,7 @@ public class PlayerInput : MonoBehaviour {
         if (PlayerPrefs.GetInt("GlidingAllowed") == 1) glidingAllowed = true;
 	}
 	
+
 	// Update is called once per frame
 	void Update () {
         
