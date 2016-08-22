@@ -301,9 +301,9 @@ GameObject:
   - 61: {fileID: 6153274}
   - 95: {fileID: 9595590}
   - 114: {fileID: 11450206}
-  - 114: {fileID: 11424730}
   - 82: {fileID: 8286280}
   - 114: {fileID: 11493590}
+  - 114: {fileID: 11428768}
   m_Layer: 2
   m_Name: Player
   m_TagString: Player
@@ -692,7 +692,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   winterStaff: {fileID: 21300000, guid: 16822c92e186e034f8e16afed019584a, type: 3}
   summerStaff: {fileID: 21300000, guid: 6162d425eeedd254dace7ff751d589ef, type: 3}
---- !u!114 &11424730
+--- !u!114 &11428768
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -700,16 +700,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 182466}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 048aab78a456df748b791a70e8d71012, type: 3}
+  m_Script: {fileID: 11500000, guid: eca99a0a27ae4ae40858dee39da980b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 7
-  jumpingPower: 440
-  waterJumpingPower: 120
-  swimmingSpeed: 3
+  maxSpeed: 10
+  jumpingPower: 420
+  waterJumpingPower: 50
+  swimmingSpeed: 4
   rightHand: {fileID: 476556}
   feetCollider: {fileID: 443838}
-  swimming: 0
 --- !u!114 &11450206
 MonoBehaviour:
   m_ObjectHideFlags: 1

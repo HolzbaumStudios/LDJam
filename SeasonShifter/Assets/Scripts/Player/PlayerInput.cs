@@ -16,9 +16,10 @@ public class PlayerInput : MonoBehaviour {
         if (PlayerPrefs.GetInt("GlidingAllowed") == 1) glidingAllowed = true;
 	}
 	
+
 	// Update is called once per frame
 	void Update () {
-        
+        float v = Input.GetAxis("Vertical"); //the vertical value is only used for swimming
         float h = Input.GetAxis("Horizontal");
         if (Input.GetButtonDown("Jump") && !isJumping)
         {
@@ -36,7 +37,7 @@ public class PlayerInput : MonoBehaviour {
 
 
         // Pass all parameters to the character control script.
-        if(inputEnabled)movementScript.Move(h, isJumping, gliding);
+        if(inputEnabled)movementScript.Move(h, v, isJumping, gliding);
         isJumping = false;
     }
 

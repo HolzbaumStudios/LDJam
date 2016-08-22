@@ -15,7 +15,7 @@ public class OutOfWaterZone : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.CompareTag("Player") && playerMovementScript.swimming)
+        if (col.CompareTag("Player") && playerMovementScript.GetSwimmingState())
         {
             playerMovementScript.ChangeSwimmingState(false);
         }
@@ -23,7 +23,7 @@ public class OutOfWaterZone : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D col)
     {
-        if (col.CompareTag("Player") && playerMovementScript.swimming)
+        if (col.CompareTag("Player") && playerMovementScript.GetSwimmingState())
         {
             playerMovementScript.ChangeSwimmingState(false);
         }
