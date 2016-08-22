@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool grounded; //if the player touches the ground
     private bool swimming = false;
-    private bool disabledWaterJump = false; //If this is set to true, player can't rise higher on the water
+    private bool allowUpSwimming = true; //if the player is out of the collider, upswimming will be disabled
     private bool isGliding = false;
     private Animator playerAnimator;
     private Rigidbody2D rigidbody;
@@ -26,10 +26,8 @@ public class PlayerMovement : MonoBehaviour
     private float circleColliderRadius;
     private Vector2 circleColliderPosition;
     private PlayerSound soundScript;
-    private bool groundCheckEnabled = true;
 
-
-    private RaycastHit hit;
+    RaycastHit2D hit;
 
     void Start()
     {
@@ -48,11 +46,12 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
+
     //Check if the state changes
     void FixedUpdate()
     {
         //Do a raycast to check if it hits something
-        RaycastHit2D hit = Physics2D.Raycast(feetCollider.position, -Vector2.up, 0.12f);
+        hit = Physics2D.Raycast(feetCollider.position, -Vector2.up, 0.10f);
         //Check if the ground is hit
         if (hit)
         {
@@ -60,7 +59,6 @@ public class PlayerMovement : MonoBehaviour
             {
                 grounded = false;
                 ChangeSwimmingState(true);
-
             }
             else if (!grounded)
             {
@@ -74,21 +72,29 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //If swimming, check when out of water
-        if(swimming)
+        if(swimming && !hit)
         {
-            RaycastHit2D upHit = Physics2D.Raycast(feetCollider.position + new Vector3(0, 0.6f, 0), Vector2.up, 0.1f);
+            //Raycast down to check if you're on the top of the water
+            RaycastHit2D swimmingHit = Physics2D.Raycast(feetCollider.position, -Vector2.up, 0.2f);
+            if (!swimmingHit)
+                allowUpSwimming = false;
+            else if (!allowUpSwimming && swimmingHit)
+                allowUpSwimming = true;
 
-            if (!upHit && !disabledWaterJump)
+            //Raycast to side
+            Vector2 direction = Vector2.right;
+            if (!facingRight)
+                direction = Vector2.left;
+            RaycastHit2D sideHit = Physics2D.Raycast(this.gameObject.transform.position, direction, 1f);
+            if (sideHit)
             {
-                disabledWaterJump = true;
-                rigidbody.velocity = new Vector2(rigidbody.velocity.x, 0);
-                Debug.Log(rigidbody.velocity);
-
-            }
-            else if(upHit && disabledWaterJump)
-            {
-                disabledWaterJump = false;
-            }
+                //Checks if it is possible to climb out at this position
+                RaycastHit2D topSideHit = Physics2D.Raycast(this.gameObject.transform.position + new Vector3(0, 1), direction, 1); ;
+                if (facingRight && rigidbody.velocity.x > 0.1f && !topSideHit)
+                    ClimbOutOfWater(false);
+                else if (!facingRight && rigidbody.velocity.x < -0.1f && !topSideHit)
+                    ClimbOutOfWater(true);
+            } 
         }
 
         //Set animation bool
@@ -99,30 +105,35 @@ public class PlayerMovement : MonoBehaviour
     }
 
     //move is called by the player input script
-    public void Move(float move, bool jump, bool staffAction) //StaffAction = is controll pressed
+    public void Move(float move, float moveVertical, bool jump, bool staffAction) //StaffAction = is controll pressed
     {
         // The Speed animator parameter is set to the absolute value of the horizontal input.
         float speed = Mathf.Abs(move);
         playerAnimator.SetFloat("Speed", speed);
         //Set the speed of the rigidbody
         float rigidbodySpeed = maxSpeed;
+        float rigidbodyVerticalSpeed = rigidbody.velocity.y;
         if (swimming)
-            rigidbodySpeed = swimmingSpeed;
-        //Move the player
-        rigidbody.velocity = new Vector2(move * rigidbodySpeed, rigidbody.velocity.y);
-        //Jump
-        if (jump && (grounded || swimming))
         {
-            playerAnimator.SetBool("Jump", true); //Change this to a trigger !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            if (!swimming)
+            rigidbodySpeed = swimmingSpeed;
+            if (!allowUpSwimming && moveVertical > 0) //if player reaches top of water, he can't move up
             {
-                rigidbody.AddForce(new Vector2(0f, jumpingPower));
-                soundScript.Jump();
+                rigidbody.gravityScale = 0; //the gravity scale is set to 0 to prevent the player from 'stuttering'
+                moveVertical = 0;
             }
-            else if (rigidbody.velocity.y < 3.8f && !disabledWaterJump) //Jump in the water, but check that the speed doesn't get too high
-            {
-                rigidbody.AddForce(new Vector2(0f, waterJumpingPower));
-            }
+            else if (rigidbody.gravityScale == 0)
+                rigidbody.gravityScale = 3;
+
+            rigidbodyVerticalSpeed = moveVertical * (swimmingSpeed / 2);
+        }
+        //Move the player
+        rigidbody.velocity = new Vector2(move * rigidbodySpeed, rigidbodyVerticalSpeed);
+        //Jump
+        if (jump && grounded && !swimming)
+        {
+            playerAnimator.SetBool("Jump", true); //Change this to a trigger !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            rigidbody.AddForce(new Vector2(0f, jumpingPower));
+            soundScript.Jump();
         }
         
         //Check if staff action is used
@@ -132,7 +143,6 @@ public class PlayerMovement : MonoBehaviour
         ///Set facing direction/////////////////
         if ((move > 0 && !facingRight) || (move < 0 && facingRight))
             Flip();
-
     }
 
     //All the mechanics of gliding
@@ -152,7 +162,6 @@ public class PlayerMovement : MonoBehaviour
             rightHand.FindChild("staff").gameObject.SetActive(true);
             rightHand.FindChild("staff_sum_umbrella").gameObject.SetActive(false);
             playerAnimator.SetBool("Gliding", false);
-            if (swimming) rigidbody.gravityScale = 0.1f; else rigidbody.gravityScale = 3;
             isGliding = false;
         }
     }
@@ -188,17 +197,26 @@ public class PlayerMovement : MonoBehaviour
         {
             //Add force up to slow down initial velocity
             float currentVelocity = -rigidbody.velocity.y;
-            rigidbody.gravityScale = 0.1f;
             //Change Collider position and shape
             boxCollider.size = new Vector2(2.1f, 1.6f);
             boxCollider.offset = new Vector2(0f, -0.4f);
         }
         else
         {
-            rigidbody.gravityScale = 3;
             boxCollider.offset = boxColliderPosition;
             boxCollider.size = boxColliderSize;
+            rigidbody.gravityScale = 3;
+            allowUpSwimming = true;
         }
+    }
+
+    //Start the function to get out of water -> Function has to be scripted still
+    public void ClimbOutOfWater(bool leftSide)
+    {
+        float xValue = 0.1f;
+        if (leftSide) xValue *= -1;
+        rigidbody.transform.position += new Vector3(xValue, 0.9f);
+        ChangeSwimmingState(false);
     }
 
 }

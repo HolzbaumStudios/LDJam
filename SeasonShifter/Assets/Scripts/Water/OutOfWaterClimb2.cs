@@ -9,26 +9,17 @@ public class OutOfWaterClimb2 : MonoBehaviour {
     Rigidbody2D rigidbody;
     Vector2 targetPosition;
     int movementStep = 0; //Which movement step is initialized for the player
-    void OnTriggerEnter2D(Collider2D col)
-    {
-        playerAnimator = col.GetComponent<Animator>();
-        coroutineStarted = false;
-        rigidbody = col.GetComponent<Rigidbody2D>();
-    }
 
-	void OnTriggerStay2D(Collider2D col)
+
+    public void GetOutOfWater(GameObject player, bool leftSide)
     {
-        float xMovement = Input.GetAxis("Horizontal");
-        if((xMovement < -0.1f && leftSide) || (xMovement > 0.1f && !leftSide))
-        {
-            if (!coroutineStarted)
-            {
-                float xValue = 0.2f;
-                if (leftSide) xValue *= -1;
-                targetPosition = transform.position + new Vector3(xValue, 1.2f);
-                StartCoroutine(GetOutOfWater(col.gameObject));
-            }
-        }
+        rigidbody = player.GetComponent<Rigidbody2D>();
+        playerAnimator = rigidbody.gameObject.GetComponent<Animator>();
+        coroutineStarted = false;
+        float xValue = 0.2f;
+        if (leftSide) xValue *= -1;
+        targetPosition = rigidbody.transform.position + new Vector3(xValue, 1.2f);
+        StartCoroutine(GetOutOfWater(player));
     }
 
     void Update()
@@ -45,7 +36,6 @@ public class OutOfWaterClimb2 : MonoBehaviour {
 
     IEnumerator GetOutOfWater(GameObject player)
     {
-        Debug.Log("Started get out of water");
         coroutineStarted = true;
 
         //Get components
