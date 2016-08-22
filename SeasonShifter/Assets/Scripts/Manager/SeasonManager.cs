@@ -10,9 +10,15 @@ public class SeasonManager : MonoBehaviour {
 
     private Transform effectOrigin; //Where the change season effect is instantiated
     private GameObject changeEffect; //The effect to change the season
+    private PlayerMovement playerMovement;
+
+    //AUDIO COMPONENTS
     private AudioClip changeSound; //The sound when the season changes
     private AudioSource audioSource;
-    private PlayerMovement playerMovement;
+
+    //GUI COMPONENTS
+    private GameObject seasonWheel; //Container for the season Wheel
+    private GameObject[] seasonWheelComponents; //Container for the season components of the season wheel
 
     void Start()
     {
@@ -33,6 +39,14 @@ public class SeasonManager : MonoBehaviour {
         audioSource = GetComponent<AudioSource>();
 
         playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
+
+        //Get GUI Objects
+        seasonWheel = GameObject.Find("GameGUI").transform.FindChild("SeasonWheel").gameObject;
+        seasonWheelComponents = new GameObject[4];
+        seasonWheelComponents[0] = seasonWheel.transform.FindChild("SpringWheel").gameObject;
+        seasonWheelComponents[1] = seasonWheel.transform.FindChild("SummerWheel").gameObject;
+        seasonWheelComponents[2] = seasonWheel.transform.FindChild("FallWheel").gameObject;
+        seasonWheelComponents[3] = seasonWheel.transform.FindChild("WinterWheel").gameObject;
     }
 
     void Update()

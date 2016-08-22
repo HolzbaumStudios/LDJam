@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using System.Collections;
 using System;
 using UnityStandardAssets._2D;
@@ -11,6 +12,7 @@ public class LevelManager : MonoBehaviour {
     public GameObject backgroundPrefab; //prefab slot
     public GameObject SM_ChangeEffect;
     public AudioClip SM_ChangeSound;
+    public GameObject gameGUIPrefab;
     private GameObject mainCamera;
     private GameObject player;
 
@@ -52,6 +54,7 @@ public class LevelManager : MonoBehaviour {
         if (!GameObject.Find("BackgroundCanvas") && backgroundPrefab != null)
         {
             background = Instantiate(backgroundPrefab) as GameObject;
+            background.name = backgroundPrefab.name;
             background.GetComponent<Canvas>().worldCamera = Camera.main;
         }
         else
@@ -60,6 +63,19 @@ public class LevelManager : MonoBehaviour {
         //Add audio source
         if (!GetComponent<AudioSource>())
             this.gameObject.AddComponent<AudioSource>();
+
+        //Create the game gui if it doesn't exist
+        if (!GameObject.Find("GameGUI"))
+        {
+            GameObject gameGUI = Instantiate(gameGUIPrefab);
+            gameGUI.name = gameGUIPrefab.name;
+        }
+        if (!GameObject.Find("EventSystem"))
+        {
+            GameObject eventSystem = new GameObject("EventSystem");
+            eventSystem.AddComponent<EventSystem>();
+            eventSystem.AddComponent<StandaloneInputModule>();
+        }
     }
 
 }
