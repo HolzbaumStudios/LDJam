@@ -153,8 +153,8 @@ public class PlayerMovement : MonoBehaviour
             rightHand.FindChild("staff").gameObject.SetActive(false);
             rightHand.FindChild("staff_sum_umbrella").gameObject.SetActive(true);
             playerAnimator.SetBool("Gliding", true);
-            rigidbody.gravityScale = 0.45f;
-            rigidbody.velocity = new Vector2(rigidbody.velocity.x, 0);
+            rigidbody.gravityScale = 0.15f;
+            rigidbody.velocity = new Vector2(rigidbody.velocity.x, -0.2f);
             isGliding = true;
         }
         else if((glide && isGliding && (grounded || swimming)) || (!glide && isGliding))
@@ -162,6 +162,7 @@ public class PlayerMovement : MonoBehaviour
             rightHand.FindChild("staff").gameObject.SetActive(true);
             rightHand.FindChild("staff_sum_umbrella").gameObject.SetActive(false);
             playerAnimator.SetBool("Gliding", false);
+            rigidbody.gravityScale = 3;
             isGliding = false;
         }
     }
