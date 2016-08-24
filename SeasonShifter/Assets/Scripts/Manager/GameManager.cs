@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour {
         if(!GameObject.Find("MusicManager"))
         {
             GameObject MusicManager = Instantiate(musicManagerPrefab);
+            MusicManager.name = musicManagerPrefab.name;
             DontDestroyOnLoad(MusicManager);
         }
     }

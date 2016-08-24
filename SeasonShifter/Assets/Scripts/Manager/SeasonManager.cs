@@ -1,18 +1,31 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class SeasonManager : MonoBehaviour {
 
     public enum Season { spring, summer, fall, winter };
     public Season currentSeason { get; private set; }
+    private int tempSeasonId = 0; //Used for the guy
 
     public GameObject[] seasonObject; //0 = spring, 1 = summer, 2 = fall, 3 = winter;
 
     private Transform effectOrigin; //Where the change season effect is instantiated
     private GameObject changeEffect; //The effect to change the season
+    private PlayerMovement playerMovement;
+    private PlayerInput playerInput;
+
+    //AUDIO COMPONENTS
     private AudioClip changeSound; //The sound when the season changes
     private AudioSource audioSource;
-    private PlayerMovement playerMovement;
+
+    //GUI COMPONENTS
+    private GameObject seasonWheel; //Container for the season Wheel
+    private GameObject[] seasonWheelComponents; //Container for the season components of the season wheel
+    private bool wheelActivated = false;
+
+    private Vector2 wheelMousePosition; //When the season wheel is active, the mouse position is checked for control of the wheel
+
 
     void Start()
     {
@@ -32,14 +45,88 @@ public class SeasonManager : MonoBehaviour {
 
         audioSource = GetComponent<AudioSource>();
 
-        playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        playerMovement = player.GetComponent<PlayerMovement>();
+        playerInput = player.GetComponent<PlayerInput>();
+
+        //Get GUI Objects
+        seasonWheel = GameObject.Find("GameGUI").transform.FindChild("SeasonWheel").gameObject;
+        seasonWheelComponents = new GameObject[4];
+        seasonWheelComponents[0] = seasonWheel.transform.FindChild("SpringWheel").gameObject;
+        seasonWheelComponents[1] = seasonWheel.transform.FindChild("SummerWheel").gameObject;
+        seasonWheelComponents[2] = seasonWheel.transform.FindChild("FallWheel").gameObject;
+        seasonWheelComponents[3] = seasonWheel.transform.FindChild("WinterWheel").gameObject;
+        seasonWheel.SetActive(false);
     }
 
     void Update()
     {
-        if (Input.GetButtonDown("Fire1") && playerMovement.GetGroundedState() && !playerMovement.GetSwimmingState())
+        if (Input.GetButtonDown("Fire1") && playerMovement.GetGroundedState() && !playerMovement.GetSwimmingState() && !wheelActivated)
         {
-            SeasonChange();
+            seasonWheel.SetActive(true);
+            tempSeasonId = (int)currentSeason;
+            wheelActivated = true;
+            wheelMousePosition = Input.mousePosition;
+            playerInput.DisableInput(true);
+        }
+
+        if(wheelActivated)
+        {
+            //Check for changes with the key
+            if (Input.GetAxis("Horizontal") > 0)
+            {
+                tempSeasonId = 1;
+                wheelMousePosition = Input.mousePosition;
+            }
+            else if (Input.GetAxis("Horizontal") < 0)
+            {
+                tempSeasonId = 3;
+                wheelMousePosition = Input.mousePosition;
+            }
+            else if (Input.GetAxis("Vertical") > 0)
+            {
+                tempSeasonId = 0;
+                wheelMousePosition = Input.mousePosition;
+            }
+            else if (Input.GetAxis("Vertical") < 0)
+            {
+                tempSeasonId = 2;
+                wheelMousePosition = Input.mousePosition;
+            }
+
+            //Check for changes with the mouse
+            if (Input.mousePosition.x > wheelMousePosition.x + 5)
+            {
+                tempSeasonId = 1;
+                wheelMousePosition = Input.mousePosition;
+            }
+            else if (Input.mousePosition.x < wheelMousePosition.x - 5)
+            {
+                tempSeasonId = 3;
+                wheelMousePosition = Input.mousePosition;
+            }
+            else if (Input.mousePosition.y > wheelMousePosition.y + 5)
+            {
+                tempSeasonId = 0;
+                wheelMousePosition = Input.mousePosition;
+            }
+            else if (Input.mousePosition.y < wheelMousePosition.y - 5)
+            {
+                tempSeasonId = 2;
+                wheelMousePosition = Input.mousePosition;
+            }
+
+            //Change the GUI
+            SetGuiWheel(tempSeasonId);
+        }
+
+        if (Input.GetButtonUp("Fire1") && wheelActivated)
+        {
+            seasonWheel.SetActive(false);
+            if (tempSeasonId != (int)currentSeason)
+                SeasonChange(tempSeasonId);
+            wheelActivated = false;
+            playerInput.DisableInput(false);
         }
     }
 
@@ -48,24 +135,30 @@ public class SeasonManager : MonoBehaviour {
     public event SeasonHandler CHANGE_SEASON;
 
     //Starts the change effect coroutine. This function is also called from other scripts
-    public void SeasonChange()
+    public void SeasonChange(int id)
     {
-        StartCoroutine(ChangeEffect());
+        StartCoroutine(ChangeEffect(id));
     }
 
-    IEnumerator ChangeEffect()
+    IEnumerator ChangeEffect(int id)
     {
         audioSource.PlayOneShot(changeSound, 1);
         Vector3 instantiatePosition = new Vector3(effectOrigin.position.x, effectOrigin.position.y, 1);
         GameObject changeEffectObject = Instantiate(changeEffect, instantiatePosition, transform.rotation) as GameObject;
         yield return new WaitForSeconds(0.5f);
-        if (currentSeason == Season.summer)
+        switch(id)
         {
-            currentSeason = Season.winter;
-        }
-        else
-        {
-            currentSeason = Season.summer;
+            case 0: currentSeason = Season.spring;
+                break;
+            case 1:
+                currentSeason = Season.summer;
+                break;
+            case 2:
+                currentSeason = Season.fall;
+                break;
+            case 3:
+                currentSeason = Season.winter;
+                break;
         }
         SetSeason();
         CHANGE_SEASON(this);//Call event, that season has changed
@@ -103,4 +196,15 @@ public class SeasonManager : MonoBehaviour {
         this.changeSound = changeSound;
     }
 
+    //Set the selected season
+    public void SetGuiWheel(int id)
+    {
+        Color baseColor = Color.white;
+        Color selectedColor = Color.green;
+
+        foreach (GameObject wheelPart in seasonWheelComponents)
+            wheelPart.GetComponent<Image>().color = baseColor;
+
+        seasonWheelComponents[id].GetComponent<Image>().color = selectedColor;
+    }
 }

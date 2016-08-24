@@ -462,6 +462,11 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
             {
                 GameObject container = new GameObject(layer.name);
                 container.transform.SetParent(this.gameObject.transform);
+                if (layer.name == "Water")
+                {
+                    container.tag = "Water";
+                    container.AddComponent<WaterMovement>();
+                }
             }
         }
     }
