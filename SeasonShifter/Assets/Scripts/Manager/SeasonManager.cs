@@ -24,6 +24,8 @@ public class SeasonManager : MonoBehaviour {
     private GameObject[] seasonWheelComponents; //Container for the season components of the season wheel
     private bool wheelActivated = false;
 
+    private Vector2 wheelMousePosition; //When the season wheel is active, the mouse position is checked for control of the wheel
+
 
     void Start()
     {
@@ -64,19 +66,55 @@ public class SeasonManager : MonoBehaviour {
             seasonWheel.SetActive(true);
             tempSeasonId = (int)currentSeason;
             wheelActivated = true;
+            wheelMousePosition = Input.mousePosition;
             playerInput.DisableInput(true);
         }
 
         if(wheelActivated)
         {
+            //Check for changes with the key
             if (Input.GetAxis("Horizontal") > 0)
+            {
                 tempSeasonId = 1;
+                wheelMousePosition = Input.mousePosition;
+            }
             else if (Input.GetAxis("Horizontal") < 0)
+            {
                 tempSeasonId = 3;
+                wheelMousePosition = Input.mousePosition;
+            }
             else if (Input.GetAxis("Vertical") > 0)
+            {
                 tempSeasonId = 0;
+                wheelMousePosition = Input.mousePosition;
+            }
             else if (Input.GetAxis("Vertical") < 0)
+            {
                 tempSeasonId = 2;
+                wheelMousePosition = Input.mousePosition;
+            }
+
+            //Check for changes with the mouse
+            if (Input.mousePosition.x > wheelMousePosition.x + 5)
+            {
+                tempSeasonId = 1;
+                wheelMousePosition = Input.mousePosition;
+            }
+            else if (Input.mousePosition.x < wheelMousePosition.x - 5)
+            {
+                tempSeasonId = 3;
+                wheelMousePosition = Input.mousePosition;
+            }
+            else if (Input.mousePosition.y > wheelMousePosition.y + 5)
+            {
+                tempSeasonId = 0;
+                wheelMousePosition = Input.mousePosition;
+            }
+            else if (Input.mousePosition.y < wheelMousePosition.y - 5)
+            {
+                tempSeasonId = 2;
+                wheelMousePosition = Input.mousePosition;
+            }
 
             //Change the GUI
             SetGuiWheel(tempSeasonId);
