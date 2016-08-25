@@ -189,6 +189,11 @@ public class PlayerMovement : MonoBehaviour
         return swimming;
     }
 
+    public bool GetGlidingState()
+    {
+        return isGliding;
+    }
+
     //Change swimming state
     public void ChangeSwimmingState(bool swimState)
     {
