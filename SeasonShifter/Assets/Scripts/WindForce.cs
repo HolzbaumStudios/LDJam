@@ -17,7 +17,7 @@ public class WindForce : MonoBehaviour {
     {
         if (col.CompareTag("Player") && playerMovement.GetGlidingState())
         {
-            rigidbody.AddForce(new Vector2(0, 4), ForceMode2D.Force);
+            rigidbody.velocity = new Vector2(rigidbody.velocity.x, 3);
         }
     }
 }
