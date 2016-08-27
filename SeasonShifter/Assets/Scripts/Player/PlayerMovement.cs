@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     public float jumpingPower = 400;
     public float waterJumpingPower = 50;
     public float swimmingSpeed = 4;
+    private float playerGravityScale = 2.5f;
     public Transform rightHand;
     public Transform feetCollider;
     private SeasonManager seasonManager;
@@ -122,7 +123,7 @@ public class PlayerMovement : MonoBehaviour
                 moveVertical = 0;
             }
             else if (rigidbody.gravityScale == 0)
-                rigidbody.gravityScale = 3;
+                rigidbody.gravityScale = playerGravityScale;
 
             rigidbodyVerticalSpeed = moveVertical * (swimmingSpeed / 2);
         }
@@ -162,7 +163,7 @@ public class PlayerMovement : MonoBehaviour
             rightHand.FindChild("staff").gameObject.SetActive(true);
             rightHand.FindChild("staff_sum_umbrella").gameObject.SetActive(false);
             playerAnimator.SetBool("Gliding", false);
-            rigidbody.gravityScale = 3;
+            rigidbody.gravityScale = playerGravityScale;
             isGliding = false;
         }
     }
@@ -189,6 +190,11 @@ public class PlayerMovement : MonoBehaviour
         return swimming;
     }
 
+    public bool GetGlidingState()
+    {
+        return isGliding;
+    }
+
     //Change swimming state
     public void ChangeSwimmingState(bool swimState)
     {
@@ -206,7 +212,7 @@ public class PlayerMovement : MonoBehaviour
         {
             boxCollider.offset = boxColliderPosition;
             boxCollider.size = boxColliderSize;
-            rigidbody.gravityScale = 3;
+            rigidbody.gravityScale = playerGravityScale;
             allowUpSwimming = true;
         }
     }
