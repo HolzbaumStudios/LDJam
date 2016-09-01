@@ -111,7 +111,7 @@ public class CameraMovement : MonoBehaviour {
 
         Camera.main.orthographicSize = Mathf.SmoothDamp(Camera.main.orthographicSize, currentCameraSize, ref currentZoomVelocity, speed);
 
-        Debug.Log("Speed: " + speed + " Velocity: " + targetRigidbody.velocity.y);
+       // Debug.Log("Speed: " + speed + " Velocity: " + targetRigidbody.velocity.y);
     }
 
 }
