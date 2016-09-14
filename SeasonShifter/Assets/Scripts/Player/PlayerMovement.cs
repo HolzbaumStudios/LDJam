@@ -4,11 +4,11 @@ using System.Collections;
 public class PlayerMovement : MonoBehaviour
 {
 
-    public float maxSpeed = 10;
-    public float jumpingPower = 400;
+    public float maxSpeed = 6;
+    public float jumpingPower = 380;
     public float waterJumpingPower = 50;
-    public float swimmingSpeed = 4;
-    private float playerGravityScale = 2.5f;
+    public float swimmingSpeed = 3;
+    private float playerGravityScale = 2f;
     public Transform rightHand;
     public Transform feetCollider;
     private SeasonManager seasonManager;

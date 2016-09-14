@@ -253,7 +253,7 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
                 else
                 {
                     tileImage.sprite = brush.sprites[22];
-                    tileName = "Tile_Id122";
+                    tileName = "Tile_Id22";
                 }
             }
             else //Tile is a bottom tile and has tiles on both sides
@@ -572,7 +572,7 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
             {
                 for (int x = 0; x < columns; x++)
                 {
-                    if (spriteArray[x, y, layer] != null && spriteArray[x, y, layer].name == "Tile_Id6" && !CheckIfVectorExists(spriteArray[x,y, layer],bottomLeftTiles))
+                    if (spriteArray[x, y, layer] != null && (spriteArray[x, y, layer].name == "Tile_Id6" || spriteArray[x, y, layer].name == "Tile_Id21") && !CheckIfVectorExists(spriteArray[x,y, layer],bottomLeftTiles))
                     {
                         Debug.Log("Tile_Id6 found");
                         edgeTileFound = true;
@@ -603,7 +603,7 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
                         case 3: xPosition--; break;
                     }
 
-                    Debug.Log("X: " + xPosition + " , Y: " + yPosition);
+                    //Debug.Log("X: " + xPosition + " , Y: " + yPosition);
 
                     switch (spriteArray[xPosition, yPosition, layer].name)
                     {
@@ -615,6 +615,14 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
                         case "Tile_Id10": direction = 1; pathPoints.Add(spriteArray[xPosition, yPosition, layer].transform.position + new Vector3(0.5f, 0.5f, 0)); break;
                         case "Tile_Id11": direction = 3; pathPoints.Add(spriteArray[xPosition, yPosition, layer].transform.position + new Vector3(-0.5f, -0.5f, 0)); break;
                         case "Tile_Id12": direction = 2; pathPoints.Add(spriteArray[xPosition, yPosition, layer].transform.position + new Vector3(0.5f, -0.5f, 0)); break;
+                        case "Tile_Id19": direction = 1; pathPoints.Add(spriteArray[xPosition, yPosition, layer].transform.position + new Vector3(-0.5f, -0.5f, 0)); pathPoints.Add(spriteArray[xPosition, yPosition, layer].transform.position + new Vector3(0.5f, 0.5f, 0)); break;
+                        case "Tile_Id20": direction = 2; pathPoints.Add(spriteArray[xPosition, yPosition, layer].transform.position + new Vector3(-0.5f, 0.5f, 0)); pathPoints.Add(spriteArray[xPosition, yPosition, layer].transform.position + new Vector3(0.5f, -0.5f, 0)); break;
+                        case "Tile_Id21": direction = 0; pathPoints.Add(spriteArray[xPosition, yPosition, layer].transform.position + new Vector3(0.5f, -0.5f, 0)); pathPoints.Add(spriteArray[xPosition, yPosition, layer].transform.position + new Vector3(-0.5f, 0.5f, 0)); bottomLeftTiles.Add(spriteArray[xPosition, yPosition, layer]); break;
+                        case "Tile_Id22": direction = 3; pathPoints.Add(spriteArray[xPosition, yPosition, layer].transform.position + new Vector3(0.5f, 0.5f, 0)); pathPoints.Add(spriteArray[xPosition, yPosition, layer].transform.position + new Vector3(-0.5f, -0.5f, 0)); break;
+                        case "Tile_Id23": direction = 0; break;
+                        case "Tile_Id24": direction = 1; break;
+                        case "Tile_Id25": direction = 3; break;
+                        case "Tile_Id26": direction = 2; break;
                         default: break;
                     }
 
