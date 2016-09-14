@@ -186,7 +186,7 @@ public class TileEditor_GridEditor : Editor {
             if (TileEditor_BrushCollection.GetActiveBrush() != null)
             {
                 image = TileEditor_BrushCollection.GetActiveBrush().thumbnail;
-                areaRect = new Rect(sceneview.camera.pixelWidth - 220, 10, 190, 150);
+                areaRect = new Rect(sceneview.camera.pixelWidth - 220, 10, 190, 160);
             }
             else if(TileEditor_SpriteCollection.GetActiveSprite() != null)
             {
@@ -235,9 +235,20 @@ public class TileEditor_GridEditor : Editor {
 
             GUILayout.Space(2);
 
+            if(TileEditor_BrushCollection.GetActiveBrush() != null)
+            {
+                GUILayout.Space(2);
+                EditorGUILayout.BeginHorizontal();
+                GUILayout.Label("Use diagonal edges?");
+                GUILayout.Space(5);
+                grid.slope = EditorGUILayout.Toggle(grid.slope);
+                EditorGUILayout.EndHorizontal();
+            }
+
             if(TileEditor_SpriteCollection.GetActiveSprite() != null)
             {
                 EditorGUILayout.Separator();
+
                 GUILayout.Space(2);
                 EditorGUILayout.BeginHorizontal();
                     GUILayout.Label("Collider:");

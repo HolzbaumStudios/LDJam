@@ -22,6 +22,7 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
     int orderInLayer = 0;
     Material activeMaterial;
     bool flipX = false, flipY = false;
+    bool slope = false; //Set true to draw diagonal tiles
     //Collider variables
     int colliderType = 0;
     bool isTrigger = false;
@@ -58,6 +59,11 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
         this.isTrigger = isTrigger;
         boxColliderSize = size;
         boxColliderOffset = offset;
+    }
+
+    public void SetSlope(bool slope) //Set if diagonal tiles should be used or not
+    {
+        this.slope = slope;
     }
 
     public void CheckIfArrayExists()
@@ -184,15 +190,31 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
                     tileName = "Tile_Id4";
                 }
             }
-            else if (spriteArray[x - 1, y, layer] == null) //tile is a top tile and has no left tile
+            else if (spriteArray[x - 1, y, layer] == null) //tile is a top tile and has no left tile  --- TOP LEFT TILE
             {
-                tileImage.sprite = brush.sprites[0];
-                tileName = "Tile_Id0";
+                if (!slope)
+                {
+                    tileImage.sprite = brush.sprites[0];
+                    tileName = "Tile_Id0";
+                }
+                else
+                {
+                    tileImage.sprite = brush.sprites[19];
+                    tileName = "Tile_Id19";
+                }
             }
-            else if (spriteArray[x + 1, y, layer] == null) //tile is a top tile and has no right tile
+            else if (spriteArray[x + 1, y, layer] == null) //tile is a top tile and has no right tile  ---  TOP RIGHT TILE
             {
-                tileImage.sprite = brush.sprites[2];
-                tileName = "Tile_Id2";
+                if (!slope)
+                {
+                    tileImage.sprite = brush.sprites[2];
+                    tileName = "Tile_Id2";
+                }
+                else
+                {
+                    tileImage.sprite = brush.sprites[20];
+                    tileName = "Tile_Id20";
+                }
             }
             else
             {
@@ -208,15 +230,31 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
                 tileImage.sprite = brush.sprites[18];
                 tileName = "Tile_Id18";
             }
-            else if (spriteArray[x - 1, y, layer] == null)  //Tile is a bottom tile and has no right tile
+            else if (spriteArray[x - 1, y, layer] == null)  //Tile is a bottom tile and has no left tile  --- BOTTOM LEFT TILE
             {
-                tileImage.sprite = brush.sprites[6];
-                tileName = "Tile_Id6";
+                if (!slope)
+                {
+                    tileImage.sprite = brush.sprites[6];
+                    tileName = "Tile_Id6";
+                }
+                else
+                {
+                    tileImage.sprite = brush.sprites[21];
+                    tileName = "Tile_Id21";
+                }
             }
-            else if (spriteArray[x + 1, y, layer] == null) //Tile is a bottom tile and has no left tile
+            else if (spriteArray[x + 1, y, layer] == null) //Tile is a bottom tile and has no right tile  --- BOTTOM RIGHT TILE
             {
-                tileImage.sprite = brush.sprites[8];
-                tileName = "Tile_Id8";
+                if (!slope)
+                {
+                    tileImage.sprite = brush.sprites[8];
+                    tileName = "Tile_Id8";
+                }
+                else
+                {
+                    tileImage.sprite = brush.sprites[22];
+                    tileName = "Tile_Id122";
+                }
             }
             else //Tile is a bottom tile and has tiles on both sides
             {
@@ -247,23 +285,55 @@ public class TileEditor_ObjectHandler : MonoBehaviour {
                 //Check for edges
                 if (spriteArray[x - 1, y + 1, layer] == null) //top left inner edge
                 {
-                    tileImage.sprite = brush.sprites[9];
-                    tileName = "Tile_Id9";
+                    if (!slope)
+                    {
+                        tileImage.sprite = brush.sprites[9];
+                        tileName = "Tile_Id9";
+                    }
+                    else
+                    {
+                        tileImage.sprite = brush.sprites[23];
+                        tileName = "Tile_Id23";
+                    }
                 }
                 else if (spriteArray[x + 1, y + 1, layer] == null) //top right inner edge
                 {
-                    tileImage.sprite = brush.sprites[10];
-                    tileName = "Tile_Id10";
+                    if (!slope)
+                    {
+                        tileImage.sprite = brush.sprites[10];
+                        tileName = "Tile_Id10";
+                    }
+                    else
+                    {
+                        tileImage.sprite = brush.sprites[24];
+                        tileName = "Tile_Id24";
+                    }
                 }
                 else if (spriteArray[x - 1, y - 1, layer] == null) //bottom left inner edge
                 {
-                    tileImage.sprite = brush.sprites[11];
-                    tileName = "Tile_Id11";
+                    if (!slope)
+                    {
+                        tileImage.sprite = brush.sprites[11];
+                        tileName = "Tile_Id11";
+                    }
+                    else
+                    {
+                        tileImage.sprite = brush.sprites[25];
+                        tileName = "Tile_Id25";
+                    }
                 }
                 else if (spriteArray[x + 1, y - 1, layer] == null) //bottom right inner edge
                 {
-                    tileImage.sprite = brush.sprites[12];
-                    tileName = "Tile_Id12";
+                    if (!slope)
+                    {
+                        tileImage.sprite = brush.sprites[12];
+                        tileName = "Tile_Id12";
+                    }
+                    else
+                    {
+                        tileImage.sprite = brush.sprites[26];
+                        tileName = "Tile_Id26";
+                    }
                 }
                 else //normal center tile
                 {

@@ -99,6 +99,39 @@ public class TileEditor_BrushWindow : EditorWindow{
             brush.sprites[15] = EditorGUILayout.ObjectField(brush.sprites[15], typeof(Sprite), true, GUILayout.Width(50), GUILayout.Height(50)) as Sprite;
         GUILayout.EndHorizontal();
 
+        //-------Slope Tiles----------------
+        GUILayout.Space(10);
+        GUILayout.Label("Slope Tiles: ", EditorStyles.boldLabel);
+        GUILayout.Space(5);
+        GUILayout.BeginHorizontal();
+        GUILayout.Space(74);
+        brush.sprites[19] = EditorGUILayout.ObjectField(brush.sprites[19], typeof(Sprite), true, GUILayout.Width(50), GUILayout.Height(50)) as Sprite;
+        brush.sprites[20] = EditorGUILayout.ObjectField(brush.sprites[20], typeof(Sprite), true, GUILayout.Width(50), GUILayout.Height(50)) as Sprite;
+        GUILayout.EndHorizontal();
+
+        GUILayout.BeginHorizontal();
+        GUILayout.Space(20);
+            brush.sprites[19] = EditorGUILayout.ObjectField(brush.sprites[19], typeof(Sprite), true, GUILayout.Width(50), GUILayout.Height(50)) as Sprite;
+            brush.sprites[23] = EditorGUILayout.ObjectField(brush.sprites[23], typeof(Sprite), true, GUILayout.Width(50), GUILayout.Height(50)) as Sprite;
+            brush.sprites[24] = EditorGUILayout.ObjectField(brush.sprites[24], typeof(Sprite), true, GUILayout.Width(50), GUILayout.Height(50)) as Sprite;
+            brush.sprites[20] = EditorGUILayout.ObjectField(brush.sprites[20], typeof(Sprite), true, GUILayout.Width(50), GUILayout.Height(50)) as Sprite;
+        GUILayout.EndHorizontal();
+
+        GUILayout.BeginHorizontal();
+        GUILayout.Space(20);
+        brush.sprites[21] = EditorGUILayout.ObjectField(brush.sprites[21], typeof(Sprite), true, GUILayout.Width(50), GUILayout.Height(50)) as Sprite;
+        brush.sprites[25] = EditorGUILayout.ObjectField(brush.sprites[25], typeof(Sprite), true, GUILayout.Width(50), GUILayout.Height(50)) as Sprite;
+        brush.sprites[26] = EditorGUILayout.ObjectField(brush.sprites[26], typeof(Sprite), true, GUILayout.Width(50), GUILayout.Height(50)) as Sprite;
+        brush.sprites[22] = EditorGUILayout.ObjectField(brush.sprites[22], typeof(Sprite), true, GUILayout.Width(50), GUILayout.Height(50)) as Sprite;
+        GUILayout.EndHorizontal();
+
+        GUILayout.BeginHorizontal();
+        GUILayout.Space(74);
+        brush.sprites[21] = EditorGUILayout.ObjectField(brush.sprites[21], typeof(Sprite), true, GUILayout.Width(50), GUILayout.Height(50)) as Sprite;
+        brush.sprites[22] = EditorGUILayout.ObjectField(brush.sprites[22], typeof(Sprite), true, GUILayout.Width(50), GUILayout.Height(50)) as Sprite;
+        GUILayout.EndHorizontal();
+
+
         GUILayout.Space(20);
         GUILayout.BeginHorizontal();
             GUILayout.Space(160);

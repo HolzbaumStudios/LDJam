@@ -23,6 +23,7 @@ public class TileEditor_Grid : MonoBehaviour {
     public Material material;
     public bool flipX = false;
     public bool flipY = false;
+    public bool slope = false;
 
     //For single sprites
     public string[] colliderType = new string[] { "None", "Box Collider 2D", "Circle Collider 2D", "Polygon Collider 2D" };
@@ -149,6 +150,7 @@ public class TileEditor_Grid : MonoBehaviour {
         objectHandler.SetMaterial(material);
         objectHandler.SetFlipInformation(flipX, flipY);
         objectHandler.SetColliderInformation(colliderTypeIndex, isTrigger, boxColliderSize, boxColliderOffset);
+        objectHandler.SetSlope(slope);
     }
 
 }
