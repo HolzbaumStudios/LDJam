@@ -52,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         //Do a raycast to check if it hits something
-        hit = Physics2D.Raycast(feetCollider.position, -Vector2.up, 0.10f);
+        hit = Physics2D.Raycast(feetCollider.position, -Vector2.up, 0.15f);
         //Check if the ground is hit
         if (hit)
         {
