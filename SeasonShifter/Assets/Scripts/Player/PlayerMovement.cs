@@ -27,8 +27,13 @@ public class PlayerMovement : MonoBehaviour
     private float circleColliderRadius;
     private Vector2 circleColliderPosition;
     private PlayerSound soundScript;
+    private bool freezedPosition = false;
 
     RaycastHit2D hit;
+
+    ///Variables only called by Player Input. These should not be changed within this code
+    private bool jump;
+    private float move;
 
     void Start()
     {
@@ -99,8 +104,12 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Set animation bool
-        if(grounded)
+        if (grounded)
+        {
             playerAnimator.SetBool("Grounded", true);
+            if((hit.normal.x > 0.6f || hit.normal.x < -0.6f) && hit.normal.y > 0.6f)
+                NormalizeSlope(hit.normal); //Normalize movement when standing on a slope
+        }
         else
             playerAnimator.SetBool("Grounded", false);
     }
@@ -109,7 +118,13 @@ public class PlayerMovement : MonoBehaviour
     public void Move(float move, float moveVertical, bool jump, bool staffAction) //StaffAction = is controll pressed
     {
         // The Speed animator parameter is set to the absolute value of the horizontal input.
+        this.move = move;
+        this.jump = jump;
         float speed = Mathf.Abs(move);
+        if((speed != 0 || jump) && freezedPosition)
+        {
+            rigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
+        }
         playerAnimator.SetFloat("Speed", speed);
         //Set the speed of the rigidbody
         float rigidbodySpeed = maxSpeed;
@@ -224,6 +239,15 @@ public class PlayerMovement : MonoBehaviour
         if (leftSide) xValue *= -1;
         rigidbody.transform.position += new Vector3(xValue, 0.9f);
         ChangeSwimmingState(false);
+    }
+
+    void NormalizeSlope(Vector2 normalValues)
+    {
+        if (rigidbody.constraints != RigidbodyConstraints2D.FreezePositionX && !jump && move == 0)
+        {
+            freezedPosition = true;
+            rigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
+        }
     }
 
 }
