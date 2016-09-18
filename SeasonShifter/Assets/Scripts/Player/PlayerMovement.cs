@@ -4,11 +4,11 @@ using System.Collections;
 public class PlayerMovement : MonoBehaviour
 {
 
-    public float maxSpeed = 10;
-    public float jumpingPower = 400;
+    public float maxSpeed = 6;
+    public float jumpingPower = 380;
     public float waterJumpingPower = 50;
-    public float swimmingSpeed = 4;
-    private float playerGravityScale = 2.5f;
+    public float swimmingSpeed = 3;
+    private float playerGravityScale = 2f;
     public Transform rightHand;
     public Transform feetCollider;
     private SeasonManager seasonManager;
@@ -27,8 +27,14 @@ public class PlayerMovement : MonoBehaviour
     private float circleColliderRadius;
     private Vector2 circleColliderPosition;
     private PlayerSound soundScript;
+    private bool freezedPosition = false;
+    private bool disabledRaycast = false; //After a jump, the raycast is disabled for 0.1 seconds
 
     RaycastHit2D hit;
+
+    ///Variables only called by Player Input. These should not be changed within this code
+    private bool jump;
+    private float move;
 
     void Start()
     {
@@ -51,10 +57,11 @@ public class PlayerMovement : MonoBehaviour
     //Check if the state changes
     void FixedUpdate()
     {
+        
         //Do a raycast to check if it hits something
-        hit = Physics2D.Raycast(feetCollider.position, -Vector2.up, 0.10f);
+        hit = Physics2D.Raycast(feetCollider.position, -Vector2.up, 0.12f);
         //Check if the ground is hit
-        if (hit)
+        if (hit && !disabledRaycast)
         {
             if (hit.collider.CompareTag("Water") && !swimming)
             {
@@ -99,8 +106,12 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Set animation bool
-        if(grounded)
+        if (grounded)
+        {
             playerAnimator.SetBool("Grounded", true);
+            if((hit.normal.x > 0.6f || hit.normal.x < -0.6f) && hit.normal.y > 0.6f)
+                NormalizeSlope(hit.normal); //Normalize movement when standing on a slope
+        }
         else
             playerAnimator.SetBool("Grounded", false);
     }
@@ -109,7 +120,13 @@ public class PlayerMovement : MonoBehaviour
     public void Move(float move, float moveVertical, bool jump, bool staffAction) //StaffAction = is controll pressed
     {
         // The Speed animator parameter is set to the absolute value of the horizontal input.
+        this.move = move;
+        this.jump = jump;
         float speed = Mathf.Abs(move);
+        if((speed != 0 || jump) && freezedPosition) //Chech if position is freezed, because the player is on a slope
+        {
+            rigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
+        }
         playerAnimator.SetFloat("Speed", speed);
         //Set the speed of the rigidbody
         float rigidbodySpeed = maxSpeed;
@@ -132,9 +149,12 @@ public class PlayerMovement : MonoBehaviour
         //Jump
         if (jump && grounded && !swimming)
         {
+            rigidbody.velocity = new Vector2(rigidbody.velocity.x, 0); //set y velocitiy to 0, ensuring that the player always reaches the same height while jumping
+            disabledRaycast = true;
             playerAnimator.SetBool("Jump", true); //Change this to a trigger !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             rigidbody.AddForce(new Vector2(0f, jumpingPower));
             soundScript.Jump();
+            StartCoroutine(EnableRaycast()); //Enable the raycast ground check after 0.1 secods
         }
         
         //Check if staff action is used
@@ -226,6 +246,21 @@ public class PlayerMovement : MonoBehaviour
         ChangeSwimmingState(false);
     }
 
+    //Prvent Sliding on slopes, by disabling rigidbody movement, while not moving
+    void NormalizeSlope(Vector2 normalValues)
+    {
+        if (rigidbody.constraints != RigidbodyConstraints2D.FreezePositionX && !jump && move == 0)
+        {
+            freezedPosition = true;
+            rigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
+        }
+    }
+
+    IEnumerator EnableRaycast()
+    {
+        yield return new WaitForSeconds(0.1f);
+        disabledRaycast = false;
+    }
 }
 
 
