@@ -28,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 circleColliderPosition;
     private PlayerSound soundScript;
     private bool freezedPosition = false;
+    private bool disabledRaycast = false; //After a jump, the raycast is disabled for 0.1 seconds
 
     RaycastHit2D hit;
 
@@ -56,10 +57,11 @@ public class PlayerMovement : MonoBehaviour
     //Check if the state changes
     void FixedUpdate()
     {
+        
         //Do a raycast to check if it hits something
-        hit = Physics2D.Raycast(feetCollider.position, -Vector2.up, 0.15f);
+        hit = Physics2D.Raycast(feetCollider.position, -Vector2.up, 0.12f);
         //Check if the ground is hit
-        if (hit)
+        if (hit && !disabledRaycast)
         {
             if (hit.collider.CompareTag("Water") && !swimming)
             {
@@ -121,7 +123,7 @@ public class PlayerMovement : MonoBehaviour
         this.move = move;
         this.jump = jump;
         float speed = Mathf.Abs(move);
-        if((speed != 0 || jump) && freezedPosition)
+        if((speed != 0 || jump) && freezedPosition) //Chech if position is freezed, because the player is on a slope
         {
             rigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
         }
@@ -147,9 +149,12 @@ public class PlayerMovement : MonoBehaviour
         //Jump
         if (jump && grounded && !swimming)
         {
+            rigidbody.velocity = new Vector2(rigidbody.velocity.x, 0); //set y velocitiy to 0, ensuring that the player always reaches the same height while jumping
+            disabledRaycast = true;
             playerAnimator.SetBool("Jump", true); //Change this to a trigger !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             rigidbody.AddForce(new Vector2(0f, jumpingPower));
             soundScript.Jump();
+            StartCoroutine(EnableRaycast()); //Enable the raycast ground check after 0.1 secods
         }
         
         //Check if staff action is used
@@ -241,6 +246,7 @@ public class PlayerMovement : MonoBehaviour
         ChangeSwimmingState(false);
     }
 
+    //Prvent Sliding on slopes, by disabling rigidbody movement, while not moving
     void NormalizeSlope(Vector2 normalValues)
     {
         if (rigidbody.constraints != RigidbodyConstraints2D.FreezePositionX && !jump && move == 0)
@@ -250,6 +256,11 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    IEnumerator EnableRaycast()
+    {
+        yield return new WaitForSeconds(0.1f);
+        disabledRaycast = false;
+    }
 }
 
 
