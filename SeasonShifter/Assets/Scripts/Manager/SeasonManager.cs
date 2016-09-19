@@ -199,8 +199,8 @@ public class SeasonManager : MonoBehaviour {
     //Set the selected season
     public void SetGuiWheel(int id)
     {
-        Color baseColor = Color.white;
-        Color selectedColor = Color.green;
+        Color baseColor = new Color32(111, 111, 111, 255);
+        Color selectedColor = Color.white;
 
         foreach (GameObject wheelPart in seasonWheelComponents)
             wheelPart.GetComponent<Image>().color = baseColor;
