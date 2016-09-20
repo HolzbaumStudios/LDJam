@@ -7,11 +7,13 @@ public class PlatformBehaviour : MonoBehaviour {
     // Variables for Movement
     private Vector2 originPosition;
     public bool movement;
+    public bool drawGizmos;
     public float maxDistanceUp;
     public float maxDistanceDown;
     public float maxDistanceRight;
     public float maxDistanceLeft;
     private float movementSpeed;
+
 
     // Variables to check if maxDistance has been reached -> Changes movement direction
     public bool sideways = false;
@@ -59,13 +61,6 @@ public class PlatformBehaviour : MonoBehaviour {
                     if (originPosition.y - maxDistanceDown > transform.position.y) movingdown = false;
                     if (originPosition.y + maxDistanceUp < transform.position.y) movingdown = true;
                 }
-                else if (currentSeason == Season.winter)
-                {
-                    movementSpeed = 0.0f;
-                    transform.Translate(new Vector2(0, moveY) * movementSpeed * Time.deltaTime);
-                    if (originPosition.y - maxDistanceDown > transform.position.y) movingdown = false;
-                    if (originPosition.y + maxDistanceUp < transform.position.y) movingdown = true;
-                }
             }
             else //Wenn Seitwärts true -> Bewegung links-rechts
             {
@@ -78,18 +73,22 @@ public class PlatformBehaviour : MonoBehaviour {
                     if (originPosition.x - maxDistanceLeft > transform.position.x) movingright = true;
                     if (originPosition.x + maxDistanceRight < transform.position.x) movingright = false;
                 }
-                else if (currentSeason == Season.winter)
-                {
-                    movementSpeed = 0.0f;
-                    transform.Translate(new Vector2(moveX, 0) * movementSpeed * Time.deltaTime);
-                    if (originPosition.x - maxDistanceLeft > transform.position.x) movingright = true;
-                    if (originPosition.x + maxDistanceRight < transform.position.x) movingright = false;
-                }
             }
         }
     }
 
-    //Funktionen
+    void OnDrawGizmos()
+    {
+        if (drawGizmos)
+        {
+            //Horizontal Line
+            Gizmos.DrawLine(transform.position - new Vector3(maxDistanceLeft, 0), transform.position + new Vector3(maxDistanceRight, 0));
+            //Vertical Line
+            Gizmos.DrawLine(transform.position - new Vector3(0, maxDistanceDown), transform.position + new Vector3(0, maxDistanceUp));
+        }
+    }
+
+    //Change Sprite of child object based on the season
     public void ChangeSprite()
     {
         switch (seasonManager.currentSeason)
@@ -105,6 +104,7 @@ public class PlatformBehaviour : MonoBehaviour {
                         else
                             childObjects[i].GetComponent<SpriteRenderer>().sprite = winterSprite[1];
                     }
+                    movement = false;
                 }
                 break;
             default:
@@ -118,6 +118,7 @@ public class PlatformBehaviour : MonoBehaviour {
                         else
                             childObjects[i].GetComponent<SpriteRenderer>().sprite = standardSprite[1];
                     }
+                    movement = true;
                 }
                 break;
         }

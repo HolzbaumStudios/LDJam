@@ -88,7 +88,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 179496}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.101204, y: -0.15851021, z: 6.411133}
+  m_LocalPosition: {x: 1.5, y: 0, z: 6.411133}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 479430}
@@ -100,7 +100,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 148610}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.8987961, y: -0.15851021, z: 6.411133}
+  m_LocalPosition: {x: -1.5, y: 0, z: 6.411133}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 479430}
@@ -112,7 +112,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 184432}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.1012039, y: -0.1585102, z: 6.411133}
+  m_LocalPosition: {x: 0.5, y: 0, z: 6.411133}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 479430}
@@ -124,7 +124,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 149264}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.10120392, y: -0.15851021, z: 6.411133}
+  m_LocalPosition: {x: -0.5, y: 0, z: 6.411133}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 479430}
@@ -136,7 +136,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 114548}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 19.167263, y: 17.805737, z: -6.411133}
+  m_LocalPosition: {x: 21.210167, y: 17.501343, z: -6.411133}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 422446}
@@ -159,14 +159,14 @@ PolygonCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Points:
     m_Paths:
-    - - {x: -1.4010906, y: 0.06055069}
-      - {x: -1.3931026, y: -0.12927055}
-      - {x: -1.26894, y: -0.1317749}
-      - {x: -1.0288086, y: -0.36006737}
-      - {x: 2.2313404, y: -0.37601852}
-      - {x: 2.4625301, y: -0.12263107}
-      - {x: 2.5916462, y: -0.11890221}
-      - {x: 2.5870953, y: 0.067697525}
+    - - {x: -2.0025635, y: 0.21783447}
+      - {x: -1.9956512, y: 0.037773132}
+      - {x: -1.8655224, y: 0.035268784}
+      - {x: -1.6432896, y: -0.19898987}
+      - {x: 1.6278687, y: -0.21246147}
+      - {x: 1.8590584, y: 0.02400589}
+      - {x: 1.9994545, y: 0.033376694}
+      - {x: 1.9964771, y: 0.21684265}
 --- !u!114 &11401830
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -179,6 +179,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movement: 0
+  drawGizmos: 0
   maxDistanceUp: 0
   maxDistanceDown: 0
   maxDistanceRight: 0

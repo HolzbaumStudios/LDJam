@@ -56,7 +56,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 192752}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 19.2949, y: 16.604626, z: -6.411644}
+  m_LocalPosition: {x: 21.49711, y: 17.481548, z: -6.411644}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 463478}
@@ -70,7 +70,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 199516}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.2949009, y: -0.6046257, z: 6.411644}
+  m_LocalPosition: {x: 0.5, y: 0, z: 6.411644}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 430800}
@@ -82,7 +82,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 105376}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.2949009, y: -0.6046257, z: 6.411644}
+  m_LocalPosition: {x: -0.5, y: 0, z: 6.411644}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 430800}
@@ -101,14 +101,14 @@ PolygonCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Points:
     m_Paths:
-    - - {x: -1.784956, y: -0.3946972}
-      - {x: 0.21056938, y: -0.39681435}
-      - {x: 0.20313644, y: -0.57283974}
-      - {x: 0.076631546, y: -0.57481}
-      - {x: -0.17023087, y: -0.8172569}
-      - {x: -1.4310875, y: -0.803977}
-      - {x: -1.6673851, y: -0.58075714}
-      - {x: -1.7891521, y: -0.5610676}
+    - - {x: -1.0015163, y: 0.2121048}
+      - {x: 1.0028057, y: 0.20716858}
+      - {x: 0.99658966, y: 0.029102325}
+      - {x: 0.8618107, y: 0.0272789}
+      - {x: 0.63622475, y: -0.2025547}
+      - {x: -0.6372547, y: -0.208498}
+      - {x: -0.8687935, y: 0.022676468}
+      - {x: -1.0032616, y: 0.025735855}
 --- !u!114 &11485398
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -121,8 +121,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movement: 0
-  maxDistanceUp: 0
-  maxDistanceDown: 0
+  drawGizmos: 0
+  maxDistanceUp: 5
+  maxDistanceDown: 1
   maxDistanceRight: 0
   maxDistanceLeft: 0
   sideways: 0
