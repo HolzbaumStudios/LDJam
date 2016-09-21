@@ -136,7 +136,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 114548}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 21.210167, y: 17.501343, z: -6.411133}
+  m_LocalPosition: {x: 20.176558, y: 21.038004, z: -6.411133}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 422446}
@@ -159,14 +159,14 @@ PolygonCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Points:
     m_Paths:
-    - - {x: -2.0025635, y: 0.21783447}
-      - {x: -1.9956512, y: 0.037773132}
-      - {x: -1.8655224, y: 0.035268784}
-      - {x: -1.6432896, y: -0.19898987}
-      - {x: 1.6278687, y: -0.21246147}
-      - {x: 1.8590584, y: 0.02400589}
-      - {x: 1.9994545, y: 0.033376694}
-      - {x: 1.9964771, y: 0.21684265}
+    - - {x: -2.011465, y: 0.22563362}
+      - {x: -2.0094566, y: 0.025716782}
+      - {x: -1.8770714, y: 0.01685524}
+      - {x: -1.6093407, y: -0.20999908}
+      - {x: 1.6573257, y: -0.19219398}
+      - {x: 1.853838, y: 0.034231186}
+      - {x: 1.9940662, y: 0.044324875}
+      - {x: 1.9956207, y: 0.20999908}
 --- !u!114 &11401830
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -192,9 +192,9 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 745f9fc088e5c2b49a62f27cb5b4ce8b, type: 3}
   - {fileID: 21300000, guid: d0812e79a54e3664a9716f773910534f, type: 3}
   winterSprite:
-  - {fileID: 21300000, guid: 397591ffb3487b345b931e7c1379f157, type: 3}
-  - {fileID: 21300000, guid: 745f9fc088e5c2b49a62f27cb5b4ce8b, type: 3}
-  - {fileID: 21300000, guid: d0812e79a54e3664a9716f773910534f, type: 3}
+  - {fileID: 21300000, guid: df5522fd802e1c4469c527c5dfa37cd9, type: 3}
+  - {fileID: 21300000, guid: 445c72d75f57ccd43959db1041de1353, type: 3}
+  - {fileID: 21300000, guid: 6c692f1130c66d149842b49d9cd52c81, type: 3}
 --- !u!212 &21244152
 SpriteRenderer:
   m_ObjectHideFlags: 1
