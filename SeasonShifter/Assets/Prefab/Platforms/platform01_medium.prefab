@@ -42,6 +42,7 @@ GameObject:
   - 4: {fileID: 499722}
   - 60: {fileID: 6080658}
   - 114: {fileID: 11468914}
+  - 114: {fileID: 11463764}
   m_Layer: 0
   m_Name: platform01_medium
   m_TagString: Untagged
@@ -138,6 +139,17 @@ PolygonCollider2D:
       - {x: 1.3698578, y: 0.020256042}
       - {x: 1.4966335, y: 0.028585434}
       - {x: 1.5063057, y: 0.20147133}
+--- !u!114 &11463764
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 155332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 348d069463c28f647b44fe2b80166019, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11468914
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -149,7 +161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68cce1e9af3c1df479c5b0069062b514, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movement: 0
+  movement: 1
   drawGizmos: 0
   maxDistanceUp: 0
   maxDistanceDown: 0

@@ -48,7 +48,7 @@ public class PlatformBehaviour : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if (movement == true)
+        if (movement == true && seasonManager.currentSeason != SeasonManager.Season.winter)
         {
             if (sideways == false) // Wenn die Seitwärtsbewegung ausgeschaltet ist
             {
@@ -104,7 +104,6 @@ public class PlatformBehaviour : MonoBehaviour {
                         else
                             childObjects[i].GetComponent<SpriteRenderer>().sprite = winterSprite[1];
                     }
-                    movement = false;
                 }
                 break;
             default:
@@ -118,7 +117,6 @@ public class PlatformBehaviour : MonoBehaviour {
                         else
                             childObjects[i].GetComponent<SpriteRenderer>().sprite = standardSprite[1];
                     }
-                    movement = true;
                 }
                 break;
         }

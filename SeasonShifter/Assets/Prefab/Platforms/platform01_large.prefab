@@ -10,6 +10,7 @@ GameObject:
   - 4: {fileID: 479430}
   - 60: {fileID: 6058676}
   - 114: {fileID: 11401830}
+  - 114: {fileID: 11408734}
   m_Layer: 0
   m_Name: platform01_large
   m_TagString: Untagged
@@ -178,10 +179,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68cce1e9af3c1df479c5b0069062b514, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movement: 0
+  movement: 1
   drawGizmos: 0
   maxDistanceUp: 0
-  maxDistanceDown: 0
+  maxDistanceDown: 5
   maxDistanceRight: 0
   maxDistanceLeft: 0
   sideways: 0
@@ -195,6 +196,17 @@ MonoBehaviour:
   - {fileID: 21300000, guid: df5522fd802e1c4469c527c5dfa37cd9, type: 3}
   - {fileID: 21300000, guid: 445c72d75f57ccd43959db1041de1353, type: 3}
   - {fileID: 21300000, guid: 6c692f1130c66d149842b49d9cd52c81, type: 3}
+--- !u!114 &11408734
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 114548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 348d069463c28f647b44fe2b80166019, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &21244152
 SpriteRenderer:
   m_ObjectHideFlags: 1
