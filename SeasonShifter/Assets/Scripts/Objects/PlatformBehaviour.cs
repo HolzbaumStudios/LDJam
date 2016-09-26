@@ -30,8 +30,7 @@ public class PlatformBehaviour : MonoBehaviour {
     //Child objects
     private List<Transform> childObjects;
 
-    enum Season { spring, summer, fall, winter };
-    Season currentSeason = Season.summer;
+
 
     // Use this for initialization
     void Start()
@@ -54,25 +53,19 @@ public class PlatformBehaviour : MonoBehaviour {
             {
                 float moveY = 1.0f;
                 if (movingdown == true) moveY *= -1;
-                if (currentSeason == Season.summer)
-                {
-                    movementSpeed = 2.0f;
-                    transform.Translate(new Vector2(0, moveY) * movementSpeed * Time.deltaTime);
-                    if (originPosition.y - maxDistanceDown > transform.position.y) movingdown = false;
-                    if (originPosition.y + maxDistanceUp < transform.position.y) movingdown = true;
-                }
+                movementSpeed = 2.0f;
+                transform.Translate(new Vector2(0, moveY) * movementSpeed * Time.deltaTime);
+                if (originPosition.y - maxDistanceDown > transform.position.y) movingdown = false;
+                if (originPosition.y + maxDistanceUp < transform.position.y) movingdown = true;
             }
             else //Wenn Seitwärts true -> Bewegung links-rechts
             {
                 float moveX = 1.0f;
                 if (movingright == false) moveX *= -1;
-                if (currentSeason == Season.summer)
-                {
-                    movementSpeed = 2.0f;
-                    transform.Translate(new Vector2(moveX, 0) * movementSpeed * Time.deltaTime);
-                    if (originPosition.x - maxDistanceLeft > transform.position.x) movingright = true;
-                    if (originPosition.x + maxDistanceRight < transform.position.x) movingright = false;
-                }
+                movementSpeed = 2.0f;
+                transform.Translate(new Vector2(moveX, 0) * movementSpeed * Time.deltaTime);
+                if (originPosition.x - maxDistanceLeft > transform.position.x) movingright = true;
+                if (originPosition.x + maxDistanceRight < transform.position.x) movingright = false;
             }
         }
     }

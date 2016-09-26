@@ -7,6 +7,7 @@ TagManager:
   - Summer
   - Winter
   - Water
+  - Platform
   layers:
   - Default
   - TransparentFX

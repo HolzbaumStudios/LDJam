@@ -109,8 +109,21 @@ public class PlayerMovement : MonoBehaviour
         if (grounded)
         {
             playerAnimator.SetBool("Grounded", true);
-            if((hit.normal.x > 0.6f || hit.normal.x < -0.6f) && hit.normal.y > 0.6f)
-                NormalizeSlope(hit.normal); //Normalize movement when standing on a slope
+            if (!hit.transform.CompareTag("Platform"))
+            {
+                if ((hit.normal.x > 0.75f || hit.normal.x < -0.75f) && hit.normal.y > 0.75f && freezedPosition)
+                {
+                    freezedPosition = false;
+                    rigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
+                }
+                else if ((hit.normal.x > 0.6f || hit.normal.x < -0.6f) && hit.normal.y > 0.6f)
+                    NormalizeSlope(hit.normal); //Normalize movement when standing on a slope
+                else if (freezedPosition)
+                {
+                    freezedPosition = false;
+                    rigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
+                }
+            }
         }
         else
             playerAnimator.SetBool("Grounded", false);
@@ -125,6 +138,7 @@ public class PlayerMovement : MonoBehaviour
         float speed = Mathf.Abs(move);
         if((speed != 0 || jump) && freezedPosition) //Chech if position is freezed, because the player is on a slope
         {
+            freezedPosition = false;
             rigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
         }
         playerAnimator.SetFloat("Speed", speed);
