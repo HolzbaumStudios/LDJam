@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     public Transform rightHand;
     public Transform feetCollider;
     private SeasonManager seasonManager;
+    private GameProgress gameProgress;
 
     private bool grounded; //if the player touches the ground
     private bool swimming = false;
@@ -46,6 +47,7 @@ public class PlayerMovement : MonoBehaviour
         soundScript = GetComponent<PlayerSound>();
 
         seasonManager = GameObject.Find("LevelManager").GetComponent<SeasonManager>();
+        gameProgress = GameManager.gameProgressInstance;
 
         //Get Start Values
         boxColliderSize = boxCollider.size;
@@ -183,7 +185,7 @@ public class PlayerMovement : MonoBehaviour
     //All the mechanics of gliding
     public void Glide(bool glide)
     {
-        if(glide && (!isGliding && !grounded && !swimming))
+        if(glide && (!isGliding && !grounded && !swimming) && gameProgress.umbrella)
         {
             rightHand.FindChild("staff").gameObject.SetActive(false);
             rightHand.FindChild("staff_sum_umbrella").gameObject.SetActive(true);
