@@ -298,12 +298,13 @@ GameObject:
   - 4: {fileID: 490968}
   - 212: {fileID: 21292438}
   - 50: {fileID: 5023508}
-  - 61: {fileID: 6153274}
   - 95: {fileID: 9595590}
   - 114: {fileID: 11450206}
   - 82: {fileID: 8286280}
   - 114: {fileID: 11493590}
   - 114: {fileID: 11428768}
+  - 61: {fileID: 6153274}
+  - 58: {fileID: 5802478}
   m_Layer: 2
   m_Name: Player
   m_TagString: Player
@@ -418,8 +419,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 131016}
   m_LocalRotation: {x: 0, y: 0, z: -0.54426175, w: 0.83891547}
-  m_LocalPosition: {x: 0.326, y: 0.125, z: 0.03125}
-  m_LocalScale: {x: 0.14793701, y: 0.12975389, z: 1}
+  m_LocalPosition: {x: 0.485, y: 0.224, z: 0.03125}
+  m_LocalScale: {x: 0.35, y: 0.37, z: 1}
   m_Children: []
   m_Father: {fileID: 476556}
   m_RootOrder: 0
@@ -574,6 +575,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!58 &5802478
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 182466}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0.1, y: -0.72}
+  serializedVersion: 2
+  m_Radius: 0.24983215
 --- !u!61 &6153274
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -585,9 +600,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0.10575867, y: 0.052030563}
+  m_Offset: {x: 0.10575867, y: 0.22630692}
   serializedVersion: 2
-  m_Size: {x: 0.4556263, y: 2.040026}
+  m_Size: {x: 0.4556263, y: 1.815154}
 --- !u!82 &8286280
 AudioSource:
   m_ObjectHideFlags: 1
@@ -690,8 +705,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e9641d6911fe334f89732cbfc0a48af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  winterStaff: {fileID: 21300000, guid: 16822c92e186e034f8e16afed019584a, type: 3}
-  summerStaff: {fileID: 21300000, guid: 6162d425eeedd254dace7ff751d589ef, type: 3}
+  winterStaff: {fileID: 21300000, guid: d4778984796a32f43a7f285d8fbcb437, type: 3}
+  summerStaff: {fileID: 21300000, guid: d4778984796a32f43a7f285d8fbcb437, type: 3}
 --- !u!114 &11428768
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -821,7 +836,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 61814313
-  m_SortingOrder: -1
+  m_SortingOrder: -2
   m_Sprite: {fileID: 21300002, guid: 6a4f2ef2480896f49a2cc0eead66ecf9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1092,7 +1107,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 61814313
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: 16822c92e186e034f8e16afed019584a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d4778984796a32f43a7f285d8fbcb437, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
