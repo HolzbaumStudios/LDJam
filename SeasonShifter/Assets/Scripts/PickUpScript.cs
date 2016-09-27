@@ -41,6 +41,8 @@ public class PickUpScript : MonoBehaviour {
             seasonManager.SeasonChange(3);
             gameProgress.winterSeason = true; //Enables winter and season change
             GameObject.FindWithTag("Player").GetComponent<PlayerMovement>().rightHand.FindChild("staff").GetComponent<StaffScript>().EnableStaff();
+            Light staffLight = col.GetComponent<PlayerMovement>().rightHand.FindChild("SpotLight").GetComponent<Light>();
+            staffLight.enabled = true;
             Destroy(this.gameObject);
         }
         else if(objectName == "UpgradeUmbrella")
