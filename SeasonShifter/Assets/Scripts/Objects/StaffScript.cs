@@ -3,18 +3,25 @@ using System.Collections;
 
 public class StaffScript : MonoBehaviour {
 
+    /// <summary>
+    /// Script is attached to the right hand of the player
+    /// </summary>
+
     bool staffEnabled = false;
     SpriteRenderer staffRenderer;
     SeasonManager seasonManager;
+    GameProgress gameProgress;
     public Sprite winterStaff;
     public Sprite summerStaff;
+    public Sprite umbrella;
 
     // Use this for initialization
     void Start () {
+        gameProgress = GameManager.gameProgressInstance;
         staffRenderer = GetComponent<SpriteRenderer>();
         seasonManager = GameObject.Find("LevelManager").GetComponent<SeasonManager>();
         seasonManager.CHANGE_SEASON += this.SeasonChanged;
-        if (PlayerPrefs.GetInt("StaffEnabled") == 1)
+        if (gameProgress.winterSeason)
         {
             staffEnabled = true;
             staffRenderer.enabled = true;

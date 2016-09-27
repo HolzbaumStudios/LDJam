@@ -4,22 +4,24 @@ using System.Collections;
 public class PickUpScript : MonoBehaviour {
 
 
-    string objectName;
-    Inventory inventory;
-    public string color = "green";
-    //GameObject musicObjects = GameObject.Find("MusicManager").transform.FindChild("MusicObjects").gameObject;
-    GameObject musicObjects;
+    private string objectName;
+    private GameProgress gameProgress;
+    private Inventory inventory;
+    private GameObject musicObjects;
 
     void Start()
     {
         objectName = this.gameObject.transform.name;
-        musicObjects = GameObject.Find("MusicManager").transform.FindChild("MusicObjects").gameObject;
-        inventory = GameObject.Find("GameManager").GetComponent<Inventory>();
-        if (objectName == "PickStaff" && PlayerPrefs.GetInt("StaffEnabled") == 1)
+        gameProgress = GameManager.gameProgressInstance;
+        musicObjects = MusicManager.musicManagerInstance.musicObjects;
+        inventory = GameManager.gameManagerInstance.GetComponent<Inventory>();
+        //Staff pickup at level 1-1
+        if (objectName == "Staff" && gameProgress.winterSeason)
         {
             Destroy(this.gameObject);
         }
-        else if (objectName == "UpgradeUmbrella" && PlayerPrefs.GetInt("GlidingAllowed")==1)
+        //Umbrella pickup
+        else if (objectName == "UpgradeUmbrella" && gameProgress.umbrella)
         {
             Destroy(this.gameObject);
         }
@@ -28,18 +30,17 @@ public class PickUpScript : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (objectName == "PickStaff")
+        if (objectName == "Staff")
         {
-            //Shoe Achievement Text
-            GameObject.Find("GUI").transform.FindChild("InfoText").gameObject.SetActive(true);
+            //Show Achievement Text
+            //GameObject.Find("GUI").transform.FindChild("InfoText").gameObject.SetActive(true);
             //Find Music Manager for ObjectSound
             musicObjects.GetComponent<AudioSource>().Play();
             //Change Season
-            ChangeSeason seasonManager = GameObject.Find("GameManager").GetComponent<ChangeSeason>();
-            seasonManager.SeasonChange();
-            seasonManager.AllowChange(true);
-            GameObject.Find("staff").GetComponent<StaffScript>().EnableStaff();
-            PlayerPrefs.SetInt("StaffEnabled",1);
+            SeasonManager seasonManager = LevelManager.seasonManagerInstance;
+            seasonManager.SeasonChange(3);
+            gameProgress.winterSeason = true; //Enables winter and season change
+            GameObject.FindWithTag("Player").GetComponent<PlayerMovement>().rightHand.FindChild("staff").GetComponent<StaffScript>().EnableStaff();
             Destroy(this.gameObject);
         }
         else if(objectName == "UpgradeUmbrella")
@@ -47,13 +48,6 @@ public class PickUpScript : MonoBehaviour {
             col.gameObject.GetComponent<PlayerInput>().AllowGliding();
             musicObjects.GetComponent<AudioSource>().Play();
             GameObject.Find("GUI").transform.FindChild("InfoText").gameObject.SetActive(true);
-            Destroy(this.gameObject);
-        }
-        else if((objectName == "KeyGreen" || objectName == "KeyBlue"))
-        {
-            if(Application.loadedLevelName == "Map02")GameObject.Find("GUI").transform.FindChild("InfoText").gameObject.SetActive(true);
-            musicObjects.GetComponent<AudioSource>().Play();
-            inventory.KeyCollected(color);
             Destroy(this.gameObject);
         }
     }
