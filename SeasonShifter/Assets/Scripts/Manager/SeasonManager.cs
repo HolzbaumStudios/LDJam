@@ -14,6 +14,7 @@ public class SeasonManager : MonoBehaviour {
     private GameObject changeEffect; //The effect to change the season
     private PlayerMovement playerMovement;
     private PlayerInput playerInput;
+    private GameProgress gameProgress;
 
     //AUDIO COMPONENTS
     private AudioClip changeSound; //The sound when the season changes
@@ -40,6 +41,8 @@ public class SeasonManager : MonoBehaviour {
         if (GameObject.Find("Winter"))
             seasonObject[3] = GameObject.Find("Winter");
 
+        gameProgress = GameManager.gameProgressInstance;
+
         currentSeason = Season.summer;
         SetSeason();
 
@@ -61,8 +64,9 @@ public class SeasonManager : MonoBehaviour {
 
     void Update()
     {
-        if (Input.GetButtonDown("Fire1") && playerMovement.GetGroundedState() && !playerMovement.GetSwimmingState() && !wheelActivated)
+        if (Input.GetButtonDown("Fire1") && playerMovement.GetGroundedState() && !playerMovement.GetSwimmingState() && !wheelActivated && gameProgress.winterSeason)
         {
+            OpenWheel();
             seasonWheel.SetActive(true);
             tempSeasonId = (int)currentSeason;
             wheelActivated = true;
@@ -83,12 +87,12 @@ public class SeasonManager : MonoBehaviour {
                 tempSeasonId = 3;
                 wheelMousePosition = Input.mousePosition;
             }
-            else if (Input.GetAxis("Vertical") > 0)
+            else if (Input.GetAxis("Vertical") > 0 && gameProgress.springSeason)
             {
                 tempSeasonId = 0;
                 wheelMousePosition = Input.mousePosition;
             }
-            else if (Input.GetAxis("Vertical") < 0)
+            else if (Input.GetAxis("Vertical") < 0 && gameProgress.winterSeason)
             {
                 tempSeasonId = 2;
                 wheelMousePosition = Input.mousePosition;
@@ -105,12 +109,12 @@ public class SeasonManager : MonoBehaviour {
                 tempSeasonId = 3;
                 wheelMousePosition = Input.mousePosition;
             }
-            else if (Input.mousePosition.y > wheelMousePosition.y + 5)
+            else if (Input.mousePosition.y > wheelMousePosition.y + 5 && gameProgress.springSeason)
             {
                 tempSeasonId = 0;
                 wheelMousePosition = Input.mousePosition;
             }
-            else if (Input.mousePosition.y < wheelMousePosition.y - 5)
+            else if (Input.mousePosition.y < wheelMousePosition.y - 5 && gameProgress.fallSeason)
             {
                 tempSeasonId = 2;
                 wheelMousePosition = Input.mousePosition;
@@ -206,5 +210,14 @@ public class SeasonManager : MonoBehaviour {
             wheelPart.GetComponent<Image>().color = baseColor;
 
         seasonWheelComponents[id].GetComponent<Image>().color = selectedColor;
+    }
+
+    //GetVariableInfos when opening the wheel
+    public void OpenWheel()
+    {
+        if (gameProgress.springSeason && seasonWheelComponents[0].activeSelf == false)
+            seasonWheelComponents[0].SetActive(true);
+        if (gameProgress.fallSeason && seasonWheelComponents[2].activeSelf == false)
+            seasonWheelComponents[2].SetActive(true);
     }
 }

@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     public Transform rightHand;
     public Transform feetCollider;
     private SeasonManager seasonManager;
+    private GameProgress gameProgress;
 
     private bool grounded; //if the player touches the ground
     private bool swimming = false;
@@ -46,6 +47,7 @@ public class PlayerMovement : MonoBehaviour
         soundScript = GetComponent<PlayerSound>();
 
         seasonManager = GameObject.Find("LevelManager").GetComponent<SeasonManager>();
+        gameProgress = GameManager.gameProgressInstance;
 
         //Get Start Values
         boxColliderSize = boxCollider.size;
@@ -109,8 +111,21 @@ public class PlayerMovement : MonoBehaviour
         if (grounded)
         {
             playerAnimator.SetBool("Grounded", true);
-            if((hit.normal.x > 0.6f || hit.normal.x < -0.6f) && hit.normal.y > 0.6f)
-                NormalizeSlope(hit.normal); //Normalize movement when standing on a slope
+            if (!hit.transform.CompareTag("Platform"))
+            {
+                if ((hit.normal.x > 0.75f || hit.normal.x < -0.75f) && hit.normal.y > 0.75f && freezedPosition)
+                {
+                    freezedPosition = false;
+                    rigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
+                }
+                else if ((hit.normal.x > 0.6f || hit.normal.x < -0.6f) && hit.normal.y > 0.6f)
+                    NormalizeSlope(hit.normal); //Normalize movement when standing on a slope
+                else if (freezedPosition)
+                {
+                    freezedPosition = false;
+                    rigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
+                }
+            }
         }
         else
             playerAnimator.SetBool("Grounded", false);
@@ -125,6 +140,7 @@ public class PlayerMovement : MonoBehaviour
         float speed = Mathf.Abs(move);
         if((speed != 0 || jump) && freezedPosition) //Chech if position is freezed, because the player is on a slope
         {
+            freezedPosition = false;
             rigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
         }
         playerAnimator.SetFloat("Speed", speed);
@@ -169,7 +185,7 @@ public class PlayerMovement : MonoBehaviour
     //All the mechanics of gliding
     public void Glide(bool glide)
     {
-        if(glide && (!isGliding && !grounded && !swimming))
+        if(glide && (!isGliding && !grounded && !swimming) && gameProgress.umbrella)
         {
             rightHand.FindChild("staff").gameObject.SetActive(false);
             rightHand.FindChild("staff_sum_umbrella").gameObject.SetActive(true);
