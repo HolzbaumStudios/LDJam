@@ -13,7 +13,7 @@ GameObject:
   - 61: {fileID: 6193066}
   m_Layer: 0
   m_Name: Mushroom01
-  m_TagString: Untagged
+  m_TagString: Trampoline
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -41,9 +41,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_Offset: {x: 0.0034065247, y: 0.030667305}
+  m_Offset: {x: -0.005783081, y: 0.14656639}
   serializedVersion: 2
-  m_Size: {x: 1.5433934, y: 0.39847183}
+  m_Size: {x: 1.4882714, y: 0.148251}
 --- !u!114 &11433374
 MonoBehaviour:
   m_ObjectHideFlags: 1

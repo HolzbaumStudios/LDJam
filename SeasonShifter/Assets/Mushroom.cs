@@ -29,7 +29,7 @@ public class Mushroom : MonoBehaviour {
     }
 
 
-    private void SeasonChanged(object source)
+     private void SeasonChanged(object source)
     {
         ChangeSprite();
     }

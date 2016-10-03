@@ -8,6 +8,7 @@ TagManager:
   - Winter
   - Water
   - Platform
+  - Trampoline
   layers:
   - Default
   - TransparentFX
