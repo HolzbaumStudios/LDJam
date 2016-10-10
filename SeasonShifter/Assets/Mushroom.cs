@@ -33,4 +33,10 @@ public class Mushroom : MonoBehaviour {
     {
         ChangeSprite();
     }
+
+    public void StartAnimation()
+    {
+        var animator = GetComponent<Animator>();
+        animator.SetTrigger("MushroomJump");
+    }
 }
