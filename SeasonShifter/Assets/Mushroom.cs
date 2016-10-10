@@ -10,7 +10,7 @@ public class Mushroom : MonoBehaviour {
 
     void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = this.GetComponentInChildren<SpriteRenderer>();
         boxCollider = GetComponent<BoxCollider2D>();
         seasonManager = GameObject.Find("LevelManager").GetComponent<SeasonManager>();
         seasonManager.CHANGE_SEASON += this.SeasonChanged;
