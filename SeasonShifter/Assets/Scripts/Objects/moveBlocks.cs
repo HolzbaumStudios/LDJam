@@ -4,44 +4,74 @@ using System.Collections;
 public class moveBlocks : MonoBehaviour {
     // Variablen
     private bool fPressed = false;
+    private Vector3 originalScale;
+    private Rigidbody2D rigidbody;
+    private BoxCollider2D collider;
+    private Vector2 originalColliderSize;
+    private PolygonCollider2D trigger;
 
-    // Update is called once per frame
+    void Start()
+    {
+        rigidbody = GetComponent<Rigidbody2D>();
+        originalScale = transform.localScale;
+        trigger = GetComponent<PolygonCollider2D>();
+        collider = GetComponent<BoxCollider2D>();
+        originalColliderSize = collider.size;
+    }
+
+    private RaycastHit2D hit;
+
     void Update()
     {
-        if (Input.GetKey(KeyCode.F))
+        //Check if the box went over the edge. If it does, detach it from the player and enable physics
+        hit = Physics2D.Raycast(transform.position, -Vector2.up, 0.4f);
+        if(rigidbody.isKinematic == true && !hit)
         {
-            Debug.Log("F key was pressed in update");
-            fPressed = true;
+            Debug.Log("No hit");
+            if(transform.parent.CompareTag("Player"))
+            {
+                this.transform.parent.GetComponent<PlayerHolding>().DropItem();
+                rigidbody.isKinematic = false;
+            }
         }
-        else
+        else if(hit && !rigidbody.isKinematic)
         {
-            Debug.Log("F key is not pressed anymore in update");
-            fPressed = false;
-            this.transform.SetParent(null);
-            Debug.Log("Box has no more parent =(");
+            rigidbody.isKinematic = true;
         }
     }
 
-    // On Collision check if it's Player   
-    void OnCollisionStay2D(Collision2D coll)
+    void OnTriggerStay2D(Collider2D col)
     {
-        if (coll.gameObject.CompareTag("Player"))
+        if (col.CompareTag("Player") && Input.GetKeyDown(KeyCode.LeftAlt))
         {
-            Debug.Log("Player hit the box");
-            if (fPressed == true)
-            {
-                this.transform.SetParent(coll.transform);
-                Debug.Log("Box has a new parent");
-                coll.transform.GetComponent<PlayerMovement>().maxSpeed = 1;
-                coll.transform.GetComponent<PlayerMovement>().jumpingPower = 0;
-                Debug.Log("speed is now 1");
-            }
-            else
-            {
-                coll.transform.GetComponent<PlayerMovement>().maxSpeed = 10;
-                coll.transform.GetComponent<PlayerMovement>().jumpingPower = 400;
-                Debug.Log("speed is 10 again");
-            }
+            if (!col.GetComponent<PlayerHolding>().isHolding())
+                StartCoroutine(AttachToPlayer(col.transform));
         }
-    }	
+    }
+
+    IEnumerator AttachToPlayer(Transform player)
+    {
+        collider.size = originalColliderSize - new Vector2(0.1f, 0.1f);
+        this.transform.SetParent(player);
+        rigidbody.isKinematic = true;
+        trigger.enabled = false;
+        yield return new WaitForEndOfFrame();
+        player.GetComponent<PlayerHolding>().PickUpItem(this.gameObject);
+        PlayerMovement playerMovement = player.GetComponent<PlayerMovement>();
+        playerMovement.DisableJumping(true);
+        playerMovement.DisableTurning(true);
+    }
+
+    //Gets called by the script PlayerHolding.
+    public void DropItem()
+    {
+        collider.size = originalColliderSize;
+        Transform player = this.transform.parent;
+        this.transform.SetParent(null);
+        trigger.enabled = true;
+        this.transform.localScale = originalScale;
+        PlayerMovement playerMovement = player.GetComponent<PlayerMovement>();
+        playerMovement.DisableJumping(false);
+        playerMovement.DisableTurning(false);
+    }
 }
