@@ -30,6 +30,8 @@ public class PlayerMovement : MonoBehaviour
     private PlayerSound soundScript;
     private bool freezedPosition = false;
     private bool disabledRaycast = false; //After a jump, the raycast is disabled for 0.1 seconds
+    private bool disabledJumping = false;
+    private bool disabledTurning = false; //Prevent the player from turning left or right
 
     RaycastHit2D hit;
 
@@ -52,14 +54,12 @@ public class PlayerMovement : MonoBehaviour
         //Get Start Values
         boxColliderSize = boxCollider.size;
         boxColliderPosition = boxCollider.offset;
-
     }
 
 
     //Check if the state changes
     void FixedUpdate()
     {
-        
         //Do a raycast to check if it hits something
         hit = Physics2D.Raycast(feetCollider.position, -Vector2.up, 0.12f);
         //Check if the ground is hit
@@ -145,6 +145,8 @@ public class PlayerMovement : MonoBehaviour
         // The Speed animator parameter is set to the absolute value of the horizontal input.
         this.move = move;
         this.jump = jump;
+        if (disabledJumping)
+            jump = false;
         float speed = Mathf.Abs(move);
         if((speed != 0 || jump) && freezedPosition) //Chech if position is freezed, because the player is on a slope
         {
@@ -187,7 +189,7 @@ public class PlayerMovement : MonoBehaviour
 
         ///Set facing direction/////////////////
         if ((move > 0 && !facingRight) || (move < 0 && facingRight))
-            Flip();
+            if(!disabledTurning) Flip();
     }
 
     //All the mechanics of gliding
@@ -284,6 +286,16 @@ public class PlayerMovement : MonoBehaviour
     {
         yield return new WaitForSeconds(0.1f);
         disabledRaycast = false;
+    }
+
+    public void DisableJumping(bool disable)
+    {
+        disabledJumping = disable;
+    }
+
+    public void DisableTurning(bool disable)
+    {
+        disabledTurning = disable;
     }
 }
 
