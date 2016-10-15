@@ -7,6 +7,11 @@ TagManager:
   - Summer
   - Winter
   - Water
+  - Platform
+  - Trampoline
+  - Spring
+  - Fall
+  - FireCone
   layers:
   - Default
   - TransparentFX
@@ -41,20 +46,26 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
   - name: Background
     uniqueID: 3399566311
+    locked: 0
+  - name: BackgroundObjects
+    uniqueID: 4152935929
+    locked: 0
+  - name: Player
+    uniqueID: 61814313
+    locked: 0
+  - name: Water
+    uniqueID: 3125206725
     locked: 0
   - name: Level
     uniqueID: 3251478301
     locked: 0
-  - name: Default
-    uniqueID: 0
-    locked: 0
   - name: Objects
     uniqueID: 2750221135
-    locked: 0
-  - name: Water
-    uniqueID: 3125206725
     locked: 0
   - name: Decoration
     uniqueID: 4060161859

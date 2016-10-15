@@ -22,8 +22,8 @@ public class PlayerSound : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        grounded = playerMovementScript.ReturnGroundedState();
-        swimming = playerMovementScript.swimming;
+        grounded = playerMovementScript.GetGroundedState();
+        swimming = playerMovementScript.GetSwimmingState();
 
         if(swimming && currentAnimatorState != AnimatorStates.swim)
         {

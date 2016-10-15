@@ -4212,6 +4212,51 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
+--- !u!1 &826829672
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 826829674}
+  - 114: {fileID: 826829673}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &826829673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 826829672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25661192f7c8fcc449a80c95913ce421, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  seasonObject:
+  - {fileID: 1844171333}
+  - {fileID: 1844171333}
+  - {fileID: 1844171333}
+  - {fileID: 548782016}
+--- !u!4 &826829674
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 826829672}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 13.426762, y: 5.56249, z: 0.03125}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
 --- !u!213 &832927996
 Sprite:
   m_ObjectHideFlags: 0
@@ -10107,6 +10152,94 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
+--- !u!1 &1844171333
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1844171337}
+  - 114: {fileID: 1844171336}
+  - 114: {fileID: 1844171335}
+  - 114: {fileID: 1844171334}
+  m_Layer: 0
+  m_Name: Summer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1844171334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1844171333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e54a49d56df52ae4587ae5def23401fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1844171335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1844171333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bdbd79612ab80a4bab85788fec73f11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  columns: 50
+  rows: 50
+--- !u!114 &1844171336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1844171333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f05b3d93f4a4c64c880a830bb6a73e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lineHeight: 1
+  lineWidth: 1
+  gridHeight: 50
+  gridWidth: 50
+  editorEnabled: 0
+  sortingLayers: []
+  sortingLayerIndex: 0
+  orderInLayer: 0
+  material: {fileID: 0}
+  flipX: 0
+  flipY: 0
+  colliderType:
+  - None
+  - Box Collider 2D
+  - Circle Collider 2D
+  - Polygon Collider 2D
+  colliderTypeIndex: 0
+  isTrigger: 0
+  boxColliderSize: {x: 1, y: 1}
+  boxColliderOffset: {x: 0, y: 0}
+  color: {r: 1, g: 1, b: 1, a: 0.39215687}
+  defaultButtonBackground: {r: 0.49019608, g: 0.49019608, b: 0.49019608, a: 1}
+  selectedButtonBackground: {r: 0.39215687, g: 0.78431374, b: 0.50980395, a: 1}
+--- !u!4 &1844171337
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1844171333}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
 --- !u!1 &1845686916
 GameObject:
   m_ObjectHideFlags: 0

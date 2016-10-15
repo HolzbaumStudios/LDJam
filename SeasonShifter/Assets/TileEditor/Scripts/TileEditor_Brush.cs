@@ -7,9 +7,9 @@ using UnityEditor;
 public class TileEditor_Brush {
 
     [System.NonSerialized]
-    public Sprite[] sprites; //0 -> topLeft, 8 -> bottom right (9x9); 9-12 -> inner edge tiles; 13-15 -> horizontal line; 16-18 vertical lign
+    public Sprite[] sprites; //0 -> topLeft, 8 -> bottom right (9x9); 9-12 -> inner edge tiles; 13-15 -> horizontal line; 16-18 vertical lign; 19-22 -> top left slope to bottom right slope; 23-26 -> top left inner slope to bottom right inner slope
     [HideInInspector]
-    public int maxNumberOfSprites = 19;
+    public int maxNumberOfSprites = 27;
     [System.NonSerialized]
     public Texture2D thumbnail; //Brush image
 
