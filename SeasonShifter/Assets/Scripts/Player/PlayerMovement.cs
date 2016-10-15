@@ -70,6 +70,14 @@ public class PlayerMovement : MonoBehaviour
                 grounded = false;
                 ChangeSwimmingState(true);
             }
+            else if(hit.collider.CompareTag("Trampoline") && rigidbody.velocity.y < 0)
+            {
+                disabledRaycast = true;
+                hit.collider.GetComponent<Mushroom>().StartAnimation();
+                rigidbody.velocity = new Vector2(rigidbody.velocity.x, 0);
+                rigidbody.AddForce(new Vector2(0, jumpingPower * 2));
+                StartCoroutine(EnableRaycast());
+            }
             else if (!grounded)
             {
                 soundScript.Land();

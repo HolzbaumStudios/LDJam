@@ -8,6 +8,10 @@ TagManager:
   - Winter
   - Water
   - Platform
+  - Trampoline
+  - Spring
+  - Fall
+  - FireCone
   layers:
   - Default
   - TransparentFX
