@@ -12,7 +12,9 @@ public class PlatformBehaviour : MonoBehaviour {
     public float maxDistanceDown;
     public float maxDistanceRight;
     public float maxDistanceLeft;
-    private float movementSpeed;
+    public float movementSpeed = 2;
+    private bool preventChange = false;
+    private bool winterMovementEnabled = false;
 
 
     // Variables to check if maxDistance has been reached -> Changes movement direction
@@ -47,13 +49,12 @@ public class PlatformBehaviour : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if (movement == true && seasonManager.currentSeason != SeasonManager.Season.winter)
+        if (movement == true && (seasonManager.currentSeason != SeasonManager.Season.winter || winterMovementEnabled))
         {
             if (sideways == false) // Wenn die Seitwärtsbewegung ausgeschaltet ist
             {
                 float moveY = 1.0f;
                 if (movingdown == true) moveY *= -1;
-                movementSpeed = 2.0f;
                 transform.Translate(new Vector2(0, moveY) * movementSpeed * Time.deltaTime);
                 if (originPosition.y - maxDistanceDown > transform.position.y) movingdown = false;
                 if (originPosition.y + maxDistanceUp < transform.position.y) movingdown = true;
@@ -62,7 +63,6 @@ public class PlatformBehaviour : MonoBehaviour {
             {
                 float moveX = 1.0f;
                 if (movingright == false) moveX *= -1;
-                movementSpeed = 2.0f;
                 transform.Translate(new Vector2(moveX, 0) * movementSpeed * Time.deltaTime);
                 if (originPosition.x - maxDistanceLeft > transform.position.x) movingright = true;
                 if (originPosition.x + maxDistanceRight < transform.position.x) movingright = false;
@@ -88,14 +88,21 @@ public class PlatformBehaviour : MonoBehaviour {
         {
             case SeasonManager.Season.winter:
                 {
-                    for(int i=0; i<childObjects.Count; i++)
+                    if (!preventChange) //detect if freezing is disabled
                     {
-                        if (i == 0)
-                            childObjects[i].GetComponent<SpriteRenderer>().sprite = winterSprite[0];
-                        else if (i == childObjects.Count - 1)
-                            childObjects[i].GetComponent<SpriteRenderer>().sprite = winterSprite[2];
-                        else
-                            childObjects[i].GetComponent<SpriteRenderer>().sprite = winterSprite[1];
+                        for (int i = 0; i < childObjects.Count; i++)
+                        {
+                            if (i == 0)
+                                childObjects[i].GetComponent<SpriteRenderer>().sprite = winterSprite[0];
+                            else if (i == childObjects.Count - 1)
+                                childObjects[i].GetComponent<SpriteRenderer>().sprite = winterSprite[2];
+                            else
+                                childObjects[i].GetComponent<SpriteRenderer>().sprite = winterSprite[1];
+                        }
+                    }
+                    else
+                    {
+                        winterMovementEnabled = true;
                     }
                 }
                 break;
@@ -110,9 +117,16 @@ public class PlatformBehaviour : MonoBehaviour {
                         else
                             childObjects[i].GetComponent<SpriteRenderer>().sprite = standardSprite[1];
                     }
+                    winterMovementEnabled = false;
                 }
                 break;
         }
+    }
+
+    //Disables freezing of seasons
+    public void DisableChange(bool disable)
+    {
+        preventChange = disable;
     }
 
     //Call function when event is raised

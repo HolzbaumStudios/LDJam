@@ -7,6 +7,8 @@ public class FireCone : MonoBehaviour {
     CircleCollider2D trigger;
     PolygonCollider2D collider;
     Vector3 originalScale;
+    private bool onPlatform = false;
+    private GameObject platformReference;
 
     void Start()
     {
@@ -14,6 +16,24 @@ public class FireCone : MonoBehaviour {
         trigger = GetComponent<CircleCollider2D>();
         collider = GetComponent<PolygonCollider2D>();
         originalScale = transform.localScale;
+    }
+
+    void FixedUpdate()
+    {
+        if(onPlatform)
+        {
+            if (!transform.parent.CompareTag("Platform"))
+                Debug.Log("Exiting because parent");
+            if (rigidbody.velocity.y < -1)
+                Debug.Log("Exiting because of velocity");
+            if(!transform.parent.CompareTag("Platform") || rigidbody.velocity.y < -2)
+            {
+                Debug.Log("Exiting platform");
+                platformReference.SendMessage("DisableChange", false);
+                platformReference = null;
+                onPlatform = false;
+            }
+        }
     }
 
 	void OnTriggerStay2D(Collider2D col)
@@ -44,5 +64,18 @@ public class FireCone : MonoBehaviour {
         trigger.enabled = true;
         collider.enabled = true;
         this.transform.localScale = originalScale;
+    }
+
+    public void OnCollisionEnter2D(Collision2D col)
+    {
+        if(col.gameObject.CompareTag("Platform"))
+        {
+            Debug.Log("Enter platform");
+            this.transform.SetParent(col.transform);
+            col.gameObject.SendMessage("DisableChange", true);
+            platformReference = col.gameObject;
+            rigidbody.velocity = Vector2.zero;
+            onPlatform = true;
+        }
     }
 }

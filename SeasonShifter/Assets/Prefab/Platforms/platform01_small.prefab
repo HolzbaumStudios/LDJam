@@ -29,7 +29,7 @@ GameObject:
   - 114: {fileID: 11406382}
   m_Layer: 0
   m_Name: platform01_small
-  m_TagString: Untagged
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -57,7 +57,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 192752}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 24.93352, y: 19.139582, z: -6.411644}
+  m_LocalPosition: {x: 21.147194, y: 16.766514, z: -6.411644}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 463478}
@@ -133,12 +133,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movement: 1
-  drawGizmos: 0
-  maxDistanceUp: 5
-  maxDistanceDown: 1
-  maxDistanceRight: 0
+  drawGizmos: 1
+  maxDistanceUp: 0
+  maxDistanceDown: 0
+  maxDistanceRight: 5
   maxDistanceLeft: 0
-  sideways: 0
+  movementSpeed: 1.5
+  sideways: 1
   movingdown: 0
   movingright: 0
   standardSprite:

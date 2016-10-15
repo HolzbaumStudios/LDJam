@@ -11,6 +11,7 @@ TagManager:
   - Trampoline
   - Spring
   - Fall
+  - FireCone
   layers:
   - Default
   - TransparentFX
