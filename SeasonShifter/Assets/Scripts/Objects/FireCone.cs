@@ -22,13 +22,8 @@ public class FireCone : MonoBehaviour {
     {
         if(onPlatform)
         {
-            if (!transform.parent.CompareTag("Platform"))
-                Debug.Log("Exiting because parent");
-            if (rigidbody.velocity.y < -1)
-                Debug.Log("Exiting because of velocity");
             if(!transform.parent.CompareTag("Platform") || rigidbody.velocity.y < -2)
             {
-                Debug.Log("Exiting platform");
                 platformReference.SendMessage("DisableChange", false);
                 platformReference = null;
                 onPlatform = false;
@@ -47,8 +42,12 @@ public class FireCone : MonoBehaviour {
 
     IEnumerator AttachToPlayer(Transform player)
     {
-        this.transform.SetParent(player);
-        this.transform.position = player.position + new Vector3(0.5f, 0.1f);
+        Transform staff = GameObject.FindGameObjectWithTag("Staff").transform;
+        this.transform.SetParent(staff);
+        if(player.localScale.x > 0)
+            this.transform.position = staff.position + new Vector3(0.1f, 0.1f);
+        else
+            this.transform.position = staff.position + new Vector3(-0.1f, 0.1f);
         rigidbody.isKinematic = true;
         trigger.enabled = false;
         collider.enabled = false;
@@ -78,4 +77,5 @@ public class FireCone : MonoBehaviour {
             onPlatform = true;
         }
     }
+
 }

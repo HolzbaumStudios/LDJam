@@ -3,7 +3,6 @@ using System.Collections;
 
 public class moveBlocks : MonoBehaviour {
     // Variablen
-    private bool fPressed = false;
     private Vector3 originalScale;
     private Rigidbody2D rigidbody;
     private BoxCollider2D collider;
@@ -56,7 +55,7 @@ public class moveBlocks : MonoBehaviour {
         rigidbody.isKinematic = true;
         trigger.enabled = false;
         yield return new WaitForEndOfFrame();
-        player.GetComponent<PlayerHolding>().PickUpItem(this.gameObject);
+        player.GetComponent<PlayerHolding>().PickUpItem(this.gameObject, false);
         PlayerMovement playerMovement = player.GetComponent<PlayerMovement>();
         playerMovement.DisableJumping(true);
         playerMovement.DisableTurning(true);
