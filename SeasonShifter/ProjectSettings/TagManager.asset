@@ -12,6 +12,7 @@ TagManager:
   - Spring
   - Fall
   - FireCone
+  - Staff
   layers:
   - Default
   - TransparentFX
