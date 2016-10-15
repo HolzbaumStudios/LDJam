@@ -3,7 +3,6 @@ using System.Collections;
 
 public class moveBlocks : MonoBehaviour {
     // Variablen
-    private bool fPressed = false;
     private Vector3 originalScale;
     private Rigidbody2D rigidbody;
     private BoxCollider2D collider;

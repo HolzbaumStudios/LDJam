@@ -34,6 +34,8 @@ public class PlayerHolding : MonoBehaviour {
             itemHolding = item;
         if (holdingUp)
             GetComponent<Animator>().SetBool("HoldingUp", holdingUp);
+        else
+            GetComponent<Animator>().SetBool("GrabingBox", true);
 
     }
 
@@ -43,7 +45,9 @@ public class PlayerHolding : MonoBehaviour {
         {
             itemHolding.SendMessage("DropItem");
             itemHolding = null;
-            GetComponent<Animator>().SetBool("HoldingUp", false);
+            Animator animator = GetComponent<Animator>();
+            animator.SetBool("HoldingUp", false);
+            animator.SetBool("GrabingBox", false);
         }
 
     }
