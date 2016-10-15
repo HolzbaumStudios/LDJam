@@ -56,7 +56,7 @@ public class moveBlocks : MonoBehaviour {
         rigidbody.isKinematic = true;
         trigger.enabled = false;
         yield return new WaitForEndOfFrame();
-        player.GetComponent<PlayerHolding>().PickUpItem(this.gameObject);
+        player.GetComponent<PlayerHolding>().PickUpItem(this.gameObject, false);
         PlayerMovement playerMovement = player.GetComponent<PlayerMovement>();
         playerMovement.DisableJumping(true);
         playerMovement.DisableTurning(true);

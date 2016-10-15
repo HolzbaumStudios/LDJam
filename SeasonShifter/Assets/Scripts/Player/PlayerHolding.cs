@@ -28,10 +28,13 @@ public class PlayerHolding : MonoBehaviour {
         }
     }
 
-    public void PickUpItem(GameObject item)
+    public void PickUpItem(GameObject item, bool holdingUp = true)
     {
         if (itemHolding == null)
             itemHolding = item;
+        if (holdingUp)
+            GetComponent<Animator>().SetBool("HoldingUp", holdingUp);
+
     }
 
     public void DropItem()
@@ -40,6 +43,7 @@ public class PlayerHolding : MonoBehaviour {
         {
             itemHolding.SendMessage("DropItem");
             itemHolding = null;
+            GetComponent<Animator>().SetBool("HoldingUp", false);
         }
 
     }
