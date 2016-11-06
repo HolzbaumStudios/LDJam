@@ -157,6 +157,7 @@ public class PlayerMovement : MonoBehaviour
         //Set the speed of the rigidbody
         float rigidbodySpeed = maxSpeed;
         float rigidbodyVerticalSpeed = rigidbody.velocity.y;
+        playerAnimator.SetFloat("vSpeed", rigidbodyVerticalSpeed);
         if (swimming)
         {
             rigidbodySpeed = swimmingSpeed;
