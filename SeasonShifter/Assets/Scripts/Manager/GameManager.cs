@@ -3,32 +3,32 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour {
 
-    public static GameManager gameManagerInstance;
-    public static GameProgress gameProgressInstance;
+	public static GameManager gameManagerInstance;
+	public static GameProgress gameProgressInstance;
 
-    public GameObject musicManagerPrefab;
+	public GameObject musicManagerPrefab;
 
 	// Use this for initialization
 	void Awake () {
-        //Game Manager Instance
-        if (gameManagerInstance == null)
-            gameManagerInstance = this;
-        else if (gameManagerInstance != this)
-            Destroy(gameObject); //Make sure there is only one object
-    
-        if (gameProgressInstance == null)
-            gameProgressInstance = GetComponent<GameProgress>();
+		//Game Manager Instance
+		if (gameManagerInstance == null)
+			gameManagerInstance = this;
+		else if (gameManagerInstance != this)
+			Destroy(gameObject); //Make sure there is only one object
+	
+		if (gameProgressInstance == null)
+			gameProgressInstance = GetComponent<GameProgress>();
 
-        //Set the game manger to undestroyable
-        DontDestroyOnLoad(gameManagerInstance);
+		//Set the game manger to undestroyable
+		DontDestroyOnLoad(gameManagerInstance);
 
-        //Create the music manager
-        if(!GameObject.Find("MusicManager"))
-        {
-            GameObject MusicManager = Instantiate(musicManagerPrefab);
-            MusicManager.name = musicManagerPrefab.name;
-            DontDestroyOnLoad(MusicManager);
-        }
-    }
+		//Create the music manager
+		if(!GameObject.Find("MusicManager"))
+		{
+			GameObject MusicManager = Instantiate(musicManagerPrefab);
+			MusicManager.name = musicManagerPrefab.name;
+			DontDestroyOnLoad(MusicManager);
+		}
+	}
 	
 }
