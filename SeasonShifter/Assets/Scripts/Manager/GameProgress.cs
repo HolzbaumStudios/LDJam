@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-
+[System.Serializable]
 public class GameProgress : MonoBehaviour {
 
     ///////////////////////////////////////////////
@@ -9,6 +9,7 @@ public class GameProgress : MonoBehaviour {
     ///////////////////////////////////////////////
 
     public enum SaveSlots { NONE, SAVE1, SAVE2, SAVE3 }
+    [System.NonSerialized]
     private SaveSlots activeSlot = SaveSlots.NONE;
 
     //Activated Seasons

@@ -38,6 +38,15 @@ public static class SaveUtil
         return fileName;
     }
 
+    /**
+    * Return the save file with the full patzh
+    *
+    */
+    public static string GetFullPath(int saveState)
+    {
+        return GetPath() + GetFileName(saveState);
+    }
+
     public static bool IsFileExisting(string filePath)
     {
         return File.Exists(filePath);

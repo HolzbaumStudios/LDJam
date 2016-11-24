@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
+using UnityEngine.SceneManagement;
 
 public class SaveHandler : MonoBehaviour {
 
-    GameProgress[] saveObject = new GameProgress[3];
+    private GameProgress[] saveObject = new GameProgress[3];
 
     public void Awake()
     {
@@ -20,26 +23,74 @@ public class SaveHandler : MonoBehaviour {
     */
 	public void Load(int saveState)
 	{
-        string completePath = SaveUtil.GetPath() + SaveUtil.GetFileName(saveState);
-        GameProgress selectedSave = saveObject[saveState - 1];
-        if(selectedSave.GetSaveSlot() == 0)
+        if (saveObject[saveState - 1] != null)
         {
-            selectedSave.SetSaveSlot(saveState);
+            GameManager.gameProgressInstance = saveObject[saveState - 1];
         }
-        GameManager.gameProgressInstance = selectedSave;
-	}
+        GameManager.gameProgressInstance.SetSaveSlot(saveState);
+        LoadLevel(); //Still not implemented correctly
+    }
 
+    //This method should load the level after getting the save state. Functionality has to be defined.
+    private void LoadLevel()
+    {
+        SceneManager.LoadScene(9);
+    }
+
+    /**
+    * Load all the save states into temp objects
+    *
+    */
 	private void LoadAllSaves()
 	{
-        string path = SaveUtil.GetPath();
         for (int i = 1; i <= 3; i++)
         {
-            string filePath = path + SaveUtil.GetFileName(i);
-            saveObject[i - 1] = new GameProgress();
+            string filePath = SaveUtil.GetFullPath(i);
             if(SaveUtil.IsFileExisting(filePath))
             {
                 //Load the save to the temp objects
+                BinaryFormatter bf = new BinaryFormatter();
+                using (FileStream file = File.Open(filePath, FileMode.Open))
+                {
+                    saveObject[i-1] = (GameProgress)bf.Deserialize(file);
+                }
             }
         }
 	}
+
+    /**
+    * Save the current game progress into the save file.
+    * This method can be called without initializing the class
+    *
+    */
+    public static void Save()
+    {
+        if (GameManager.gameProgressInstance != null)
+        {
+            GameProgress saveObject = GameManager.gameProgressInstance;
+            BinaryFormatter bf = new BinaryFormatter();
+            try
+            {
+                //Check if directory exists
+                if (!SaveUtil.IsDirectoryExisting())
+                {
+                    SaveUtil.CreateSaveDirectory();
+                }
+                //Get Filename
+                string fileName = SaveUtil.GetFullPath(saveObject.GetSaveSlot());
+                using (FileStream file = File.Create(fileName))
+                {
+                    bf.Serialize(file, saveObject);
+                }
+            }
+            catch(IOException ex)
+            {
+                Debug.LogError("Can't save progress: " + ex);
+            }
+        }
+        else
+        {
+            Debug.LogError("Game can't be saved: No gameProgress Instance");
+        }
+    }
 }
