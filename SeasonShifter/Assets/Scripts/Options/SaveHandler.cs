@@ -23,18 +23,17 @@ public class SaveHandler : MonoBehaviour {
     */
 	public void Load(int saveState)
 	{
-        if (saveObject[saveState - 1] != null)
-        {
-            GameManager.gameProgressInstance = saveObject[saveState - 1];
-        }
+        Debug.Log("Loading Winter: " + saveObject[saveState - 1].winterSeason);
+        GameManager.gameProgressInstance = saveObject[saveState - 1];
+        
         GameManager.gameProgressInstance.SetSaveSlot(saveState);
-        LoadLevel(); //Still not implemented correctly
+        //LoadLevel(); //Still not implemented correctly
     }
 
     //This method should load the level after getting the save state. Functionality has to be defined.
     private void LoadLevel()
     {
-        SceneManager.LoadScene(9);
+       SceneManager.LoadScene(9);
     }
 
     /**
@@ -52,11 +51,14 @@ public class SaveHandler : MonoBehaviour {
                 BinaryFormatter bf = new BinaryFormatter();
                 using (FileStream file = File.Open(filePath, FileMode.Open))
                 {
-                    saveObject[i-1] = (GameProgress)bf.Deserialize(file);
+                    ProgressData data = (ProgressData)bf.Deserialize(file);
+                    Debug.Log("Obj Winter: " + data.winterSeason);
+                    Debug.Log("Obj Spring: " + data.springSeason);
+                    saveObject[i-1] = GetProgressData(data);
                 }
             }
-        }
-	}
+        }       
+    }
 
     /**
     * Save the current game progress into the save file.
@@ -78,9 +80,12 @@ public class SaveHandler : MonoBehaviour {
                 }
                 //Get Filename
                 string fileName = SaveUtil.GetFullPath(saveObject.GetSaveSlot());
+                ProgressData progress = SetProgressData(saveObject);
+                Debug.Log("Sav Winter: " + progress.winterSeason);
+                Debug.Log("Sav Spring: " + progress.springSeason);
                 using (FileStream file = File.Create(fileName))
                 {
-                    bf.Serialize(file, saveObject);
+                    bf.Serialize(file, progress);
                 }
             }
             catch(IOException ex)
@@ -92,5 +97,27 @@ public class SaveHandler : MonoBehaviour {
         {
             Debug.LogError("Game can't be saved: No gameProgress Instance");
         }
+    }
+
+    private static ProgressData SetProgressData(GameProgress currentGameProgress)
+    {
+        ProgressData progressData = new ProgressData();
+        progressData.fallSeason = currentGameProgress.fallSeason;
+        progressData.winterSeason = currentGameProgress.winterSeason;
+        progressData.springSeason = currentGameProgress.springSeason;
+
+        progressData.umbrella = currentGameProgress.umbrella;
+        return progressData;
+    }
+
+    private GameProgress GetProgressData(ProgressData loadedData)
+    {
+        GameProgress progress = new GameProgress();
+        progress.fallSeason = loadedData.fallSeason;
+        progress.winterSeason = loadedData.winterSeason;
+        progress.springSeason = loadedData.springSeason;
+
+        progress.umbrella = loadedData.umbrella;
+        return progress;
     }
 }
