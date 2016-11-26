@@ -49,7 +49,7 @@ public class PlayerMovement : MonoBehaviour
         soundScript = GetComponent<PlayerSound>();
 
         seasonManager = GameObject.Find("LevelManager").GetComponent<SeasonManager>();
-        gameProgress = GameManager.gameProgressInstance;
+        gameProgress = GameProgress.gameProgressInstance;
 
         //Get Start Values
         boxColliderSize = boxCollider.size;

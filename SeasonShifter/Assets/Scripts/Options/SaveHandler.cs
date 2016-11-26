@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class SaveHandler : MonoBehaviour {
 
-    private GameProgress[] saveObject = new GameProgress[3];
+    private ProgressData[] saveObject = new ProgressData[3];
 
     public void Awake()
     {
@@ -23,11 +23,10 @@ public class SaveHandler : MonoBehaviour {
     */
 	public void Load(int saveState)
 	{
-        Debug.Log("Loading Winter: " + saveObject[saveState - 1].winterSeason);
-        GameManager.gameProgressInstance = saveObject[saveState - 1];
+        GetProgressData(saveObject[saveState - 1]);
         
-        GameManager.gameProgressInstance.SetSaveSlot(saveState);
-        //LoadLevel(); //Still not implemented correctly
+        GameProgress.gameProgressInstance.SetSaveSlot(saveState);
+        LoadLevel(); //Still not implemented correctly
     }
 
     //This method should load the level after getting the save state. Functionality has to be defined.
@@ -51,10 +50,7 @@ public class SaveHandler : MonoBehaviour {
                 BinaryFormatter bf = new BinaryFormatter();
                 using (FileStream file = File.Open(filePath, FileMode.Open))
                 {
-                    ProgressData data = (ProgressData)bf.Deserialize(file);
-                    Debug.Log("Obj Winter: " + data.winterSeason);
-                    Debug.Log("Obj Spring: " + data.springSeason);
-                    saveObject[i-1] = GetProgressData(data);
+                    saveObject[i - 1] = (ProgressData)bf.Deserialize(file);
                 }
             }
         }       
@@ -67,9 +63,9 @@ public class SaveHandler : MonoBehaviour {
     */
     public static void Save()
     {
-        if (GameManager.gameProgressInstance != null)
+        if (GameProgress.gameProgressInstance != null)
         {
-            GameProgress saveObject = GameManager.gameProgressInstance;
+            GameProgress saveObject = GameProgress.gameProgressInstance;
             BinaryFormatter bf = new BinaryFormatter();
             try
             {
@@ -81,8 +77,6 @@ public class SaveHandler : MonoBehaviour {
                 //Get Filename
                 string fileName = SaveUtil.GetFullPath(saveObject.GetSaveSlot());
                 ProgressData progress = SetProgressData(saveObject);
-                Debug.Log("Sav Winter: " + progress.winterSeason);
-                Debug.Log("Sav Spring: " + progress.springSeason);
                 using (FileStream file = File.Create(fileName))
                 {
                     bf.Serialize(file, progress);
@@ -110,14 +104,13 @@ public class SaveHandler : MonoBehaviour {
         return progressData;
     }
 
-    private GameProgress GetProgressData(ProgressData loadedData)
+    private void GetProgressData(ProgressData loadedData)
     {
-        GameProgress progress = new GameProgress();
+        GameProgress progress = GameProgress.gameProgressInstance;
         progress.fallSeason = loadedData.fallSeason;
         progress.winterSeason = loadedData.winterSeason;
         progress.springSeason = loadedData.springSeason;
 
         progress.umbrella = loadedData.umbrella;
-        return progress;
     }
 }

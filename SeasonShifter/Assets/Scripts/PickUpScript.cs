@@ -12,7 +12,7 @@ public class PickUpScript : MonoBehaviour {
     void Start()
     {
         objectName = this.gameObject.transform.name;
-        gameProgress = GameManager.gameProgressInstance;
+        gameProgress = GameProgress.gameProgressInstance;
         musicObjects = MusicManager.musicManagerInstance.musicObjects;
         inventory = GameManager.gameManagerInstance.GetComponent<Inventory>();
         //Staff pickup at level 1-1

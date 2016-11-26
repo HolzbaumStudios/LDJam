@@ -4,9 +4,9 @@ using System.Collections;
 public class GameManager : MonoBehaviour {
 
 	public static GameManager gameManagerInstance;
-	public static GameProgress gameProgressInstance;
 
 	public GameObject musicManagerPrefab;
+    public GameObject gameProgressPrefab;
 
 	// Use this for initialization
 	void Awake () {
@@ -15,9 +15,9 @@ public class GameManager : MonoBehaviour {
 			gameManagerInstance = this;
 		else if (gameManagerInstance != this)
 			Destroy(gameObject); //Make sure there is only one object
-	
-		if (gameProgressInstance == null)
-			gameProgressInstance = GetComponent<GameProgress>();
+
+        if (GameProgress.gameProgressInstance == null)
+            Instantiate(gameProgressPrefab);
 
 		//Set the game manger to undestroyable
 		DontDestroyOnLoad(gameManagerInstance);

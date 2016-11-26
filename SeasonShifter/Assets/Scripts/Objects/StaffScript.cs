@@ -17,7 +17,7 @@ public class StaffScript : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        gameProgress = GameManager.gameProgressInstance;
+        gameProgress = GameProgress.gameProgressInstance;
         staffRenderer = GetComponent<SpriteRenderer>();
         seasonManager = GameObject.Find("LevelManager").GetComponent<SeasonManager>();
         seasonManager.CHANGE_SEASON += this.SeasonChanged;
