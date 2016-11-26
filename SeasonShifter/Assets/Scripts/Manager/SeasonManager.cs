@@ -41,7 +41,7 @@ public class SeasonManager : MonoBehaviour {
         if (GameObject.Find("Winter"))
             seasonObject[3] = GameObject.Find("Winter");
 
-        gameProgress = GameManager.gameProgressInstance;
+        gameProgress = GameProgress.gameProgressInstance;
 
         currentSeason = Season.summer;
         SetSeason();

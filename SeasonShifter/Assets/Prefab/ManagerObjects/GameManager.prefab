@@ -9,7 +9,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 420382}
   - 114: {fileID: 11487010}
-  - 114: {fileID: 11407604}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -29,21 +28,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &11407604
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 188544}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7631da1e620e0154aa54ead057e0fdef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  winterSeason: 0
-  springSeason: 0
-  fallSeason: 0
-  umbrella: 0
 --- !u!114 &11487010
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -56,6 +40,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   musicManagerPrefab: {fileID: 102806, guid: 28b14452eefa77743873e10767182817, type: 2}
+  gameProgressPrefab: {fileID: 190938, guid: 41dd0259846ad15418dc20833a2f162c, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

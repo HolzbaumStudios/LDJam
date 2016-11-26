@@ -22,9 +22,12 @@ public class MusicManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        seasonManager = GameObject.Find("LevelManager").GetComponent<SeasonManager>();
-        //Subscribe to event handler
-        seasonManager.CHANGE_SEASON += this.SeasonChanged;
+        if (LevelManager.seasonManagerInstance != null)
+        {
+            seasonManager = LevelManager.seasonManagerInstance;
+            //Subscribe to event handler
+            seasonManager.CHANGE_SEASON += this.SeasonChanged;
+        } 
     }
 	
 

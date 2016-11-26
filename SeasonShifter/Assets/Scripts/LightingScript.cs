@@ -30,7 +30,7 @@ public class LightingScript : MonoBehaviour {
     void PassedTrigger(bool entered, GameObject player)
     {
         SpriteRenderer darkLayer = player.transform.FindChild("LightingLayer").GetComponent<SpriteRenderer>();
-        if (GameManager.gameProgressInstance.winterSeason)
+        if (GameProgress.gameProgressInstance.winterSeason)
         {
             Light staffLight = player.GetComponent<PlayerMovement>().rightHand.FindChild("SpotLight").GetComponent<Light>();
             staffLight.enabled = entered;
