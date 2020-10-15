@@ -8,7 +8,7 @@ public class ShowHideLevelNumber : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        levelNumberText = GameObject.Find("GameGUI").transform.FindChild("LevelNumber").gameObject;
+        levelNumberText = GameObject.Find("GameGUI").transform.Find("LevelNumber").gameObject;
         StartCoroutine(Wait());
 	}
 	

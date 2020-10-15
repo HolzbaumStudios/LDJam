@@ -13,7 +13,7 @@ public class PickUpScript_Old : MonoBehaviour {
     void Start()
     {
         objectName = this.gameObject.transform.name;
-        musicObjects = GameObject.Find("MusicManager").transform.FindChild("MusicObjects").gameObject;
+        musicObjects = GameObject.Find("MusicManager").transform.Find("MusicObjects").gameObject;
         inventory = GameObject.Find("GameManager").GetComponent<Inventory>();
         if (objectName == "PickStaff" && PlayerPrefs.GetInt("StaffEnabled") == 1)
         {
@@ -31,7 +31,7 @@ public class PickUpScript_Old : MonoBehaviour {
         if (objectName == "PickStaff")
         {
             //Shoe Achievement Text
-            GameObject.Find("GUI").transform.FindChild("InfoText").gameObject.SetActive(true);
+            GameObject.Find("GUI").transform.Find("InfoText").gameObject.SetActive(true);
             //Find Music Manager for ObjectSound
             musicObjects.GetComponent<AudioSource>().Play();
             //Change Season
@@ -46,12 +46,12 @@ public class PickUpScript_Old : MonoBehaviour {
         {
             col.gameObject.GetComponent<PlayerInput>().AllowGliding();
             musicObjects.GetComponent<AudioSource>().Play();
-            GameObject.Find("GUI").transform.FindChild("InfoText").gameObject.SetActive(true);
+            GameObject.Find("GUI").transform.Find("InfoText").gameObject.SetActive(true);
             Destroy(this.gameObject);
         }
         else if((objectName == "KeyGreen" || objectName == "KeyBlue"))
         {
-            if(Application.loadedLevelName == "Map02")GameObject.Find("GUI").transform.FindChild("InfoText").gameObject.SetActive(true);
+            if(Application.loadedLevelName == "Map02")GameObject.Find("GUI").transform.Find("InfoText").gameObject.SetActive(true);
             musicObjects.GetComponent<AudioSource>().Play();
             inventory.KeyCollected(color);
             Destroy(this.gameObject);

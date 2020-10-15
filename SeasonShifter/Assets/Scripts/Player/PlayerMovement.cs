@@ -198,8 +198,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if(glide && (!isGliding && !grounded && !swimming) && gameProgress.umbrella)
         {
-            rightHand.FindChild("staff").gameObject.SetActive(false);
-            rightHand.FindChild("staff_sum_umbrella").gameObject.SetActive(true);
+            rightHand.Find("staff").gameObject.SetActive(false);
+            rightHand.Find("staff_sum_umbrella").gameObject.SetActive(true);
             playerAnimator.SetBool("Gliding", true);
             rigidbody.gravityScale = 0.15f;
             rigidbody.velocity = new Vector2(rigidbody.velocity.x, -0.2f);
@@ -207,8 +207,8 @@ public class PlayerMovement : MonoBehaviour
         }
         else if((glide && isGliding && (grounded || swimming)) || (!glide && isGliding))
         {
-            rightHand.FindChild("staff").gameObject.SetActive(true);
-            rightHand.FindChild("staff_sum_umbrella").gameObject.SetActive(false);
+            rightHand.Find("staff").gameObject.SetActive(true);
+            rightHand.Find("staff_sum_umbrella").gameObject.SetActive(false);
             playerAnimator.SetBool("Gliding", false);
             rigidbody.gravityScale = playerGravityScale;
             isGliding = false;

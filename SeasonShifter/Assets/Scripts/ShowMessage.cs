@@ -6,6 +6,6 @@ public class ShowMessage : MonoBehaviour {
     // Scripts
     void Start()
     {
-        this.transform.FindChild("InfoTextStart").gameObject.SetActive(true);
+        this.transform.Find("InfoTextStart").gameObject.SetActive(true);
     }
 }

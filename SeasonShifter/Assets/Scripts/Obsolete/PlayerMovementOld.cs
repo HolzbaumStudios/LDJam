@@ -139,8 +139,8 @@ public class PlayerMovementOld : MonoBehaviour
             {
                 if (seasonManager.currentSeason == SeasonManager.Season.summer)
                 {
-                    rightHand.FindChild("staff").gameObject.SetActive(false);
-                    rightHand.FindChild("staff_sum_umbrella").gameObject.SetActive(true);
+                    rightHand.Find("staff").gameObject.SetActive(false);
+                    rightHand.Find("staff_sum_umbrella").gameObject.SetActive(true);
                     playerAnimator.SetBool("Gliding", true);
                     rigidbody.gravityScale = 0.35f;
                     isGliding = gliding;
@@ -148,8 +148,8 @@ public class PlayerMovementOld : MonoBehaviour
             }
             if((gliding && isGliding && (grounded || swimming)) || (!gliding && isGliding))
             {
-                rightHand.FindChild("staff").gameObject.SetActive(true);
-                rightHand.FindChild("staff_sum_umbrella").gameObject.SetActive(false);
+                rightHand.Find("staff").gameObject.SetActive(true);
+                rightHand.Find("staff_sum_umbrella").gameObject.SetActive(false);
                 playerAnimator.SetBool("Gliding", false);
                 if(swimming)rigidbody.gravityScale = 0.05f; else rigidbody.gravityScale = 3;
                 isGliding = false;

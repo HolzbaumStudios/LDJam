@@ -40,8 +40,8 @@ public class PickUpScript : MonoBehaviour {
             SeasonManager seasonManager = LevelManager.seasonManagerInstance;
             seasonManager.SeasonChange(3);
             gameProgress.winterSeason = true; //Enables winter and season change
-            GameObject.FindWithTag("Player").GetComponent<PlayerMovement>().rightHand.FindChild("staff").GetComponent<StaffScript>().EnableStaff();
-            Light staffLight = col.GetComponent<PlayerMovement>().rightHand.FindChild("SpotLight").GetComponent<Light>();
+            GameObject.FindWithTag("Player").GetComponent<PlayerMovement>().rightHand.Find("staff").GetComponent<StaffScript>().EnableStaff();
+            Light staffLight = col.GetComponent<PlayerMovement>().rightHand.Find("SpotLight").GetComponent<Light>();
             staffLight.enabled = true;
             Destroy(this.gameObject);
         }
@@ -49,7 +49,7 @@ public class PickUpScript : MonoBehaviour {
         {
             col.gameObject.GetComponent<PlayerInput>().AllowGliding();
             musicObjects.GetComponent<AudioSource>().Play();
-            GameObject.Find("GUI").transform.FindChild("InfoText").gameObject.SetActive(true);
+            GameObject.Find("GUI").transform.Find("InfoText").gameObject.SetActive(true);
             Destroy(this.gameObject);
         }
     }

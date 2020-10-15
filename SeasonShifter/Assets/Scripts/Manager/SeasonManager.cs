@@ -43,7 +43,7 @@ public class SeasonManager : MonoBehaviour {
 
         gameProgress = GameProgress.gameProgressInstance;
 
-        currentSeason = Season.summer;
+        currentSeason = Season.spring;
         SetSeason();
 
         audioSource = GetComponent<AudioSource>();
@@ -53,12 +53,12 @@ public class SeasonManager : MonoBehaviour {
         playerInput = player.GetComponent<PlayerInput>();
 
         //Get GUI Objects
-        seasonWheel = GameObject.Find("GameGUI").transform.FindChild("SeasonWheel").gameObject;
+        seasonWheel = GameObject.Find("GameGUI").transform.Find("SeasonWheel").gameObject;
         seasonWheelComponents = new GameObject[4];
-        seasonWheelComponents[0] = seasonWheel.transform.FindChild("SpringWheel").gameObject;
-        seasonWheelComponents[1] = seasonWheel.transform.FindChild("SummerWheel").gameObject;
-        seasonWheelComponents[2] = seasonWheel.transform.FindChild("FallWheel").gameObject;
-        seasonWheelComponents[3] = seasonWheel.transform.FindChild("WinterWheel").gameObject;
+        seasonWheelComponents[0] = seasonWheel.transform.Find("SpringWheel").gameObject;
+        seasonWheelComponents[1] = seasonWheel.transform.Find("SummerWheel").gameObject;
+        seasonWheelComponents[2] = seasonWheel.transform.Find("FallWheel").gameObject;
+        seasonWheelComponents[3] = seasonWheel.transform.Find("WinterWheel").gameObject;
         seasonWheel.SetActive(false);
     }
 

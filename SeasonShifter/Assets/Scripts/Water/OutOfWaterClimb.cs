@@ -31,7 +31,7 @@ public class OutOfWaterClimb : MonoBehaviour {
         PlayerMovement movementScript = player.GetComponent<PlayerMovement>();
         Rigidbody2D rigidbody = player.GetComponent<Rigidbody2D>();
         BoxCollider2D collider = player.GetComponent<BoxCollider2D>();
-        Transform playerBody = player.transform.FindChild("body");
+        Transform playerBody = player.transform.Find("body");
 
         //Start climb
         rigidbody.gravityScale = 0; //disable gravity

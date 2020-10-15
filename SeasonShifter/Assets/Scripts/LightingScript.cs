@@ -29,10 +29,10 @@ public class LightingScript : MonoBehaviour {
 
     void PassedTrigger(bool entered, GameObject player)
     {
-        SpriteRenderer darkLayer = player.transform.FindChild("LightingLayer").GetComponent<SpriteRenderer>();
+        SpriteRenderer darkLayer = player.transform.Find("LightingLayer").GetComponent<SpriteRenderer>();
         if (GameProgress.gameProgressInstance.winterSeason)
         {
-            Light staffLight = player.GetComponent<PlayerMovement>().rightHand.FindChild("SpotLight").GetComponent<Light>();
+            Light staffLight = player.GetComponent<PlayerMovement>().rightHand.Find("SpotLight").GetComponent<Light>();
             staffLight.enabled = entered;
         }
         Animator animator = darkLayer.gameObject.GetComponent<Animator>();

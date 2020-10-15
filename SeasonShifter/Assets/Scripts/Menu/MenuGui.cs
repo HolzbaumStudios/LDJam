@@ -8,7 +8,7 @@ public class MenuGui : MonoBehaviour {
     void Start()
     {
         //Disable continue if no save game
-        if (PlayerPrefs.GetInt("SavedLevel") < 1) transform.FindChild("Continue").gameObject.SetActive(false);
+        if (PlayerPrefs.GetInt("SavedLevel") < 1) transform.Find("Continue").gameObject.SetActive(false);
     }
 
     public void NewGame()
